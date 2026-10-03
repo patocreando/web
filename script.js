@@ -95,9 +95,11 @@
     if (mobileBar) mobileBar.classList.toggle("visible", y > window.innerHeight * 2.1);
 
     updateHero();
+    updateOrder();
   };
 
   onScroll();
+  updateOrder();
   window.addEventListener("scroll", onScroll, { passive:true });
   window.addEventListener("resize", updateHero, { passive:true });
 
@@ -116,6 +118,76 @@
       heroUi.style.setProperty("--rx", "1deg");
     });
   }
+
+
+  const orderSection = document.querySelector(".order-section");
+  const orderCopy = document.getElementById("orderCopy");
+  const orderSystem = document.getElementById("orderSystem");
+  const orderCore = document.getElementById("orderCore");
+  const orderResult = document.getElementById("orderResult");
+  const orderCounter = document.getElementById("orderCounter");
+  const orderProgress = document.querySelector(".order-progress");
+  const orderNodes = orderSystem ? [...orderSystem.querySelectorAll(".order-node")] : [];
+  const orderLines = orderSystem ? [...orderSystem.querySelectorAll(".order-line")] : [];
+
+  const updateOrder = () => {
+    if (!orderSection || !orderSystem || !orderCore) return;
+
+    const rect = orderSection.getBoundingClientRect();
+    const travel = Math.max(1, orderSection.offsetHeight - window.innerHeight);
+    const raw = clamp(-rect.top / travel);
+    const p = easeOut(raw);
+
+    if (orderCounter) orderCounter.textContent = String(Math.round(raw * 100)).padStart(2, "0");
+    if (orderProgress) orderProgress.style.setProperty("--order-p", (raw * 100).toFixed(1) + "%");
+
+    const copyFade = clamp((raw - .18) / .20);
+    if (orderCopy) {
+      orderCopy.style.opacity = String(1 - copyFade * .68);
+      orderCopy.style.transform = "translateX(-50%) translateY(" + (-24 * copyFade) + "px) scale(" + (1 - .03 * copyFade) + ")";
+    }
+
+    const systemIn = easeOut(clamp(raw / .26));
+    orderSystem.style.opacity = String(.42 + systemIn * .58);
+    orderSystem.style.transform = "translate(-50%,-50%) scale(" + (.92 + .08 * systemIn) + ")";
+
+    const positions = [
+      {x: 235, y: 128, r: -4},
+      {x:-235, y: 105, r: 3},
+      {x: 210, y:-122, r: 3},
+      {x:-225, y:-118, r:-3}
+    ];
+
+    orderNodes.forEach((node, index) => {
+      const converge = ease(clamp((raw - .20 - index * .025) / .46));
+      const pos = positions[index] || {x:0,y:0,r:0};
+      node.style.opacity = String(.38 + converge * .62);
+      node.style.transform =
+        "translate(" + (-pos.x * converge * .52) + "px," + (-pos.y * converge * .52) + "px) " +
+        "rotate(" + (pos.r * (1 - converge)) + "deg) scale(" + (1 - converge * .06) + ")";
+    });
+
+    const lineProgress = easeOut(clamp((raw - .34) / .30));
+    const lengths = [260,255,245,250];
+    orderLines.forEach((line,index) => {
+      line.style.width = (lengths[index] * lineProgress) + "px";
+      line.style.opacity = String(lineProgress * .48);
+    });
+
+    const coreIn = easeOut(clamp((raw - .38) / .34));
+    orderCore.style.opacity = String(.42 + coreIn * .58);
+    orderCore.style.transform =
+      "translate(-50%,-50%) scale(" + (.72 + coreIn * .28) + ")";
+    orderCore.style.boxShadow =
+      "inset 0 0 54px rgba(159,207,120," + (.025 + coreIn * .035) + ")," +
+      "0 0 " + (80 + coreIn * 85) + "px rgba(159,207,120," + (.025 + coreIn * .045) + ")";
+
+    const resultIn = easeOut(clamp((raw - .72) / .20));
+    if (orderResult) {
+      orderResult.style.opacity = String(resultIn);
+      orderResult.style.transform = "translate(-50%," + (24 * (1 - resultIn)) + "px)";
+    }
+  };
 
   const items = document.querySelectorAll("[data-reveal]");
 
