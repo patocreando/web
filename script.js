@@ -10,57 +10,77 @@
   const heroStage = document.getElementById("heroStage");
   const heroCounter = document.getElementById("heroCounter");
   const heroState = document.getElementById("heroState");
+  const heroScroll = document.querySelector(".hero-v3-scroll");
   const heroPieces = heroUi ? [...heroUi.querySelectorAll(".v3-piece")] : [];
 
   if (year) year.textContent = new Date().getFullYear();
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const easeOut = t => 1 - Math.pow(1 - t, 3);
 
   const updateHero = () => {
-    if (!hero || !heroUi) return;
+    if (!hero || !heroUi || !heroStage) return;
 
     const rect = hero.getBoundingClientRect();
     const travel = Math.max(1, hero.offsetHeight - window.innerHeight);
     const raw = clamp(-rect.top / travel);
-    const p = easeOut(raw);
 
-    const value = Math.round(raw * 100);
-    if (heroCounter) heroCounter.textContent = String(value).padStart(3, "0");
+    const counter = Math.round(raw * 100);
+    if (heroCounter) heroCounter.textContent = String(counter).padStart(3, "0");
+
+    // Phase 1: headline owns the screen.
+    const copyFade = clamp((raw - .14) / .15);
+    if (heroCopy) {
+      const copyScale = 1 - copyFade * .045;
+      heroCopy.style.opacity = String(1 - copyFade);
+      heroCopy.style.transform =
+        "translateY(calc(-50% - " + (42 * copyFade) + "px)) scale(" + copyScale + ")";
+    }
+
+    if (heroScroll) {
+      heroScroll.style.opacity = String(1 - clamp(raw / .16));
+    }
+
+    // Phase 2: the interface fades in only after the headline starts leaving.
+    const stageIn = easeOut(clamp((raw - .12) / .18));
+    const stageScale = .94 + stageIn * .06;
+    heroStage.style.opacity = String(.045 + stageIn * .955);
+    heroStage.style.filter = "blur(" + ((1 - stageIn) * 5) + "px)";
+    heroStage.style.transform = "scale(" + stageScale + ")";
+
+    // Phase 3: assemble from 0 to 100 without colliding with the headline.
+    const buildRaw = clamp((raw - .24) / .56);
+    const build = ease(buildRaw);
 
     heroPieces.forEach((piece, index) => {
       const x = Number(piece.dataset.x || 0);
       const y = Number(piece.dataset.y || 0);
       const r = Number(piece.dataset.r || 0);
-      const remaining = 1 - p;
-      const depth = 1 + ((index % 4) * .022 * remaining);
+      const remaining = 1 - build;
+      const staggerStart = (index % 6) * .018;
+      const pieceProgress = easeOut(clamp((buildRaw - staggerStart) / (1 - staggerStart)));
+      const pieceRemaining = 1 - pieceProgress;
 
       piece.style.transform =
-        "translate3d(" + (x * remaining) + "px," + (y * remaining) + "px," + ((index % 5) * 10 * remaining) + "px) " +
-        "rotate(" + (r * remaining) + "deg) scale(" + depth + ")";
-      piece.style.opacity = String(.24 + p * .76);
-      piece.style.filter = "blur(" + (remaining * 2.2) + "px)";
+        "translate3d(" + (x * pieceRemaining) + "px," + (y * pieceRemaining) + "px," +
+        ((index % 5) * 12 * pieceRemaining) + "px) rotate(" + (r * pieceRemaining) +
+        "deg) scale(" + (1 + (index % 4) * .018 * pieceRemaining) + ")";
+
+      piece.style.opacity = String(pieceProgress);
+      piece.style.filter = "blur(" + (pieceRemaining * 2.4) + "px)";
     });
 
-    heroUi.classList.toggle("built", raw > .76);
-
-    if (heroCopy) {
-      const fade = clamp((raw - .28) / .42);
-      const intro = clamp(raw / .16);
-      heroCopy.style.opacity = String((.88 + intro * .12) * (1 - fade * .82));
-      heroCopy.style.transform =
-        "translateY(calc(-50% - " + (34 * fade) + "px)) scale(" + (1 - fade * .035) + ")";
-    }
-
-    if (heroStage) {
-      const stageScale = .965 + p * .035;
-      heroStage.style.transform = "scale(" + stageScale + ")";
-    }
+    // Phase 4: hold the completed interface before releasing into the page.
+    const finalGlow = clamp((raw - .80) / .16);
+    heroUi.classList.toggle("built", raw > .78);
+    heroUi.style.opacity = String(.82 + finalGlow * .18);
 
     if (heroState) {
       heroState.textContent =
-        raw < .28 ? "FRAGMENTS" :
-        raw < .70 ? "ALIGNING" :
+        raw < .14 ? "START" :
+        raw < .28 ? "REVEAL" :
+        raw < .78 ? "BUILDING" :
         raw < .96 ? "BUILT" : "READY";
     }
   };
@@ -72,7 +92,7 @@
 
     if (header) header.classList.toggle("scrolled", y > 18);
     if (progressBar) progressBar.style.transform = "scaleX(" + progress + ")";
-    if (mobileBar) mobileBar.classList.toggle("visible", y > window.innerHeight * 1.35);
+    if (mobileBar) mobileBar.classList.toggle("visible", y > window.innerHeight * 2.1);
 
     updateHero();
   };
@@ -87,8 +107,8 @@
       const nx = (event.clientX - rect.left) / rect.width - .5;
       const ny = (event.clientY - rect.top) / rect.height - .5;
 
-      heroUi.style.setProperty("--ry", (nx * 2.8).toFixed(2) + "deg");
-      heroUi.style.setProperty("--rx", (-ny * 2.0).toFixed(2) + "deg");
+      heroUi.style.setProperty("--ry", (nx * 2.3).toFixed(2) + "deg");
+      heroUi.style.setProperty("--rx", (-ny * 1.7).toFixed(2) + "deg");
     });
 
     heroUi.addEventListener("pointerleave", () => {
