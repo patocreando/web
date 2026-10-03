@@ -43,6 +43,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="stylesheet" href="./hero-v3.css?v=5" />
+  <link rel="stylesheet" href="./experience.css?v=1" />
 </head>
 
 <body>
@@ -166,34 +167,57 @@
       </div>
     </section>
 
-    <section class="section problem-section" id="solucion">
-      <div class="shell">
-        <div class="section-heading centered" data-reveal>
-          <p class="eyebrow">NO SE TRATA DE REEMPLAZAR TUS CANALES</p>
-          <h2>Se trata de <span class="gradient-text">ordenarlos mejor.</span></h2>
-          <p>
-            Instagram, WhatsApp, Linktree, turnos, mapas, catálogos y reservas pueden seguir existiendo. La web funciona como una capa propia que presenta tu negocio y conecta todo.
-          </p>
+    <section class="order-section" id="solucion">
+      <div class="order-sticky">
+        <div class="order-grid" aria-hidden="true"></div>
+
+        <div class="order-copy" id="orderCopy">
+          <p>NO REEMPLAZA TUS CANALES</p>
+          <h2>Muchos puntos.<span>Un solo lugar.</span></h2>
         </div>
 
-        <div class="problem-grid">
-          <article class="card" data-reveal>
-            <span class="number">01</span>
-            <h3>Explicá antes de responder.</h3>
-            <p>Servicios, productos, horarios, ubicación y preguntas frecuentes quedan visibles antes de que la persona tenga que escribirte.</p>
-          </article>
+        <div class="order-system" id="orderSystem" aria-label="Tus canales se conectan a una presencia web central">
+          <div class="order-orbit orbit-one" aria-hidden="true"></div>
+          <div class="order-orbit orbit-two" aria-hidden="true"></div>
 
-          <article class="card" data-reveal>
-            <span class="number">02</span>
-            <h3>Una ruta clara.</h3>
-            <p>En vez de repartir la atención entre enlaces, la página dirige cada visita hacia la acción que realmente importa.</p>
-          </article>
+          <div class="order-line line-instagram" aria-hidden="true"></div>
+          <div class="order-line line-whatsapp" aria-hidden="true"></div>
+          <div class="order-line line-google" aria-hidden="true"></div>
+          <div class="order-line line-reservas" aria-hidden="true"></div>
 
-          <article class="card" data-reveal>
-            <span class="number">03</span>
-            <h3>Una presencia que es tuya.</h3>
-            <p>La web no depende del formato de una red social. Se adapta a tu marca, tu contenido y tu forma de vender.</p>
-          </article>
+          <div class="order-node node-instagram" data-channel="instagram">
+            <small>01</small><strong>Instagram</strong>
+          </div>
+
+          <div class="order-node node-whatsapp" data-channel="whatsapp">
+            <small>02</small><strong>WhatsApp</strong>
+          </div>
+
+          <div class="order-node node-google" data-channel="google">
+            <small>03</small><strong>Google</strong>
+          </div>
+
+          <div class="order-node node-reservas" data-channel="reservas">
+            <small>04</small><strong>Turnos / reservas</strong>
+          </div>
+
+          <div class="order-core" id="orderCore">
+            <span class="core-pulse" aria-hidden="true"></span>
+            <small>BASE PROPIA</small>
+            <strong>TU WEB</strong>
+            <em>un sistema, no otro enlace</em>
+          </div>
+        </div>
+
+        <div class="order-result" id="orderResult">
+          <p>Todo llega a un lugar propio.</p>
+          <span>Sin cambiar cómo ya trabajás. Lo ordena, lo presenta y conecta.</span>
+        </div>
+
+        <div class="order-progress" aria-hidden="true">
+          <span id="orderCounter">00</span>
+          <i></i>
+          <small>CONNECTION</small>
         </div>
       </div>
     </section>
