@@ -98,11 +98,6 @@
     updateOrder();
   };
 
-  onScroll();
-  updateOrder();
-  window.addEventListener("scroll", onScroll, { passive:true });
-  window.addEventListener("resize", updateHero, { passive:true });
-
   if (heroUi && window.matchMedia("(pointer:fine)").matches) {
     heroUi.addEventListener("pointermove", event => {
       const rect = heroUi.getBoundingClientRect();
@@ -188,6 +183,13 @@
       orderResult.style.transform = "translate(-50%," + (24 * (1 - resultIn)) + "px)";
     }
   };
+
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive:true });
+  window.addEventListener("resize", () => {
+    updateHero();
+    updateOrder();
+  }, { passive:true });
 
   const items = document.querySelectorAll("[data-reveal]");
 
