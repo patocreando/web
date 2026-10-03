@@ -43,11 +43,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="stylesheet" href="./hero-v3.css?v=5" />
-  <link rel="stylesheet" href="./experience.css?v=7" />
+  <link rel="stylesheet" href="./experience.css?v=8" />
 </head>
 
 <body>
-  <div class="master-film" id="masterFilm" aria-hidden="true"></div>
+  <div class="master-film" id="masterFilm" aria-hidden="true">
+    <video id="masterFilmVideo" muted playsinline preload="auto">
+      <source src="./assets/master-film.mp4" type="video/mp4" />
+    </video>
+  </div>
   <div class="progress"><span id="progressBar"></span></div>
   <div class="grain" aria-hidden="true"></div>
 
@@ -537,5 +541,6 @@
   <script src="./plans.js?v=2"></script>
   <script src="./process.js?v=2"></script>
   <script src="./polish.js?v=1"></script>
+  <script src="./film.js?v=1"></script>
 </body>
 </html>
