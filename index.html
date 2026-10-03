@@ -43,10 +43,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="stylesheet" href="./hero-v3.css?v=5" />
-  <link rel="stylesheet" href="./experience.css?v=6" />
+  <link rel="stylesheet" href="./experience.css?v=7" />
 </head>
 
 <body>
+  <div class="master-film" id="masterFilm" aria-hidden="true"></div>
   <div class="progress"><span id="progressBar"></span></div>
   <div class="grain" aria-hidden="true"></div>
 
@@ -430,6 +431,15 @@
         </div>
 
         <div class="process-x-side" id="processSide">
+          <div class="process-orbit" aria-hidden="true">
+            <span class="process-orbit-ring ring-one"></span>
+            <span class="process-orbit-ring ring-two"></span>
+            <i class="process-orbit-core"></i>
+            <b class="process-orbit-node orbit-node-1"></b>
+            <b class="process-orbit-node orbit-node-2"></b>
+            <b class="process-orbit-node orbit-node-3"></b>
+            <b class="process-orbit-node orbit-node-4"></b>
+          </div>
           <small id="processStageLabel">01 / DISCOVERY</small>
           <strong id="processStageTitle">Primero, entender.</strong>
           <p id="processStageText">No hace falta un briefing enorme. Partimos de lo que ya existe y definimos qué tiene que resolver la web.</p>
@@ -490,6 +500,7 @@
     <section class="final-x">
       <div class="final-x-grid" aria-hidden="true"></div>
       <div class="final-x-inner">
+        <div class="final-x-status" aria-hidden="true"><span>100</span><i></i><small>READY</small></div>
         <p>SIGUIENTE PASO</p>
         <h2>Mostrame tu negocio.<span>Te digo qué haría.</span></h2>
         <div class="final-x-actions">
@@ -524,7 +535,7 @@
   <script src="./script.js?v=8"></script>
   <script src="./capabilities.js?v=2"></script>
   <script src="./plans.js?v=2"></script>
-  <script src="./process.js?v=1"></script>
+  <script src="./process.js?v=2"></script>
   <script src="./polish.js?v=1"></script>
 </body>
 </html>
