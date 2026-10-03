@@ -486,3 +486,318 @@
   .direct-x-inner h2{font-size:clamp(48px,13vw,68px)}.before-x{padding:90px 0}.before-x-inner{grid-template-columns:1fr;gap:42px}.before-x-heading h2{font-size:48px}
   .final-x-inner h2{font-size:clamp(50px,14vw,72px)}
 }
+
+
+/* ==========================================================
+   ART DIRECTION PASS — continuity / light / interaction
+   ========================================================== */
+:root{
+  --scene-accent:#9fcf78;
+  --scene-pale:#dce9d1;
+  --scene-fog:rgba(159,207,120,.05);
+  --mx:50%;
+  --my:50%;
+}
+
+main{
+  position:relative;
+  isolation:isolate;
+}
+
+main > section{
+  position:relative;
+}
+
+main > section::after{
+  content:"";
+  position:absolute;
+  z-index:20;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:120px;
+  pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(7,10,11,.72) 72%,#090d0e 100%);
+}
+
+.order-section::before,
+.cap-section::before,
+.plans-x::before,
+.process-x::before,
+.direct-x::before,
+.before-x::before,
+.final-x::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle 240px at var(--mx) var(--my),rgba(159,207,120,.055),transparent 72%);
+  opacity:.75;
+  transition:opacity .3s ease;
+}
+
+.site-header{
+  transition:background .35s ease,border-color .35s ease,transform .35s ease;
+}
+
+.site-header.scrolled{
+  background:rgba(9,13,14,.58);
+  border-bottom:1px solid rgba(255,255,255,.045);
+  backdrop-filter:blur(18px) saturate(120%);
+  -webkit-backdrop-filter:blur(18px) saturate(120%);
+}
+
+.desktop-nav a{
+  position:relative;
+  transition:color .28s ease;
+}
+
+.desktop-nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-7px;
+  height:1px;
+  transform:scaleX(0);
+  transform-origin:left center;
+  background:var(--scene-accent);
+  box-shadow:0 0 12px rgba(159,207,120,.16);
+  transition:transform .3s ease;
+}
+
+.desktop-nav a.active{
+  color:#dfe6e1;
+}
+
+.desktop-nav a.active::after{
+  transform:scaleX(1);
+}
+
+.nav-cta{
+  transition:transform .28s ease,border-color .28s ease,background .28s ease;
+}
+
+.nav-cta:hover{
+  transform:translateY(-2px);
+  border-color:rgba(159,207,120,.24);
+  background:rgba(159,207,120,.055);
+}
+
+.cap-window,
+.plan-x,
+.process-x-side,
+.before-x-items details{
+  transition:
+    border-color .35s ease,
+    background .35s ease,
+    box-shadow .35s ease,
+    transform .35s ease;
+}
+
+.cap-window:hover,
+.process-x-side:hover{
+  border-color:rgba(159,207,120,.15);
+  box-shadow:0 42px 130px rgba(0,0,0,.36),0 0 70px rgba(159,207,120,.02);
+}
+
+.plan-x{
+  cursor:pointer;
+}
+
+.plan-x:hover{
+  border-color:rgba(159,207,120,.13);
+}
+
+.plan-x.active{
+  transform:scale(1) translateY(-6px);
+}
+
+.cap-tab,
+.plan-x,
+.process-step-x,
+.before-x-items summary,
+.final-x-actions a,
+.direct-x a{
+  -webkit-tap-highlight-color:transparent;
+}
+
+.cap-tab:focus-visible,
+.plan-x:focus-visible,
+.final-x-actions a:focus-visible,
+.direct-x a:focus-visible{
+  outline:1px solid rgba(159,207,120,.55);
+  outline-offset:4px;
+}
+
+.direct-x{
+  overflow:hidden;
+}
+
+.direct-x::after{
+  background:
+    linear-gradient(to bottom,transparent,rgba(7,10,11,.78) 78%,#090d0e 100%);
+}
+
+.direct-x-inner{
+  position:relative;
+  z-index:3;
+}
+
+.direct-x-inner::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-90px;
+  width:1px;
+  height:70px;
+  background:linear-gradient(to bottom,transparent,rgba(159,207,120,.35));
+  transform:translateX(-50%);
+}
+
+.direct-x-meta span{
+  transform:translateY(0);
+  transition:transform .35s ease,border-color .35s ease,color .35s ease;
+}
+
+.direct-x-meta span:hover{
+  transform:translateY(-4px);
+  border-color:rgba(159,207,120,.16);
+  color:#cbd4ce;
+}
+
+.direct-x a{
+  position:relative;
+}
+
+.direct-x a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-5px;
+  height:1px;
+  background:var(--scene-accent);
+  transform:scaleX(.18);
+  transform-origin:left;
+  transition:transform .3s ease;
+}
+
+.direct-x a:hover::after{
+  transform:scaleX(1);
+}
+
+.before-x-items details{
+  position:relative;
+  overflow:hidden;
+}
+
+.before-x-items details::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:var(--scene-accent);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:transform .35s ease;
+}
+
+.before-x-items details[open]{
+  background:linear-gradient(90deg,rgba(159,207,120,.025),transparent 55%);
+}
+
+.before-x-items details[open]::before{
+  transform:scaleY(1);
+}
+
+.before-x-items summary{
+  transition:padding-left .3s ease,color .3s ease;
+}
+
+.before-x-items details[open] summary{
+  padding-left:12px;
+  color:#e0e6e2;
+}
+
+.final-x{
+  min-height:110svh;
+}
+
+.final-x::before{
+  background:
+    radial-gradient(circle 330px at var(--mx) var(--my),rgba(159,207,120,.075),transparent 68%),
+    radial-gradient(circle at 50% 55%,rgba(159,207,120,.04),transparent 32%);
+}
+
+.final-x-inner{
+  transition:transform .4s ease;
+}
+
+.final-x-actions a{
+  position:relative;
+  overflow:hidden;
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+
+.final-x-actions a::before{
+  content:"";
+  position:absolute;
+  width:70px;
+  height:120px;
+  top:-42px;
+  left:-95px;
+  transform:rotate(24deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+  transition:left .65s ease;
+}
+
+.final-x-actions a:hover{
+  transform:translateY(-3px);
+  border-color:rgba(159,207,120,.28);
+  box-shadow:0 14px 40px rgba(0,0,0,.22),0 0 26px rgba(159,207,120,.035);
+}
+
+.final-x-actions a:hover::before{
+  left:130%;
+}
+
+footer{
+  border-top:1px solid rgba(255,255,255,.04);
+  background:#080b0c;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+  }
+}
+
+@media(max-width:720px){
+  .order-section::before,
+  .cap-section::before,
+  .plans-x::before,
+  .process-x::before,
+  .direct-x::before,
+  .before-x::before,
+  .final-x::before{
+    opacity:.35;
+  }
+
+  main > section::after{
+    height:70px;
+  }
+
+  .final-x{
+    min-height:100svh;
+  }
+}
