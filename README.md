@@ -12,3 +12,6 @@ Portfolio principal: https://patocreando.github.io/portfolio/
 
 
 Deploy trigger: 2026-10-03 19:44 ART
+
+
+Deploy sync: hero-v3-final
