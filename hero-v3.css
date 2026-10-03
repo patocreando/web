@@ -6,7 +6,7 @@
   --v3-accent-soft:#6f9867;
   --v3-accent-pale:#dce9d1;
   position:relative;
-  min-height:220svh;
+  min-height:320svh;
   background:#090d0e;
 }
 
@@ -477,7 +477,7 @@
 }
 
 @media(max-width:980px) {
-  .hero-v3 { min-height:190svh; }
+  .hero-v3 { min-height:270svh; }
 
   .hero-v3-stage { inset:80px 12px 14px; }
 
@@ -498,7 +498,7 @@
 }
 
 @media(max-width:720px) {
-  .hero-v3 { min-height:175svh; }
+  .hero-v3 { min-height:245svh; }
 
   .hero-v3-stage { inset:70px 8px 12px; }
 
@@ -572,5 +572,49 @@
   .hero-v3-state {
     top:78px;
     right:18px;
+  }
+}
+
+
+/* HERO V3 choreography refinement */
+.hero-v3-stage{
+  opacity:.045;
+  filter:blur(5px);
+  transform:scale(.94);
+  transform-origin:center center;
+  will-change:opacity,filter,transform;
+}
+
+.hero-v3-ui{
+  opacity:.82;
+}
+
+.v3-piece{
+  opacity:0;
+}
+
+.hero-v3-copy{
+  width:min(980px,78vw);
+}
+
+.hero-v3-copy h1{
+  max-width:970px;
+}
+
+.hero-v3-copy > p:last-child{
+  opacity:.9;
+}
+
+.hero-v3-scroll{
+  transition:opacity .25s ease;
+}
+
+.hero-v3-counter{
+  mix-blend-mode:normal;
+}
+
+@media(max-width:720px){
+  .hero-v3-copy{
+    top:42%;
   }
 }
