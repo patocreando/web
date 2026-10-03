@@ -1324,3 +1324,121 @@ footer{
     margin-bottom:22px;
   }
 }
+
+
+/* ==========================================================
+   MASTER FILM — full-page scroll scrub
+   ========================================================== */
+.master-film{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:0;
+  background:#080c0d;
+  transition:opacity .7s ease;
+}
+
+.master-film.ready{
+  opacity:1;
+}
+
+.master-film video{
+  position:absolute;
+  inset:-3%;
+  width:106%;
+  height:106%;
+  object-fit:cover;
+  object-position:center center;
+  opacity:var(--film-opacity,.30);
+  filter:
+    brightness(.58)
+    contrast(1.08)
+    saturate(.86);
+  transform:scale(1.015);
+  will-change:opacity,transform;
+}
+
+.master-film::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 44%,transparent 0%,rgba(5,8,9,.08) 42%,rgba(5,8,9,.42) 100%),
+    linear-gradient(180deg,rgba(6,9,10,.18),rgba(6,9,10,.05) 44%,rgba(6,9,10,.30));
+}
+
+main{
+  position:relative;
+  z-index:2;
+}
+
+footer{
+  position:relative;
+  z-index:2;
+}
+
+.hero-v3{
+  background:transparent;
+}
+
+.hero-v3-sticky{
+  background:
+    radial-gradient(circle at 76% 34%,rgba(159,207,120,.055),transparent 28%),
+    radial-gradient(circle at 19% 76%,rgba(80,117,108,.035),transparent 30%),
+    linear-gradient(180deg,rgba(11,15,16,.74) 0%,rgba(9,12,13,.76) 100%);
+}
+
+.order-section,
+.cap-section,
+.plans-x,
+.process-x{
+  background:
+    radial-gradient(circle at 55% 45%,rgba(159,207,120,.028),transparent 30%),
+    linear-gradient(180deg,rgba(9,13,14,.80),rgba(11,16,16,.70) 48%,rgba(9,13,14,.82));
+}
+
+.direct-x,
+.before-x,
+.final-x{
+  background:
+    linear-gradient(180deg,rgba(9,13,14,.80),rgba(9,13,14,.72));
+}
+
+.cap-window,
+.plan-x,
+.process-x-side{
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.final-x::before{
+  background:
+    radial-gradient(circle 330px at var(--mx) var(--my),rgba(159,207,120,.055),transparent 68%),
+    radial-gradient(circle at 50% 55%,rgba(159,207,120,.025),transparent 32%);
+}
+
+@media(max-width:720px){
+  .master-film video{
+    inset:-7%;
+    width:114%;
+    height:114%;
+    opacity:var(--film-opacity,.23);
+    filter:brightness(.50) contrast(1.05) saturate(.82);
+  }
+
+  .order-section,
+  .cap-section,
+  .plans-x,
+  .process-x{
+    background:
+      linear-gradient(180deg,rgba(9,13,14,.86),rgba(10,15,15,.76) 48%,rgba(9,13,14,.88));
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .master-film video{
+    opacity:.20;
+  }
+}
