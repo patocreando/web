@@ -801,3 +801,291 @@ footer{
     min-height:100svh;
   }
 }
+
+
+/* ==========================================================
+   CAPABILITIES + PLANS — composition and timing refinement
+   ========================================================== */
+.cap-section{
+  min-height:430svh;
+}
+
+.cap-heading{
+  top:8.2%;
+}
+
+.cap-index{
+  left:3vw;
+  gap:10px;
+}
+
+.cap-tab{
+  width:154px;
+  padding:10px 11px;
+}
+
+.cap-tab::before{
+  content:"";
+  position:absolute;
+  left:-10px;
+  width:2px;
+  height:18px;
+  border-radius:2px;
+  background:var(--cap-accent);
+  opacity:0;
+  transform:scaleY(.3);
+  transition:.3s ease;
+}
+
+.cap-tab{
+  position:relative;
+}
+
+.cap-tab.active::before{
+  opacity:.75;
+  transform:scaleY(1);
+}
+
+.cap-stage{
+  left:51.5%;
+  top:56.5%;
+  width:min(960px,72vw);
+  height:min(590px,60vh);
+}
+
+.cap-window{
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 75% 34%,rgba(159,207,120,.035),transparent 30%),
+    rgba(8,12,13,.88);
+}
+
+.cap-canvas{
+  background:
+    radial-gradient(circle at 72% 38%,rgba(159,207,120,.045),transparent 30%),
+    linear-gradient(145deg,rgba(255,255,255,.008),transparent 44%),
+    #0b1011;
+}
+
+.cap-description{
+  right:3.6vw;
+  width:245px;
+}
+
+.cap-description strong{
+  font-size:20px;
+}
+
+.cap-description p{
+  font-size:9.5px;
+}
+
+.cap-dev-overlay,
+.cap-direction-overlay,
+.cap-ai-overlay,
+.layer-design{
+  transition:opacity .18s linear,transform .22s ease;
+}
+
+.cap-dev-overlay{
+  transform:translateY(5px) scale(.985);
+}
+
+.cap-direction-overlay{
+  transform:scale(.985);
+}
+
+.cap-ai-overlay{
+  transform:scale(.96);
+}
+
+.cap-dev-overlay[style*="opacity: 1"],
+.cap-direction-overlay[style*="opacity: 1"],
+.cap-ai-overlay[style*="opacity: 1"]{
+  transform:none;
+}
+
+.cap-final{
+  bottom:7.2%;
+}
+
+.plans-x{
+  min-height:370svh;
+}
+
+.plans-x-heading{
+  top:8.2%;
+}
+
+.plans-x-stage{
+  top:57%;
+  width:min(1160px,89vw);
+  height:58vh;
+  gap:12px;
+}
+
+.plan-x{
+  --focus:0;
+  width:calc(24% + (var(--focus) * 20%));
+  height:calc(58% + (var(--focus) * 30%));
+  opacity:calc(.42 + (var(--focus) * .58));
+  transform:
+    translateY(calc(var(--focus) * -7px))
+    scale(calc(.92 + (var(--focus) * .08)));
+  border-color:rgba(159,207,120,calc(.065 + (var(--focus) * .15)));
+  background:
+    radial-gradient(circle at 75% 20%,rgba(159,207,120,calc(var(--focus) * .055)),transparent 34%),
+    rgba(12,17,18,.86);
+  box-shadow:
+    0 calc(16px + (var(--focus) * 22px))
+    calc(48px + (var(--focus) * 52px))
+    rgba(0,0,0,calc(.16 + (var(--focus) * .14))),
+    0 0 calc(var(--focus) * 70px) rgba(159,207,120,.025);
+  transition:
+    width .16s linear,
+    height .16s linear,
+    opacity .16s linear,
+    transform .16s linear,
+    border-color .16s linear,
+    background .16s linear,
+    box-shadow .16s linear;
+  overflow:hidden;
+}
+
+.plan-x.active{
+  width:calc(24% + (var(--focus) * 20%));
+  height:calc(58% + (var(--focus) * 30%));
+  opacity:calc(.42 + (var(--focus) * .58));
+  transform:
+    translateY(calc(var(--focus) * -7px))
+    scale(calc(.92 + (var(--focus) * .08)));
+  border-color:rgba(159,207,120,calc(.065 + (var(--focus) * .15)));
+  box-shadow:
+    0 calc(16px + (var(--focus) * 22px))
+    calc(48px + (var(--focus) * 52px))
+    rgba(0,0,0,calc(.16 + (var(--focus) * .14))),
+    0 0 calc(var(--focus) * 70px) rgba(159,207,120,.025);
+}
+
+.plan-x::after{
+  position:absolute;
+  right:15px;
+  bottom:9px;
+  color:rgba(255,255,255,calc(.018 + (var(--focus) * .025)));
+  font:600 clamp(74px,8vw,126px)/.8 "Plus Jakarta Sans",sans-serif;
+  letter-spacing:-.08em;
+  pointer-events:none;
+  z-index:0;
+}
+
+.plan-x:nth-child(1)::after{content:"01"}
+.plan-x:nth-child(2)::after{content:"02"}
+.plan-x:nth-child(3)::after{content:"03"}
+
+.plan-x > *{
+  position:relative;
+  z-index:1;
+}
+
+.plan-x p,
+.plan-x ul,
+.plan-x-price{
+  opacity:calc(.52 + (var(--focus) * .48));
+}
+
+.plan-x h3{
+  font-size:clamp(23px,2.4vw,38px);
+}
+
+.plan-x-price strong{
+  font-size:clamp(20px,2.1vw,32px);
+}
+
+.plans-x-detail{
+  left:3.2vw;
+  bottom:3.6vh;
+  width:340px;
+}
+
+.plans-x-detail>strong{
+  font-size:20px;
+}
+
+.plans-x-cta{
+  top:92px;
+  right:3.2vw;
+  transition:transform .3s ease,border-color .3s ease,background .3s ease;
+}
+
+.plans-x-cta:hover{
+  transform:translateY(-2px);
+  border-color:rgba(159,207,120,.28);
+  background:rgba(159,207,120,.06);
+}
+
+@media(max-width:980px){
+  .cap-stage{
+    left:52%;
+    width:74vw;
+  }
+
+  .cap-description{
+    right:2vw;
+    width:190px;
+  }
+
+  .plans-x-stage{
+    width:94vw;
+  }
+}
+
+@media(max-width:720px){
+  .cap-section{min-height:360svh}
+
+  .cap-heading{top:10%}
+
+  .cap-stage{
+    left:50%;
+    top:54%;
+    width:94vw;
+    height:52vh;
+  }
+
+  .cap-tab::before{
+    display:none;
+  }
+
+  .plans-x{min-height:330svh}
+
+  .plans-x-stage{
+    top:55%;
+    width:96vw;
+    height:58vh;
+    gap:6px;
+  }
+
+  .plan-x{
+    width:calc(18% + (var(--focus) * 48%));
+    height:calc(48% + (var(--focus) * 38%));
+    padding:14px 11px;
+  }
+
+  .plan-x.active{
+    width:calc(18% + (var(--focus) * 48%));
+    height:calc(48% + (var(--focus) * 38%));
+  }
+
+  .plan-x:not(.active){
+    min-width:52px;
+  }
+
+  .plan-x::after{
+    font-size:68px;
+  }
+
+  .plans-x-detail{
+    left:17px;
+    bottom:18px;
+    width:235px;
+  }
+}
