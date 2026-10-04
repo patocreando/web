@@ -43,7 +43,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="stylesheet" href="./hero-v3.css?v=7" />
-  <link rel="stylesheet" href="./experience.css?v=17" />
+  <link rel="stylesheet" href="./experience.css?v=18" />
 </head>
 
 <body>
@@ -459,8 +459,9 @@
       </div>
     </section>
 
-    <div class="close-zone">
-    <section class="direct-x">
+    <div class="close-zone" id="closeZone">
+      <div class="close-zone-sticky">
+    <section class="direct-x close-panel" data-close-panel="0">
       <div class="direct-x-inner">
         <p>TRATO DIRECTO / 01</p>
         <h2>Una persona.<span>Todo el recorrido.</span></h2>
@@ -480,7 +481,7 @@
       </div>
     </section>
 
-    <section class="before-x" id="faq">
+    <section class="before-x close-panel" id="faq" data-close-panel="1">
       <div class="before-x-inner">
         <div class="before-x-heading">
           <p>ANTES DE EMPEZAR</p>
@@ -504,7 +505,7 @@
       </div>
     </section>
 
-    <section class="final-x">
+    <section class="final-x close-panel" data-close-panel="2">
       <div class="final-x-grid" aria-hidden="true"></div>
       <div class="final-x-inner">
         <div class="final-x-status" aria-hidden="true"><span>100</span><i></i><small>LISTO</small></div>
@@ -516,6 +517,8 @@
         </div>
       </div>
     </section>
+      <div class="close-zone-progress" aria-hidden="true"><span id="closeZoneCount">01</span><i><b id="closeZoneFill"></b></i><small>CIERRE</small></div>
+      </div>
     </div>
 </main>
 
@@ -546,6 +549,7 @@
   <script src="./process.js?v=3"></script>
   <script src="./polish.js?v=1"></script>
   <script src="./film.js?v=2"></script>
-  <script src="./kinetic.js?v=3"></script>
+  <script src="./kinetic.js?v=4"></script>
+  <script src="./close-zone.js?v=1"></script>
 </body>
 </html>
