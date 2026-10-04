@@ -163,16 +163,16 @@
     const compact = window.innerWidth <= 760;
     const positions = compact
       ? [
-          {x: 10, y: 8, r: -1},
-          {x:-10, y: 8, r: 1},
-          {x: 10, y:-8, r: 1},
-          {x:-10, y:-8, r:-1}
+          {x: 16, y: 10, r: -2},
+          {x:-16, y: 10, r: 2},
+          {x: 16, y:-10, r: 2},
+          {x:-16, y:-10, r:-2}
         ]
       : [
-          {x: 72, y: 42, r: -2.5},
-          {x:-72, y: 42, r: 2.5},
-          {x: 68, y:-42, r: 2.5},
-          {x:-68, y:-42, r:-2.5}
+          {x: 34, y: 20, r: -3},
+          {x:-34, y: 20, r: 3},
+          {x: 34, y:-20, r: 3},
+          {x:-34, y:-20, r:-3}
         ];
 
     orderNodes.forEach((node, index) => {
@@ -185,7 +185,7 @@
     });
 
     const lineProgress = easeOut(clamp((raw - .34) / .30));
-    const lengths = [260,255,245,250];
+    const lengths = compact ? [118,118,112,112] : [170,170,162,162];
     orderLines.forEach((line,index) => {
       line.style.width = (lengths[index] * lineProgress) + "px";
       line.style.opacity = String(lineProgress * .48);
