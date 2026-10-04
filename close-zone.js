@@ -9,11 +9,12 @@
   const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
   const smooth=t=>t*t*(3-2*t);
 
-  const fade=(p,a,b,c,d)=>{
+  const ramp=(p,a,b)=>smooth(clamp((p-a)/(b-a)));
+  const windowed=(p,a,b,c,d)=>{
     if(p<=a||p>=d)return 0;
-    if(p<b)return smooth(clamp((p-a)/(b-a)));
+    if(p<b)return ramp(p,a,b);
     if(p<=c)return 1;
-    return 1-smooth(clamp((p-c)/(d-c)));
+    return 1-ramp(p,c,d);
   };
 
   const update=()=>{
@@ -21,10 +22,22 @@
     const travel=Math.max(1,zone.offsetHeight-innerHeight);
     const p=clamp(-r.top/travel);
 
-    const opacities=[
-      p<=.31 ? 1 : 1-smooth(clamp((p-.31)/.035)),
-      fade(p,.325,.365,.625,.66),
-      p<.645 ? 0 : smooth(clamp((p-.645)/.045))
+    const sceneOpacity=[
+      p<=.30 ? 1 : 1-ramp(p,.30,.345),
+      windowed(p,.325,.37,.615,.665),
+      p<.645 ? 0 : ramp(p,.645,.695)
+    ];
+
+    const titleOpacity=[
+      p<=.285 ? 1 : 1-ramp(p,.285,.34),
+      windowed(p,.325,.365,.61,.66),
+      p<.642 ? 0 : ramp(p,.642,.685)
+    ];
+
+    const bodyOpacity=[
+      p<=.275 ? 1 : 1-ramp(p,.275,.335),
+      windowed(p,.342,.392,.60,.655),
+      p<.66 ? 0 : ramp(p,.66,.71)
     ];
 
     let active=0;
@@ -32,12 +45,25 @@
     if(p>=.67)active=2;
 
     panels.forEach((panel,i)=>{
-      const o=opacities[i];
-      const entering=i===0 ? 0 : (1-o)*22;
-      const leaving=i<active ? -(1-o)*18 : entering;
+      const o=sceneOpacity[i];
+      const t=titleOpacity[i];
+      const b=bodyOpacity[i];
+
+      const direction=i<active?-1:1;
+      const panelY=((1-o)*18*direction).toFixed(2);
+      const titleY=((1-t)*24*direction).toFixed(2);
+      const bodyY=((1-b)*18*direction).toFixed(2);
+
       panel.style.setProperty("--close-opacity",o.toFixed(3));
-      panel.style.setProperty("--close-y",leaving.toFixed(2)+"px");
-      panel.classList.toggle("is-interactive",i===active && o>.75);
+      panel.style.setProperty("--close-y",panelY+"px");
+      panel.style.setProperty("--close-title-opacity",t.toFixed(3));
+      panel.style.setProperty("--close-title-y",titleY+"px");
+      panel.style.setProperty("--close-title-blur",((1-t)*2.4).toFixed(2)+"px");
+      panel.style.setProperty("--close-body-opacity",b.toFixed(3));
+      panel.style.setProperty("--close-body-y",bodyY+"px");
+      panel.style.setProperty("--close-body-blur",((1-b)*1.6).toFixed(2)+"px");
+
+      panel.classList.toggle("is-interactive",i===active && o>.72);
       panel.setAttribute("aria-hidden",i===active ? "false" : "true");
     });
 
