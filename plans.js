@@ -9,9 +9,6 @@
   const level=document.getElementById("plansLevel");
   const line=document.getElementById("plansLine");
   const note=document.getElementById("plansNote");
-  const cta=document.getElementById("plansCta");
-  const proCard=section.querySelector(".plan-x.pro");
-  const sticky=section.querySelector(".plans-x-sticky");
 
   const copy=[
     ["01 / EXPRESS","Lo esencial, bien resuelto.","Para negocios que necesitan una presencia propia sin sumar complejidad."],
@@ -39,16 +36,6 @@
     if(note)note.textContent=copy[active][2];
     if(counter)counter.textContent=String(Math.round(p*100)).padStart(3,"0");
     if(progress)progress.style.setProperty("--cap-p",(p*100).toFixed(1)+"%");
-
-    if(cta&&proCard&&sticky){
-      const cardRect=proCard.getBoundingClientRect();
-      const stickyRect=sticky.getBoundingClientRect();
-      const left=cardRect.left-stickyRect.left+(cardRect.width/2);
-      const top=cardRect.bottom-stickyRect.top+(innerWidth<=720?10:14);
-
-      cta.style.left=left.toFixed(2)+"px";
-      cta.style.top=top.toFixed(2)+"px";
-    }
   };
 
   const targets=[.05,.50,.95];
