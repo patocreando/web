@@ -4942,3 +4942,360 @@ footer{
     transition:none;
   }
 }
+
+
+/* ==========================================================
+   FINAL RESPONSIVE + BACKDROP PASS
+   mobile centered / desktop rails / film visible
+   ========================================================== */
+
+/* Keep the scrubbed master film visible through most of the experience. */
+.master-film{
+  background:#070b0c;
+}
+.master-film::after{
+  background:
+    radial-gradient(circle at 50% 46%,transparent 0%,transparent 50%,rgba(5,8,9,.08) 78%,rgba(5,8,9,.16) 100%),
+    linear-gradient(180deg,rgba(6,9,10,.035),transparent 42%,rgba(6,9,10,.055));
+}
+.master-film video{
+  opacity:var(--film-opacity,.76);
+  filter:
+    brightness(var(--film-brightness,.86))
+    contrast(1.045)
+    saturate(.96);
+}
+
+/* Section shells become translucent instead of replacing the background. */
+.order-section,
+.cap-section,
+.plans-x,
+.process-x{
+  background:
+    radial-gradient(circle at 50% 48%,rgba(159,207,120,.018),transparent 34%),
+    linear-gradient(180deg,rgba(8,12,13,.15),rgba(8,12,13,.07) 48%,rgba(8,12,13,.17));
+}
+.order-sticky,
+.cap-sticky,
+.plans-x-sticky,
+.process-x-sticky{
+  background:transparent;
+}
+.close-zone{
+  background:
+    radial-gradient(circle at 50% 24%,rgba(159,207,120,.018),transparent 38%),
+    linear-gradient(180deg,rgba(8,12,13,.18),rgba(8,12,13,.10));
+}
+.close-zone::before{
+  background:rgba(7,11,12,.045);
+  backdrop-filter:blur(4px) saturate(104%);
+  -webkit-backdrop-filter:blur(4px) saturate(104%);
+}
+.close-zone-sticky::before{
+  opacity:.08;
+}
+
+/* Desktop: use one visual rail so headings and interactive groups feel deliberate. */
+@media(min-width:981px){
+  .order-copy,
+  .plans-x-heading{
+    width:min(920px,76vw);
+  }
+
+  .order-system{
+    width:min(1080px,88vw);
+  }
+
+  .cap-editorial .cap-heading{
+    left:max(5vw,calc(50% - 590px));
+    width:min(520px,40vw);
+  }
+
+  .cap-editorial .cap-index{
+    left:max(5vw,calc(50% - 590px));
+  }
+
+  .cap-editorial .cap-stage.cap-scene{
+    left:60%;
+    width:min(820px,62vw);
+    height:min(590px,64vh);
+  }
+
+  .plans-x-stage{
+    width:min(1120px,88vw);
+    gap:18px;
+  }
+
+  .plans-x-detail{
+    left:max(5vw,calc(50% - 560px));
+    width:min(360px,29vw);
+  }
+
+  .process-x-heading{
+    left:max(5vw,calc(50% - 570px));
+  }
+
+  .process-x-track{
+    left:max(5vw,calc(50% - 570px));
+    width:min(520px,43vw);
+  }
+
+  .process-x-side{
+    right:max(5vw,calc(50% - 570px));
+    width:min(390px,32vw);
+  }
+
+  .close-zone .direct-x-inner,
+  .close-zone .before-x-inner,
+  .close-zone .final-x-inner{
+    width:min(1100px,86vw);
+  }
+}
+
+/* Mobile: every major composition sits on the center axis. */
+@media(max-width:720px){
+  .master-film video{
+    inset:-7%;
+    width:114%;
+    height:114%;
+    opacity:var(--film-opacity,.66);
+    filter:
+      brightness(var(--film-brightness,.80))
+      contrast(1.035)
+      saturate(.92);
+  }
+
+  .master-film::after{
+    background:
+      radial-gradient(circle at 50% 48%,transparent 0%,transparent 46%,rgba(5,8,9,.07) 78%,rgba(5,8,9,.13) 100%),
+      linear-gradient(180deg,rgba(6,9,10,.045),transparent 45%,rgba(6,9,10,.06));
+  }
+
+  .order-section,
+  .cap-section,
+  .plans-x,
+  .process-x{
+    background:
+      linear-gradient(180deg,rgba(8,12,13,.22),rgba(8,12,13,.10) 50%,rgba(8,12,13,.24));
+  }
+
+  .close-zone{
+    background:
+      radial-gradient(circle at 50% 22%,rgba(159,207,120,.018),transparent 42%),
+      linear-gradient(180deg,rgba(8,12,13,.24),rgba(8,12,13,.14));
+  }
+
+  .close-zone::before{
+    background:rgba(7,11,12,.035);
+    backdrop-filter:blur(3px) saturate(102%);
+    -webkit-backdrop-filter:blur(3px) saturate(102%);
+  }
+
+  /* Order */
+  .order-copy{
+    left:50%;
+    width:92vw;
+    text-align:center;
+  }
+  .order-system{
+    left:50%;
+    width:94vw;
+  }
+  .order-result{
+    left:50%;
+    width:88vw;
+    text-align:center;
+  }
+
+  /* Capabilities */
+  .cap-editorial .cap-heading{
+    left:50%;
+    top:9.5vh;
+    width:92vw;
+    transform:translateX(-50%);
+    text-align:center;
+  }
+  .cap-editorial .cap-heading h2{
+    font-size:clamp(40px,11.5vw,58px);
+  }
+  .cap-editorial .cap-stage.cap-scene{
+    left:50%;
+    top:54%;
+    width:92vw;
+    height:47vh;
+    transform:translate(-50%,-50%);
+  }
+  .cap-editorial .cap-index{
+    left:50%;
+    right:auto;
+    bottom:6.5vh;
+    width:94vw;
+    transform:translateX(-50%);
+    justify-content:center;
+  }
+  .cap-editorial .cap-final{
+    left:50%;
+    right:auto;
+    width:88vw;
+    text-align:center;
+    transform:translateX(-50%);
+  }
+  .cap-progress{
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+  }
+
+  /* Plans */
+  .plans-x-heading{
+    left:50%;
+    width:92vw;
+    transform:translateX(-50%);
+    text-align:center;
+  }
+  .plans-x-stage{
+    left:50%;
+    top:53%;
+    width:94vw;
+    height:54vh;
+    transform:translate(-50%,-50%);
+    justify-content:center;
+  }
+  .plan-x{
+    text-align:center;
+  }
+  .plan-x ul{
+    width:max-content;
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
+  }
+  .plans-x-detail{
+    left:50% !important;
+    right:auto !important;
+    bottom:11.5vh;
+    width:min(340px,86vw);
+    transform:translateX(-50%);
+    text-align:center;
+  }
+  .plans-x-detail > p{
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .plans-x-counter{
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+  }
+  .plans-x-cta{
+    left:50% !important;
+    right:auto !important;
+    transform:translateX(-50%) !important;
+  }
+
+  /* Process becomes one centered composition instead of a left/right split. */
+  .process-x{
+    min-height:390svh;
+  }
+  .process-x-heading{
+    left:50%;
+    top:8.5%;
+    width:92vw;
+    transform:translate3d(-50%,0,0);
+    text-align:center;
+  }
+  .process-x-heading h2{
+    font-size:clamp(42px,11.5vw,58px);
+  }
+  .process-x-track{
+    left:50%;
+    top:39%;
+    width:86vw;
+    transform:translate(-50%,-50%);
+    gap:12px;
+  }
+  .process-step-x{
+    grid-template-columns:34px 1fr;
+    gap:11px;
+    text-align:left;
+  }
+  .process-step-x > span{
+    width:34px;
+    height:34px;
+  }
+  .process-step-x strong{
+    font-size:15px;
+  }
+  .process-step-x p{
+    font-size:10.5px;
+    line-height:1.38;
+  }
+  .process-x-side{
+    left:50%;
+    right:auto;
+    top:73%;
+    width:86vw;
+    min-height:178px;
+    padding:78px 18px 16px;
+    text-align:center;
+    transform:translate3d(-50%,calc(-50% + var(--process-side-y)),0) !important;
+  }
+  .process-orbit{
+    top:27%;
+    width:92px;
+  }
+  .process-orbit-ring.ring-one{width:52px;height:52px}
+  .process-orbit-ring.ring-two{width:86px;height:86px}
+  .process-x-side strong,
+  .process-x-side p{
+    max-width:320px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .process-x-counter{
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+  }
+
+  /* Close / FAQ / footer */
+  .close-zone .direct-x-inner,
+  .close-zone .before-x-inner,
+  .close-zone .final-x-inner{
+    width:calc(100vw - 32px);
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+  .close-zone .before-x-heading{
+    text-align:center;
+  }
+  .close-zone .before-x-items{
+    width:100%;
+    margin:0 auto;
+    text-align:left;
+  }
+  .close-zone .before-x-items details{
+    background:rgba(8,12,13,.18);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+  .direct-x-copy,
+  .final-x-actions small{
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .close-zone-progress{
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+  }
+  .footer-grid{
+    text-align:center;
+  }
+  .footer-grid > div:first-child,
+  .footer-links{
+    justify-content:center;
+  }
+}
