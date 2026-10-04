@@ -163,32 +163,33 @@
     const compact = window.innerWidth <= 760;
     const positions = compact
       ? [
-          {x: 16, y: 10, r: -2},
-          {x:-16, y: 10, r: 2},
-          {x: 16, y:-10, r: 2},
-          {x:-16, y:-10, r:-2}
+          {x: 44, y: 30, r: -2},
+          {x:-44, y: 30, r: 2},
+          {x: 44, y:-30, r: 2},
+          {x:-44, y:-30, r:-2}
         ]
       : [
-          {x: 34, y: 20, r: -3},
-          {x:-34, y: 20, r: 3},
-          {x: 34, y:-20, r: 3},
-          {x:-34, y:-20, r:-3}
+          {x:105, y: 60, r: -3},
+          {x:-105, y: 60, r: 3},
+          {x:105, y:-60, r: 3},
+          {x:-105, y:-60, r:-3}
         ];
 
+    const spread = ease(clamp((raw - .18) / .50));
+
     orderNodes.forEach((node, index) => {
-      const converge = ease(clamp((raw - .20 - index * .025) / .46));
       const pos = positions[index] || {x:0,y:0,r:0};
-      node.style.opacity = String(.42 + converge * .58);
+      node.style.opacity = String(.52 + spread * .48);
       node.style.transform =
-        "translate(" + (-pos.x * converge) + "px," + (-pos.y * converge) + "px) " +
-        "rotate(" + (pos.r * (1 - converge)) + "deg) scale(" + (1 - converge * .02) + ")";
+        "translate(" + (-pos.x * spread) + "px," + (-pos.y * spread) + "px) " +
+        "rotate(" + (pos.r * (1 - spread)) + "deg) scale(" + (.98 + spread * .02) + ")";
     });
 
-    const lineProgress = easeOut(clamp((raw - .34) / .30));
-    const lengths = compact ? [98,98,94,94] : [148,148,142,142];
+    const lineProgress = easeOut(clamp((raw - .24) / .44));
+    const lengths = compact ? [132,132,126,126] : [235,235,225,225];
     orderLines.forEach((line,index) => {
       line.style.width = (lengths[index] * lineProgress) + "px";
-      line.style.opacity = String(lineProgress * .48);
+      line.style.opacity = String(lineProgress * .52);
     });
 
     const coreIn = easeOut(clamp((raw - .38) / .34));
