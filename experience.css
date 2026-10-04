@@ -1442,3 +1442,318 @@ footer{
     opacity:.20;
   }
 }
+
+
+/* ==========================================================
+   CINEMATIC PASS — video-first / compact UI / kinetic copy
+   ========================================================== */
+.master-film video{
+  inset:-4%;
+  width:108%;
+  height:108%;
+  opacity:var(--film-opacity,.64);
+  filter:
+    brightness(var(--film-brightness,.82))
+    contrast(1.06)
+    saturate(.94);
+  transform:
+    translate3d(0,var(--film-y,0px),0)
+    scale(var(--film-scale,1.035));
+}
+
+.master-film::after{
+  background:
+    radial-gradient(circle at 50% 48%,transparent 0%,transparent 46%,rgba(5,8,9,.12) 78%,rgba(5,8,9,.23) 100%),
+    linear-gradient(180deg,rgba(6,9,10,.07),transparent 38%,rgba(6,9,10,.09));
+}
+
+main > section::after{
+  opacity:.16;
+  height:70px;
+}
+
+.order-section,
+.cap-section,
+.plans-x,
+.process-x{
+  background:
+    linear-gradient(180deg,rgba(9,13,14,.24),rgba(9,13,14,.12) 48%,rgba(9,13,14,.26));
+}
+
+.direct-x,
+.before-x,
+.final-x{
+  background:linear-gradient(180deg,rgba(9,13,14,.20),rgba(9,13,14,.10));
+}
+
+.hero-v3-sticky{
+  background:
+    radial-gradient(circle at 76% 34%,rgba(159,207,120,.025),transparent 26%),
+    linear-gradient(180deg,rgba(9,12,13,.26),rgba(9,12,13,.18));
+}
+
+.hero-v3-ui{
+  background:
+    radial-gradient(circle at 72% 34%,rgba(159,207,120,.035),transparent 25%),
+    linear-gradient(145deg,rgba(255,255,255,.022),rgba(255,255,255,.006)),
+    rgba(8,12,13,.42);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+
+.hero-v3-bg,
+.order-grid,
+.cap-grid,
+.plans-x-grid,
+.process-x-grid,
+.final-x-grid{
+  opacity:.10;
+}
+
+/* Channel system becomes annotation, not a wall */
+.order-system{
+  width:min(760px,68vw);
+  height:min(460px,49vh);
+  top:59%;
+}
+
+.order-core{
+  width:142px;
+  background:
+    radial-gradient(circle at 45% 38%,rgba(159,207,120,.10),transparent 46%),
+    rgba(10,15,15,.48);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+
+.order-core strong{font-size:22px}
+.order-core em{font-size:6px}
+
+.order-node{
+  min-width:105px;
+  padding:8px 10px;
+  border-radius:10px;
+  background:rgba(13,18,19,.38);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  box-shadow:0 10px 30px rgba(0,0,0,.11);
+}
+
+.order-node strong{font-size:8px}
+.order-node small{font-size:5px}
+.order-result{bottom:7.5%}
+.order-result p{font-size:clamp(23px,2.5vw,34px)}
+.order-result span{font-size:9px}
+
+/* Capabilities becomes a compact control surface */
+.cap-stage{
+  left:54%;
+  top:58%;
+  width:min(720px,58vw);
+  height:min(430px,46vh);
+}
+
+.cap-window{
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 75% 34%,rgba(159,207,120,.025),transparent 30%),
+    rgba(8,12,13,.38);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+
+.cap-browserbar{height:38px}
+.cap-canvas{height:calc(100% - 38px)}
+.cap-copyblock strong{font-size:clamp(25px,2.8vw,44px)}
+.cap-copyblock p{font-size:8px}
+.cap-panel{border-radius:15px}
+.cap-tab{width:132px;padding:8px 9px}
+.cap-description{width:205px}
+.cap-description strong{font-size:17px}
+.cap-description p{font-size:8px}
+
+/* Plans as compact selectable modules */
+.plans-x-stage{
+  top:60%;
+  width:min(900px,73vw);
+  height:46vh;
+  gap:9px;
+}
+
+.plan-x{
+  width:calc(22% + (var(--focus) * 15%));
+  height:calc(48% + (var(--focus) * 26%));
+  padding:16px 15px 14px;
+  border-radius:17px;
+  background:
+    radial-gradient(circle at 75% 20%,rgba(159,207,120,calc(var(--focus) * .04)),transparent 34%),
+    rgba(12,17,18,.40);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+
+.plan-x.active{
+  width:calc(22% + (var(--focus) * 15%));
+  height:calc(48% + (var(--focus) * 26%));
+}
+
+.plan-x h3{
+  margin-top:15px;
+  font-size:clamp(19px,1.9vw,29px);
+}
+
+.plan-x-price{margin-top:9px}
+.plan-x-price strong{font-size:clamp(17px,1.7vw,24px)}
+.plan-x p{margin-top:10px;font-size:8px}
+.plan-x ul{margin-top:12px;gap:5px}
+.plan-x li{font-size:7px}
+.plan-x::after{font-size:clamp(56px,6vw,90px)}
+.plans-x-detail{width:295px}
+.plans-x-detail>strong{font-size:17px}
+.plans-x-detail>p{font-size:8px}
+
+/* Process: timeline + smaller live module */
+.process-x-track{
+  width:45%;
+  gap:20px;
+}
+
+.process-x-side{
+  right:8%;
+  width:29%;
+  min-height:250px;
+  padding:122px 20px 20px;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 24%,rgba(159,207,120,.035),transparent 31%),
+    rgba(12,17,18,.34);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}
+
+.process-orbit{
+  width:135px;
+  top:25%;
+}
+
+.process-orbit-ring.ring-one{width:70px;height:70px}
+.process-orbit-ring.ring-two{width:116px;height:116px}
+.process-x-side strong{font-size:clamp(22px,2.4vw,34px)}
+.process-x-side p{font-size:8px}
+
+/* Text floats over film instead of sitting on opaque blocks */
+.order-copy h2,
+.cap-heading h2,
+.plans-x-heading h2,
+.process-x-heading h2,
+.direct-x-inner h2,
+.before-x-heading h2,
+.final-x-inner h2{
+  text-shadow:
+    0 10px 28px rgba(0,0,0,.62),
+    0 2px 6px rgba(0,0,0,.56);
+}
+
+.kinetic-copy{
+  will-change:transform,opacity,filter;
+  transform:
+    translate3d(0,var(--kinetic-y,0px),0)
+    scale(var(--kinetic-scale,1));
+  opacity:var(--kinetic-opacity,1);
+  filter:blur(var(--kinetic-blur,0px));
+}
+
+.kinetic-drift{
+  will-change:transform,opacity;
+  transform:translate3d(var(--kinetic-x,0px),var(--kinetic-y,0px),0);
+  opacity:var(--kinetic-opacity,1);
+}
+
+@media(max-width:980px){
+  .cap-stage{left:52%;width:66vw}
+  .plans-x-stage{width:84vw}
+  .process-x-side{right:5%;width:34%}
+}
+
+@media(max-width:720px){
+  .master-film video{
+    inset:-8%;
+    width:116%;
+    height:116%;
+    opacity:var(--film-opacity,.48);
+    filter:
+      brightness(var(--film-brightness,.72))
+      contrast(1.04)
+      saturate(.90);
+  }
+
+  .master-film::after{
+    background:
+      radial-gradient(circle at 50% 48%,transparent 0%,transparent 42%,rgba(5,8,9,.10) 75%,rgba(5,8,9,.18) 100%),
+      linear-gradient(180deg,rgba(6,9,10,.08),transparent 42%,rgba(6,9,10,.10));
+  }
+
+  .order-section,
+  .cap-section,
+  .plans-x,
+  .process-x{
+    background:linear-gradient(180deg,rgba(9,13,14,.31),rgba(9,13,14,.17) 50%,rgba(9,13,14,.33));
+  }
+
+  .hero-v3-sticky{
+    background:linear-gradient(180deg,rgba(9,12,13,.33),rgba(9,12,13,.21));
+  }
+
+  .order-system{
+    width:88vw;
+    height:42vh;
+  }
+
+  .order-node{
+    min-width:88px;
+    padding:7px 8px;
+  }
+
+  .order-core{width:122px}
+
+  .cap-stage{
+    left:50%;
+    top:56%;
+    width:88vw;
+    height:44vh;
+  }
+
+  .cap-index{bottom:60px}
+  .cap-tab{padding:7px 8px}
+
+  .plans-x-stage{
+    top:57%;
+    width:90vw;
+    height:49vh;
+  }
+
+  .plan-x{
+    width:calc(14% + (var(--focus) * 54%));
+    height:calc(42% + (var(--focus) * 34%));
+    padding:12px 9px;
+  }
+
+  .plan-x.active{
+    width:calc(14% + (var(--focus) * 54%));
+    height:calc(42% + (var(--focus) * 34%));
+  }
+
+  .process-x-track{
+    left:16px;
+    width:44%;
+  }
+
+  .process-x-side{
+    right:12px;
+    width:44%;
+    min-height:255px;
+    padding:125px 14px 15px;
+  }
+
+  .process-orbit{width:120px}
+}
