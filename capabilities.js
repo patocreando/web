@@ -16,7 +16,7 @@
 
   const copy=[
     ["01 / DISEÑO","Jerarquía, ritmo y marca.","Ordena lo que importa."],
-    ["02 / DESARROLLO","La interfaz cobra vida.","Responsive, interacción y código real."],
+    ["02 / DESARROLLO","La interfaz cobra vida.","Adaptación, interacción y código real."],
     ["03 / DIRECCIÓN","Cada decisión tiene intención.","Foco, encuadre y recorrido."],
     ["04 / IA","Más capacidad detrás.","Acelera producción sin reemplazar criterio."]
   ];
