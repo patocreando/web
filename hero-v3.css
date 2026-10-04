@@ -2355,9 +2355,40 @@
 }
 .dash-site-copy button span{margin-left:11px;color:#9fcf78}
 .dash-site-art{
-  position:absolute;right:7%;top:18%;width:34%;height:66%;
+  --orb-x:0px;
+  --orb-y:0px;
+  --orb-scale:1;
+  --orb-tilt:0deg;
+  position:absolute;right:3%;top:10%;width:46%;height:78%;
+  transform:
+    translate3d(var(--orb-x),var(--orb-y),0)
+    rotate(var(--orb-tilt))
+    scale(var(--orb-scale));
+  transform-origin:center center;
+  will-change:transform;
+  pointer-events:none;
 }
-.art-ring,.art-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.dash-art-image{
+  position:absolute;
+  z-index:0;
+  left:-22%;
+  top:-10%;
+  width:138%;
+  height:124%;
+  object-fit:contain;
+  opacity:.72;
+  filter:saturate(.88) contrast(1.04) drop-shadow(0 22px 42px rgba(0,0,0,.28));
+  transform:translate3d(-2%,2%,0) scale(1.02);
+  transform-origin:center center;
+}
+.hero-v3-ui.built .dash-art-image{
+  animation:dashArtFloat 6.8s ease-in-out infinite;
+}
+@keyframes dashArtFloat{
+  0%,100%{transform:translate3d(-2%,2%,0) rotate(-.5deg) scale(1.02)}
+  50%{transform:translate3d(1%,-2%,0) rotate(.7deg) scale(1.045)}
+}
+.art-ring,.art-core{position:absolute;z-index:2;left:61%;top:51%;transform:translate(-50%,-50%)}
 .art-ring{border:1px solid rgba(159,207,120,.15);border-radius:50%}
 .ring-one{width:90%;aspect-ratio:1;animation:dashRing 8s linear infinite}
 .ring-two{width:63%;aspect-ratio:1;border-color:rgba(159,207,120,.26);animation:dashRing 6s linear infinite reverse}
@@ -2442,7 +2473,8 @@
   .dash-site-copy{left:6%;top:24%;width:68%}
   .dash-site-copy h3{font-size:clamp(18px,5.8vw,27px)}
   .dash-site-copy p{font-size:6px;max-width:150px}
-  .dash-site-art{right:1%;width:39%}
+  .dash-site-art{right:-3%;top:11%;width:49%;height:76%}
+  .dash-art-image{left:-30%;top:-5%;width:150%;height:116%;opacity:.62}
   .dash-bottom{grid-template-columns:1fr 1.25fr;padding:0 9px 9px;gap:6px}
   .dash-style{display:none}
   .dash-live{padding:7px}
@@ -2453,6 +2485,7 @@
   .hero-v3-ui.built .dash-online-dot,
   .hero-v3-ui.built .dash-scan,
   .hero-v3-ui.built .dash-publish-line i,
+  .hero-v3-ui.built .dash-art-image,
   .dash-steps span.is-active::before,
   .dash-code-caret,
   .art-ring,.art-core{
