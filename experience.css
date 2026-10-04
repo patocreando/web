@@ -2198,3 +2198,228 @@ main > section::after{
     bottom:6vh;
   }
 }
+
+
+/* ==========================================================
+   FAQ + FINAL CTA — clarity / interaction pass
+   ========================================================== */
+.before-x,
+.final-x{
+  background:
+    radial-gradient(circle at 50% 22%,rgba(159,207,120,.035),transparent 34%),
+    linear-gradient(180deg,rgba(9,13,14,.90),rgba(9,13,14,.84));
+}
+
+.before-x-heading > p,
+.final-x-inner > p{
+  color:#9ba7a2;
+  font-size:9px;
+}
+
+.before-x-heading h2,
+.final-x-inner h2{
+  opacity:1 !important;
+  filter:none !important;
+  color:#f2f5f3;
+  text-shadow:
+    0 16px 44px rgba(0,0,0,.56),
+    0 0 28px rgba(159,207,120,.04);
+}
+
+.before-x-heading h2 span,
+.final-x-inner h2 span{
+  color:#dce9d1;
+}
+
+.before-x-items{
+  border-top-color:rgba(255,255,255,.12);
+}
+
+.before-x-items details{
+  position:relative;
+  border-bottom-color:rgba(255,255,255,.10);
+  border-radius:14px;
+  transition:
+    background .24s ease,
+    border-color .24s ease,
+    transform .24s var(--ease),
+    box-shadow .24s ease;
+}
+
+.before-x-items details::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  opacity:0;
+  background:
+    linear-gradient(90deg,rgba(159,207,120,.055),transparent 62%);
+  transition:opacity .24s ease;
+}
+
+.before-x-items details:hover,
+.before-x-items details:focus-within,
+.before-x-items details[open]{
+  border-color:rgba(159,207,120,.20);
+  background:rgba(255,255,255,.025);
+  transform:translateX(4px);
+  box-shadow:inset 3px 0 0 rgba(159,207,120,.44);
+}
+
+.before-x-items details:hover::before,
+.before-x-items details:focus-within::before,
+.before-x-items details[open]::before{
+  opacity:1;
+}
+
+.before-x-items summary{
+  position:relative;
+  z-index:1;
+  padding:23px 46px 23px 14px;
+  color:#e1e7e3;
+  font-size:15px;
+  font-weight:600;
+  transition:color .2s ease;
+}
+
+.before-x-items summary::after{
+  content:"+";
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#9fcf78;
+  font-size:22px;
+  font-weight:400;
+  line-height:1;
+  transition:transform .22s ease,color .22s ease;
+}
+
+.before-x-items details[open] summary::after{
+  transform:translateY(-50%) rotate(45deg);
+  color:#dce9d1;
+}
+
+.before-x-items summary span{
+  min-width:20px;
+  color:#a9d783;
+  font-size:8px;
+}
+
+.before-x-items details p{
+  position:relative;
+  z-index:1;
+  max-width:650px;
+  margin:0;
+  padding:0 46px 24px 48px;
+  color:#aab5b0;
+  font-size:12.5px;
+  line-height:1.7;
+}
+
+.final-x-inner{
+  transition:transform .24s var(--ease);
+}
+
+.final-x-actions{
+  gap:14px;
+}
+
+.final-x-actions a{
+  min-height:56px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 24px;
+  border-color:rgba(159,207,120,.34);
+  background:
+    linear-gradient(180deg,rgba(159,207,120,.16),rgba(159,207,120,.08));
+  color:#f1f5f2;
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:-.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 18px 44px rgba(0,0,0,.22);
+}
+
+.final-x-actions a:hover,
+.final-x-actions a:focus-visible{
+  transform:translateY(-4px) scale(1.015);
+  border-color:rgba(159,207,120,.56);
+  background:
+    linear-gradient(180deg,rgba(159,207,120,.23),rgba(159,207,120,.11));
+  box-shadow:
+    0 20px 52px rgba(0,0,0,.30),
+    0 0 34px rgba(159,207,120,.08);
+  outline:none;
+}
+
+.final-x-actions small{
+  color:#929d98;
+  font-size:10px;
+}
+
+footer{
+  background:#080b0c;
+}
+
+.footer-grid{
+  color:#949d99;
+  font-size:12px;
+}
+
+.footer-grid strong{
+  color:#eef2ef;
+}
+
+.footer-grid > div:first-child span{
+  color:#aab3af;
+}
+
+.footer-links a{
+  color:#aeb7b2;
+  transition:color .2s ease,transform .2s ease;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible{
+  color:#e9efe9;
+  transform:translateY(-2px);
+  outline:none;
+}
+
+@media(max-width:720px){
+  .before-x-heading > p,
+  .final-x-inner > p{
+    font-size:8.5px;
+  }
+
+  .before-x-items summary{
+    padding:21px 44px 21px 12px;
+    font-size:14px;
+    line-height:1.35;
+  }
+
+  .before-x-items details p{
+    padding:0 16px 22px 42px;
+    font-size:12px;
+  }
+
+  .before-x-items details:hover,
+  .before-x-items details:focus-within,
+  .before-x-items details[open]{
+    transform:none;
+  }
+
+  .final-x-actions a{
+    min-height:54px;
+    padding:0 22px;
+    font-size:12px;
+  }
+
+  .footer-grid{
+    font-size:11px;
+  }
+}
