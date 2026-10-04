@@ -78,10 +78,10 @@
 
     if (heroState) {
       heroState.textContent =
-        raw < .14 ? "START" :
-        raw < .28 ? "REVEAL" :
-        raw < .78 ? "BUILDING" :
-        raw < .96 ? "BUILT" : "READY";
+        raw < .14 ? "INICIO" :
+        raw < .28 ? "APARECE" :
+        raw < .78 ? "CREANDO" :
+        raw < .96 ? "CREADA" : "LISTO";
     }
   };
 
