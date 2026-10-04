@@ -66,9 +66,9 @@
     objects.forEach(object=>{
       const state=Number(object.dataset.capObject);
       if(state!==active)return;
-      const y=(-local*22).toFixed(2);
-      const rotate=(local*2.2).toFixed(2);
-      const scale=(1.015-Math.abs(local)*.035).toFixed(4);
+      const y=(-local*10).toFixed(2);
+      const rotate=(local*.9).toFixed(2);
+      const scale=(1.005-Math.abs(local)*.012).toFixed(4);
       object.style.setProperty("--asset-y",y+"px");
       object.style.setProperty("--asset-rotate",rotate+"deg");
       object.style.setProperty("--asset-scale",scale);
