@@ -3978,3 +3978,148 @@ footer{
     height:174px;
   }
 }
+
+
+/* ==========================================================
+   ORDER — safe centered mobile layout
+   ========================================================== */
+@media(max-width:760px){
+  .order-copy{
+    top:17%;
+    width:90vw;
+  }
+
+  .order-copy > p{
+    margin-bottom:11px;
+  }
+
+  .order-copy h2{
+    font-size:clamp(42px,11.8vw,60px);
+    line-height:.92;
+  }
+
+  .order-system{
+    left:50%;
+    top:59.5%;
+    width:90vw;
+    height:48vh;
+  }
+
+  .order-node{
+    width:116px;
+    min-width:116px;
+    padding:8px 9px;
+    gap:7px;
+    border-radius:12px;
+  }
+
+  .order-node strong{
+    font-size:9px;
+    line-height:1.1;
+  }
+
+  .order-brand-icon{
+    width:24px;
+    height:24px;
+    flex:0 0 24px;
+    border-radius:8px;
+  }
+
+  .order-brand-icon img{
+    width:13px;
+    height:13px;
+  }
+
+  .node-instagram{
+    left:8%;
+    top:13%;
+  }
+
+  .node-whatsapp{
+    right:8%;
+    top:13%;
+  }
+
+  .node-google{
+    left:8%;
+    bottom:12%;
+  }
+
+  .node-reservas{
+    right:8%;
+    bottom:12%;
+  }
+
+  .order-core{
+    width:min(214px,54vw);
+    height:172px;
+  }
+
+  .order-core-browser{
+    inset:0 0 42px;
+  }
+
+  .order-core-label small{
+    font-size:6.8px;
+  }
+
+  .order-core-label strong{
+    font-size:17px;
+  }
+
+  .orbit-one{width:68%}
+  .orbit-two{width:90%}
+
+  .order-result{
+    bottom:8.5%;
+    width:84vw;
+  }
+
+  .order-result p{
+    font-size:clamp(21px,6.5vw,28px);
+    line-height:1.02;
+  }
+
+  .order-result span{
+    max-width:300px;
+    margin:8px auto 0;
+    font-size:10px;
+    line-height:1.45;
+  }
+
+  .order-progress{
+    left:50%;
+    right:auto;
+    bottom:14px;
+    transform:translateX(-50%);
+  }
+}
+
+@media(max-width:430px){
+  .order-copy{
+    top:18%;
+    width:92vw;
+  }
+
+  .order-system{
+    width:92vw;
+    top:60%;
+  }
+
+  .order-node{
+    width:108px;
+    min-width:108px;
+    padding:7px 8px;
+  }
+
+  .node-instagram,
+  .node-google{left:7%}
+
+  .node-whatsapp,
+  .node-reservas{right:7%}
+
+  .order-core{
+    width:min(202px,53vw);
+    height:164px;
+  }
+}
