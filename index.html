@@ -43,7 +43,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="stylesheet" href="./hero-v3.css?v=5" />
-  <link rel="stylesheet" href="./experience.css?v=9" />
+  <link rel="stylesheet" href="./experience.css?v=10" />
 </head>
 
 <body>
@@ -227,7 +227,7 @@
       </div>
     </section>
 
-    <section class="cap-section" id="capacidades">
+    <section class="cap-section cap-editorial" id="capacidades">
       <div class="cap-sticky">
         <div class="cap-grid" aria-hidden="true"></div>
 
@@ -243,75 +243,56 @@
           <button type="button" class="cap-tab" data-cap="3"><span>04</span><strong>IA</strong></button>
         </div>
 
-        <div class="cap-stage" id="capStage">
-          <div class="cap-window">
-            <div class="cap-browserbar">
-              <div class="cap-dots"><i></i><i></i><i></i></div>
-              <span>project / live system</span>
-              <em id="capMode">DESIGN</em>
-            </div>
+        <div class="cap-stage cap-scene" id="capStage" aria-hidden="true">
+          <div class="cap-layer cap-layer-design" data-layer="0">
+            <span class="design-vline line-a"></span>
+            <span class="design-vline line-b"></span>
+            <span class="design-hline line-c"></span>
+            <span class="design-hline line-d"></span>
+            <div class="design-block block-a"></div>
+            <div class="design-block block-b"></div>
+            <div class="design-tag">GRID / TYPE / RHYTHM</div>
+          </div>
 
-            <div class="cap-canvas">
-              <div class="cap-canvas-grid" aria-hidden="true"></div>
+          <div class="cap-layer cap-layer-dev" data-layer="1">
+            <svg class="dev-map" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M9 72 C24 45, 31 62, 46 42 S72 26, 90 38"></path>
+              <path d="M15 24 C31 19, 39 33, 55 29 S72 52, 87 66"></path>
+            </svg>
+            <i class="dev-dot dot-a"></i>
+            <i class="dev-dot dot-b"></i>
+            <i class="dev-dot dot-c"></i>
+            <i class="dev-dot dot-d"></i>
+            <div class="dev-label"><span>BUILD</span><strong>responsive / interaction / code</strong></div>
+          </div>
 
-              <div class="cap-navline layer-design">
-                <span class="cap-logo-mark"></span>
-                <div><i></i><i></i><i></i></div>
-              </div>
+          <div class="cap-layer cap-layer-direction" data-layer="2">
+            <div class="direction-crop crop-a"></div>
+            <div class="direction-crop crop-b"></div>
+            <span class="direction-axis axis-x"></span>
+            <span class="direction-axis axis-y"></span>
+            <div class="direction-mark">FOCUS / INTENT</div>
+          </div>
 
-              <div class="cap-copyblock layer-design">
-                <small>STRUCTURE / 01</small>
-                <strong>Clear ideas.</strong>
-                <strong class="muted">Better hierarchy.</strong>
-                <p>Layout, type, spacing and visual rhythm working as one system.</p>
-              </div>
+          <div class="cap-layer cap-layer-ai" data-layer="3">
+            <div class="ai-ring ai-ring-a"></div>
+            <div class="ai-ring ai-ring-b"></div>
+            <div class="ai-ring ai-ring-c"></div>
+            <span class="ai-point point-a"></span>
+            <span class="ai-point point-b"></span>
+            <span class="ai-point point-c"></span>
+            <div class="ai-center"><b>AI</b><small>PRODUCTION LAYER</small></div>
+          </div>
 
-              <div class="cap-action layer-design">Primary action <span>↗</span></div>
-
-              <div class="cap-panel layer-design">
-                <div class="cap-panel-shape shape-one"></div>
-                <div class="cap-panel-shape shape-two"></div>
-                <span>VISUAL SYSTEM</span>
-              </div>
-
-              <div class="cap-dev-overlay">
-                <div class="dev-code">
-                  <span><b>01</b> const experience = build();</span>
-                  <span><b>02</b> interaction.bind(scroll);</span>
-                  <span><b>03</b> responsive.enable();</span>
-                  <span><b>04</b> publish("live");</span>
-                </div>
-                <div class="dev-nodes">
-                  <i></i><i></i><i></i><i></i>
-                  <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M14 24 C35 15, 41 54, 59 47 S77 27, 88 72"></path>
-                  </svg>
-                </div>
-              </div>
-
-              <div class="cap-direction-overlay">
-                <div class="direction-frame frame-a"></div>
-                <div class="direction-frame frame-b"></div>
-                <div class="direction-label">RHYTHM / FOCUS / INTENT</div>
-              </div>
-
-              <div class="cap-ai-overlay">
-                <div class="ai-orbit orbit-a"></div>
-                <div class="ai-orbit orbit-b"></div>
-                <div class="ai-core"><span>AI</span><small>PRODUCTION LAYER</small></div>
-                <i class="ai-dot dot-1"></i>
-                <i class="ai-dot dot-2"></i>
-                <i class="ai-dot dot-3"></i>
-                <i class="ai-dot dot-4"></i>
-              </div>
-            </div>
+          <div class="cap-scene-crosshair">
+            <i></i><span></span>
           </div>
         </div>
 
-        <div class="cap-description" id="capDescription">
+        <div class="cap-description cap-microcard" id="capDescription">
           <small>01 / DISEÑO</small>
           <strong>Jerarquía, ritmo y marca.</strong>
-          <p>La primera capa define cómo se entiende y cómo se siente.</p>
+          <p>Ordena lo que importa.</p>
         </div>
 
         <div class="cap-progress" aria-hidden="true">
@@ -537,11 +518,11 @@
   </div>
 
   <script src="./script.js?v=8"></script>
-  <script src="./capabilities.js?v=2"></script>
+  <script src="./capabilities.js?v=3"></script>
   <script src="./plans.js?v=2"></script>
   <script src="./process.js?v=2"></script>
   <script src="./polish.js?v=1"></script>
   <script src="./film.js?v=2"></script>
-  <script src="./kinetic.js?v=1"></script>
+  <script src="./kinetic.js?v=2"></script>
 </body>
 </html>
