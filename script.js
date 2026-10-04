@@ -185,7 +185,7 @@
     });
 
     const lineProgress = easeOut(clamp((raw - .34) / .30));
-    const lengths = compact ? [118,118,112,112] : [170,170,162,162];
+    const lengths = compact ? [98,98,94,94] : [148,148,142,142];
     orderLines.forEach((line,index) => {
       line.style.width = (lengths[index] * lineProgress) + "px";
       line.style.opacity = String(lineProgress * .48);
