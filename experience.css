@@ -2511,3 +2511,68 @@ footer{
     opacity:.58;
   }
 }
+
+
+/* ==========================================================
+   CLOSE ZONE — one continuous translucent backdrop
+   ========================================================== */
+.close-zone{
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 50% 14%,rgba(159,207,120,.04),transparent 34%),
+    linear-gradient(180deg,rgba(9,13,14,.62),rgba(9,13,14,.54));
+  border-top:1px solid rgba(255,255,255,.045);
+}
+
+.close-zone::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.006)),
+    rgba(8,12,13,.14);
+  backdrop-filter:blur(12px) saturate(108%);
+  -webkit-backdrop-filter:blur(12px) saturate(108%);
+}
+
+.close-zone > .direct-x,
+.close-zone > .before-x,
+.close-zone > .final-x{
+  position:relative;
+  z-index:1;
+  background:transparent !important;
+  border-top:0 !important;
+}
+
+.close-zone > .direct-x::before,
+.close-zone > .before-x::before,
+.close-zone > .final-x::before{
+  display:none !important;
+}
+
+.close-zone > .direct-x::after,
+.close-zone > .before-x::after{
+  background:
+    linear-gradient(90deg,transparent,rgba(255,255,255,.045) 18%,rgba(159,207,120,.08) 50%,rgba(255,255,255,.045) 82%,transparent);
+  opacity:.46;
+}
+
+.close-zone > .final-x{
+  overflow:hidden;
+}
+
+@media(max-width:720px){
+  .close-zone{
+    background:
+      radial-gradient(circle at 50% 12%,rgba(159,207,120,.035),transparent 38%),
+      linear-gradient(180deg,rgba(9,13,14,.70),rgba(9,13,14,.64));
+  }
+
+  .close-zone::before{
+    backdrop-filter:blur(9px) saturate(104%);
+    -webkit-backdrop-filter:blur(9px) saturate(104%);
+  }
+}
