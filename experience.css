@@ -2576,3 +2576,227 @@ footer{
     -webkit-backdrop-filter:blur(9px) saturate(104%);
   }
 }
+
+
+/* ==========================================================
+   GLOBAL READABILITY — larger body copy, titles unchanged
+   ========================================================== */
+
+/* Eyebrows / section labels */
+.order-copy > p,
+.cap-heading > p,
+.plans-x-heading > p,
+.process-x-heading > p,
+.direct-x-inner > p:first-child,
+.before-x-heading > p,
+.final-x-inner > p{
+  font-size:10.5px;
+  color:#919c98;
+}
+
+/* Channel system */
+.order-core small{
+  font-size:9px;
+}
+.order-core em{
+  font-size:10.5px;
+  line-height:1.45;
+}
+.order-node{
+  min-width:154px;
+  padding:14px 16px;
+}
+.order-node small{
+  font-size:8.5px;
+}
+.order-node strong{
+  font-size:13px;
+}
+.order-result span{
+  font-size:13px;
+  line-height:1.55;
+}
+.order-progress,
+.cap-progress,
+.plans-x-counter,
+.process-x-counter{
+  font-size:9px;
+}
+.order-progress > span,
+.cap-progress > span,
+.plans-x-counter > span,
+.process-x-counter > span{
+  font-size:14px;
+}
+
+/* Capabilities */
+.cap-tab span{
+  font-size:8.5px;
+}
+.cap-tab strong{
+  font-size:10.5px;
+}
+.cap-description small,
+.cap-editorial .cap-description small{
+  font-size:9px;
+}
+.cap-description strong,
+.cap-editorial .cap-description strong{
+  font-size:20px;
+}
+.cap-description p,
+.cap-editorial .cap-description p{
+  font-size:12px;
+  line-height:1.6;
+}
+.cap-final span{
+  font-size:11px;
+}
+
+/* Plans */
+.plan-x-top{
+  font-size:9.5px;
+}
+.plan-x-price small{
+  font-size:10.5px;
+}
+.plan-x p{
+  font-size:12.5px;
+  line-height:1.62;
+}
+.plan-x ul{
+  gap:9px;
+}
+.plan-x li{
+  font-size:11.5px;
+  line-height:1.45;
+}
+.plans-x-detail{
+  width:360px;
+}
+.plans-x-detail > span{
+  font-size:9.5px;
+}
+.plans-x-detail > strong{
+  font-size:20px;
+}
+.plans-x-detail > p{
+  font-size:12.5px;
+  line-height:1.6;
+}
+.plans-x-cta{
+  padding:13px 18px;
+  font-size:11.5px;
+}
+
+/* Process */
+.process-step-x > span{
+  font-size:10px;
+}
+.process-step-x strong{
+  font-size:20px;
+}
+.process-step-x p{
+  margin-top:7px;
+  font-size:12.5px;
+  line-height:1.5;
+}
+.process-x-side small{
+  font-size:9px;
+}
+.process-x-side p{
+  font-size:13px;
+  line-height:1.65;
+}
+
+/* Direct / FAQ / close */
+.direct-x-meta span{
+  padding:10px 14px;
+  font-size:11px;
+}
+.direct-x-copy{
+  max-width:620px;
+  font-size:14px;
+  line-height:1.75;
+}
+.direct-x a{
+  font-size:12.5px;
+}
+.before-x-items summary{
+  font-size:16px;
+}
+.before-x-items summary span{
+  font-size:9px;
+}
+.before-x-items details p{
+  font-size:14px;
+  line-height:1.72;
+}
+.final-x-actions a{
+  font-size:13.5px;
+}
+.final-x-actions small{
+  font-size:12px;
+}
+.footer-grid{
+  font-size:13px;
+}
+
+/* Preserve comfortable sizing on tablets and phones */
+@media(max-width:980px){
+  .order-node strong{font-size:12.5px}
+  .plan-x p{font-size:12px}
+  .plan-x li{font-size:11px}
+  .process-step-x p{font-size:12px}
+}
+
+@media(max-width:720px){
+  .order-copy > p,
+  .cap-heading > p,
+  .plans-x-heading > p,
+  .process-x-heading > p,
+  .direct-x-inner > p:first-child,
+  .before-x-heading > p,
+  .final-x-inner > p{
+    font-size:9.5px;
+  }
+
+  .order-node{
+    min-width:118px;
+    padding:11px 12px;
+  }
+  .order-node small{font-size:7.5px}
+  .order-node strong{font-size:10.5px}
+  .order-core small{font-size:8px}
+  .order-core em{font-size:9px}
+  .order-result span{font-size:11.5px}
+
+  .cap-tab strong{font-size:9px}
+  .cap-description p,
+  .cap-editorial .cap-description p{
+    font-size:11px;
+  }
+
+  .plan-x-top{font-size:8.5px}
+  .plan-x-price small{font-size:9px}
+  .plan-x p{font-size:11.5px}
+  .plan-x li{font-size:10.5px}
+  .plans-x-detail > span{font-size:8.5px}
+  .plans-x-detail > p{font-size:11.5px}
+  .plans-x-cta{font-size:10.5px}
+
+  .process-step-x > span{font-size:9px}
+  .process-step-x strong{font-size:16px}
+  .process-step-x p{font-size:10.5px}
+  .process-x-side small{font-size:8px}
+  .process-x-side p{font-size:11px}
+
+  .direct-x-meta span{font-size:10px}
+  .direct-x-copy{font-size:13px}
+  .direct-x a{font-size:11.5px}
+  .before-x-items summary{font-size:15px}
+  .before-x-items details p{font-size:13px}
+  .final-x-actions a{font-size:12.5px}
+  .final-x-actions small{font-size:11px}
+  .footer-grid{font-size:12px}
+}
