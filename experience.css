@@ -4123,3 +4123,66 @@ footer{
     height:164px;
   }
 }
+
+
+/* ==========================================================
+   PLANS — cleaner labels / lateral numbering only
+   ========================================================== */
+.plans-x-heading{
+  top:10%;
+}
+
+.plans-x-heading > p{
+  display:none !important;
+}
+
+.plan-x-top{
+  justify-content:flex-end;
+}
+
+.plan-x-top > span{
+  display:none;
+}
+
+.plan-x-top em{
+  color:#8d9993;
+}
+
+.plan-x.active .plan-x-top em{
+  color:#9fcf78;
+}
+
+@media(max-width:720px){
+  .plans-x-heading{
+    top:10.5%;
+  }
+
+  .plan-x-top{
+    justify-content:flex-start;
+  }
+
+  .plan-x-top em{
+    display:none;
+  }
+
+  .plan-x.active .plan-x-top{
+    justify-content:flex-end;
+  }
+
+  .plan-x.active .plan-x-top em{
+    display:block;
+    font-size:7px;
+    letter-spacing:.13em;
+  }
+
+  .plan-x:not(.active) .plan-x-top{
+    justify-content:center;
+  }
+
+  .plan-x:not(.active) .plan-x-top > span{
+    display:block;
+    color:#9fcf78;
+    font-size:7px;
+    letter-spacing:.12em;
+  }
+}
