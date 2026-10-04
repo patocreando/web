@@ -4,6 +4,7 @@
 
   const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
   const cards=[...document.querySelectorAll(".plan-x")];
+  const stage=document.getElementById("plansStage");
   const counter=document.getElementById("plansCounter");
   const progress=document.querySelector(".plans-x-counter");
   const level=document.getElementById("plansLevel");
@@ -30,6 +31,16 @@
       card.style.setProperty("--focus",focus.toFixed(4));
       card.classList.toggle("active",i===active);
     });
+
+    if(stage){
+      if(innerWidth<=720){
+        const maxShift=Math.min(innerWidth*.15,58);
+        const shift=(1-position)*maxShift;
+        stage.style.setProperty("--plans-mobile-shift",shift.toFixed(2)+"px");
+      }else{
+        stage.style.removeProperty("--plans-mobile-shift");
+      }
+    }
 
     if(level)level.textContent=copy[active][0];
     if(line)line.textContent=copy[active][1];
