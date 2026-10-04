@@ -7,8 +7,6 @@
     {sel:".plans-x", copy:[".plans-x-heading > p",".plans-x-heading h2"], drift:[".plans-x-detail",".plans-x-cta"]},
     {sel:".process-x", copy:[".process-x-heading > p",".process-x-heading h2"], drift:[".process-x-side",".process-x-track"]},
     {sel:".direct-x", copy:[".direct-x-inner > p:first-child",".direct-x-inner h2"], drift:[".direct-x-meta",".direct-x-copy",".direct-x a"]},
-    {sel:".before-x", copy:[".before-x-heading > p",".before-x-heading h2"], drift:[".before-x-items"]},
-    {sel:".final-x", copy:[".final-x-inner > p",".final-x-inner h2"], drift:[".final-x-status",".final-x-actions"]}
   ].map(s=>{
     const section=document.querySelector(s.sel);
     if(!section)return null;
