@@ -5299,3 +5299,91 @@ footer{
     justify-content:center;
   }
 }
+
+
+/* ==========================================================
+   MOBILE PRECISION CENTERING — recording pass
+   ========================================================== */
+@media(max-width:720px){
+  /* Capabilities heading: JS animates Y only, so centering must not depend on translateX. */
+  .cap-editorial .cap-heading{
+    left:0;
+    right:0;
+    top:9.5vh;
+    width:100%;
+    padding:0 20px;
+    transform:none;
+    text-align:center;
+  }
+
+  .cap-editorial .cap-index{
+    bottom:82px;
+  }
+
+  .cap-editorial .cap-final{
+    bottom:116px;
+  }
+
+  .cap-progress{
+    bottom:82px;
+  }
+
+  /* Pull the channel icons inward so the whole network reads as one centered composition. */
+  .order-system .node-instagram{
+    left:calc(50% - 142px);
+    top:calc(50% - 104px);
+  }
+
+  .order-system .node-whatsapp{
+    left:calc(50% + 104px);
+    top:calc(50% - 104px);
+  }
+
+  .order-system .node-google{
+    left:calc(50% - 140px);
+    top:calc(50% + 62px);
+  }
+
+  .order-system .node-reservas{
+    left:calc(50% + 102px);
+    top:calc(50% + 62px);
+  }
+
+  /* The active plan is treated as the focal card; the persistent mobile CTA replaces the local CTA. */
+  .plans-x-stage{
+    --plans-mobile-shift:0px;
+    transform:translate(-50%,-50%) translateX(var(--plans-mobile-shift));
+    transition:transform .18s linear;
+  }
+
+  .plans-x-cta{
+    display:none !important;
+  }
+
+  /* Keep the process column visually centered while retaining its readable left-aligned step text. */
+  .process-x-track{
+    width:min(330px,84vw);
+  }
+
+  .process-x-side{
+    width:min(330px,86vw);
+  }
+}
+
+@media(max-width:430px){
+  .order-system .node-instagram{
+    left:calc(50% - 132px);
+  }
+
+  .order-system .node-whatsapp{
+    left:calc(50% + 94px);
+  }
+
+  .order-system .node-google{
+    left:calc(50% - 130px);
+  }
+
+  .order-system .node-reservas{
+    left:calc(50% + 92px);
+  }
+}
