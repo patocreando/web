@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
-  <link rel="stylesheet" href="./hero-v3.css?v=10" />
+  <link rel="stylesheet" href="./hero-v3.css?v=11" />
   <link rel="stylesheet" href="./experience.css?v=32" />
 </head>
 
@@ -61,12 +61,128 @@
         <div class="hero-v3-bg" aria-hidden="true"></div>
 
         <div class="hero-v3-stage" id="heroStage">
-          <div class="hero-v3-ui" id="heroUi" aria-label="Interfaz que se construye a medida que avanzás">
+          <div class="hero-v3-ui dashboard-mode" id="heroUi" aria-label="Interfaz que se construye a medida que avanzás">
             <div class="v3-grid" aria-hidden="true"></div>
             <div class="v3-ambient ambient-a" aria-hidden="true"></div>
             <div class="v3-ambient ambient-b" aria-hidden="true"></div>
             <div class="v3-glass-shard shard-a" aria-hidden="true"></div>
             <div class="v3-glass-shard shard-b" aria-hidden="true"></div>
+
+            <div class="hero-dashboard-shell v3-piece" data-x="0" data-y="125" data-r="1.2" aria-hidden="true">
+              <div class="dash-float">
+                <div class="dash-frame" id="heroDashboardFrame">
+                  <aside class="dash-sidebar dash-card">
+                    <div class="dash-studio">
+                      <span class="dash-brand-dot"></span>
+                      <div><strong>Pato Creando</strong><small>Studio</small></div>
+                    </div>
+                    <nav>
+                      <span class="active">Proyecto</span>
+                      <span>Diseño</span>
+                      <span>Desarrollo</span>
+                      <span>Contenido</span>
+                      <span>Publicación</span>
+                    </nav>
+                    <div class="dash-sidebar-foot">
+                      <span>Archivos</span>
+                      <span>Referencias</span>
+                      <span>Ajustes</span>
+                    </div>
+                  </aside>
+
+                  <div class="dash-workspace">
+                    <div class="dash-topbar dash-card">
+                      <span>Web / Proyecto</span>
+                      <div><b>Vista previa</b><strong>Publicar</strong></div>
+                    </div>
+
+                    <div class="dash-overview">
+                      <div class="dash-project dash-card">
+                        <small>PROYECTO</small>
+                        <strong>Proyecto web</strong>
+                        <p>Diseño, desarrollo y publicación.</p>
+                      </div>
+                      <div class="dash-stat dash-card">
+                        <small>En línea</small>
+                        <strong>Última actualización hoy</strong>
+                        <i class="dash-online-dot"></i>
+                      </div>
+                      <div class="dash-stat dash-card">
+                        <small>Colaboración</small>
+                        <strong>2 miembros</strong>
+                      </div>
+                      <div class="dash-stat dash-card">
+                        <small>Rendimiento</small>
+                        <strong>+124%</strong>
+                      </div>
+                    </div>
+
+                    <div class="dash-main">
+                      <section class="dash-structure dash-card">
+                        <header><strong>Estructura</strong><span>/ WEB</span></header>
+                        <div class="dash-structure-body">
+                          <div class="dash-steps">
+                            <span>Header</span>
+                            <span>Hero</span>
+                            <span>Secciones</span>
+                            <span>Packs</span>
+                            <span>Contacto</span>
+                          </div>
+                          <div class="dash-wire">
+                            <div class="dash-wire-nav"></div>
+                            <div class="dash-wire-title"></div>
+                            <div class="dash-wire-title short"></div>
+                            <div class="dash-wire-copy"></div>
+                            <div class="dash-wire-grid"><i></i><i></i><i></i></div>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section class="dash-preview dash-card">
+                        <header><strong>Vista del sitio</strong><span>/ LIVE</span></header>
+                        <div class="dash-site">
+                          <div class="dash-site-nav"><b>Pato Creando</b><span>Servicio&nbsp;&nbsp; Planes&nbsp;&nbsp; Contacto</span></div>
+                          <div class="dash-site-copy">
+                            <h3>Una web clara.<br><em>Una acción clara.</em></h3>
+                            <p>Diseño, desarrollo y publicación para negocios y marcas.</p>
+                            <button type="button">Ver planes <span>↗</span></button>
+                          </div>
+                          <div class="dash-site-art">
+                            <i class="art-ring ring-one"></i>
+                            <i class="art-ring ring-two"></i>
+                            <i class="art-core"></i>
+                          </div>
+                          <span class="dash-scan"></span>
+                        </div>
+                      </section>
+                    </div>
+
+                    <div class="dash-bottom">
+                      <section class="dash-style dash-card">
+                        <header><strong>Estilo visual</strong><span>/ UI</span></header>
+                        <div class="dash-style-row">
+                          <div class="dash-palette"><i></i><i></i><i></i></div>
+                          <p><b>Inter</b><span>Regular · Medium · Semibold</span></p>
+                        </div>
+                      </section>
+
+                      <section class="dash-publish dash-card">
+                        <header><strong>Publicación</strong><span>/ READY</span></header>
+                        <div class="dash-publish-line"><i></i></div>
+                        <div class="dash-publish-steps">
+                          <span>Diseño</span><span>Desarrollo</span><span>Revisión</span><strong>En línea</strong>
+                        </div>
+                      </section>
+
+                      <section class="dash-live dash-card">
+                        <div class="dash-live-thumb"></div>
+                        <p><strong>Sitio publicado</strong><span>Listo para compartir.</span></p>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div class="v3-piece v3-topbar" data-x="0" data-y="-120" data-r="-1.5">
               <div class="v3-brand">
@@ -591,7 +707,7 @@
     <a href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer">Comparar planes <span>↑</span></a>
   </div>
 
-  <script src="./script.js?v=15"></script>
+  <script src="./script.js?v=16"></script>
   <script src="./capabilities.js?v=8"></script>
   <script src="./plans.js?v=5"></script>
   <script src="./process.js?v=4"></script>
