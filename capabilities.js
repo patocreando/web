@@ -7,20 +7,46 @@
 
   const tabs=[...section.querySelectorAll(".cap-tab")];
   const layers=[...section.querySelectorAll(".cap-layer")];
-  const desc=document.getElementById("capDescription");
+  const focus=document.getElementById("capFocusCopy");
+  const focusTitle=document.getElementById("capFocusTitle");
+  const focusLine=document.getElementById("capFocusLine");
   const progress=document.querySelector(".cap-progress");
   const final=document.getElementById("capFinal");
   const heading=document.getElementById("capHeading");
   const stage=document.getElementById("capStage");
 
   const copy=[
-    ["DISEÑO","Jerarquía y marca.","Lo importante se entiende primero."],
-    ["DESARROLLO","La interfaz cobra vida.","Adaptación, interacción y código real."],
-    ["DIRECCIÓN","Cada decisión tiene intención.","Foco, encuadre y recorrido."],
-    ["IA","Más capacidad, mismo criterio.","Acelera producción sin perder dirección."]
+    ["DISEÑO","Jerarquía, ritmo y marca."],
+    ["DESARROLLO","Interacción, adaptación y código."],
+    ["DIRECCIÓN","Foco, encuadre y recorrido."],
+    ["IA","Más capacidad. Mismo criterio."]
   ];
 
+  const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
   let current=-1;
+  let swapToken=0;
+
+  const updateFocus=i=>{
+    if(!focus || !focusTitle || !focusLine)return;
+    const c=copy[i];
+    const token=++swapToken;
+
+    if(reduceMotion){
+      focusTitle.textContent=c[0];
+      focusLine.textContent=c[1];
+      focus.dataset.active=String(i);
+      return;
+    }
+
+    focus.classList.add("is-changing");
+    setTimeout(()=>{
+      if(token!==swapToken)return;
+      focusTitle.textContent=c[0];
+      focusLine.textContent=c[1];
+      focus.dataset.active=String(i);
+      requestAnimationFrame(()=>focus.classList.remove("is-changing"));
+    },110);
+  };
 
   const setActive=i=>{
     if(i===current)return;
@@ -28,14 +54,7 @@
 
     tabs.forEach((tab,n)=>tab.classList.toggle("active",n===i));
     layers.forEach((layer,n)=>layer.classList.toggle("active",n===i));
-
-    if(desc){
-      const c=copy[i];
-      desc.querySelector("small").textContent=c[0];
-      desc.querySelector("strong").textContent=c[1];
-      desc.querySelector("p").textContent=c[2];
-      desc.dataset.active=String(i);
-    }
+    updateFocus(i);
   };
 
   const update=()=>{
@@ -58,10 +77,6 @@
       stage.style.transform="translate(-50%,-50%) translate3d(0,"+drift.toFixed(2)+"px,0)";
     }
 
-    if(desc){
-      desc.style.opacity="1";
-      desc.style.transform="translate3d(0,0,0)";
-    }
 
     if(final){
       const f=smooth(clamp((p-.90)/.07));
