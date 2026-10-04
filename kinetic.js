@@ -18,45 +18,52 @@
 
   let raf=0;
 
-  const local=section=>{
+  const phase=section=>{
     const r=section.getBoundingClientRect();
-    const travel=Math.max(1,section.offsetHeight-innerHeight);
-    return clamp(-r.top/travel);
+    const vh=Math.max(1,innerHeight);
+
+    // Focus begins as the next section reaches the viewport and is complete
+    // before its heading is fully visible.
+    const enter=smooth(clamp((vh-r.top)/(vh*.12)));
+
+    // Keep everything sharp through the entire sticky section.
+    // Only soften/fade once the section itself is actually leaving.
+    const exit=smooth(clamp(((vh*.88)-r.bottom)/(vh*.18)));
+
+    return {enter,exit};
   };
 
   const paint=()=>{
     raf=0;
 
     scenes.forEach(scene=>{
-      const p=local(scene.section);
+      const {enter,exit}=phase(scene.section);
 
       scene.copy.forEach((el,i)=>{
-        const offset=i*.055;
-        const enter=smooth(clamp((p-offset)/.22));
-        const exit=smooth(clamp((p-.72-offset)/.22));
-        const y=(1-enter)*44-(exit*32);
-        const opacity=.22+(enter*.78)-(exit*.46);
-        const scale=.975+(enter*.025)-(exit*.012);
-        const blur=(1-enter)*3+(exit*1.2);
+        const stagger=i*.055;
+        const focused=smooth(clamp((enter-stagger)/(1-stagger)));
+        const y=(1-focused)*24-(exit*18);
+        const opacity=.58+(focused*.42)-(exit*.30);
+        const scale=.988+(focused*.012)-(exit*.006);
+        const blur=(1-focused)*2.2;
 
         el.style.setProperty("--kinetic-y",y.toFixed(2)+"px");
-        el.style.setProperty("--kinetic-opacity",clamp(opacity,.12,1).toFixed(3));
+        el.style.setProperty("--kinetic-opacity",clamp(opacity,.45,1).toFixed(3));
         el.style.setProperty("--kinetic-scale",scale.toFixed(4));
-        el.style.setProperty("--kinetic-blur",blur.toFixed(2)+"px");
+        el.style.setProperty("--kinetic-blur",Math.max(0,blur).toFixed(2)+"px");
       });
 
       scene.drift.forEach((el,i)=>{
-        const phase=.10+i*.045;
-        const enter=smooth(clamp((p-phase)/.28));
-        const exit=smooth(clamp((p-.80)/.18));
+        const stagger=.10+i*.05;
+        const focused=smooth(clamp((enter-stagger)/(1-stagger)));
         const direction=i%2===0?1:-1;
-        const x=(1-enter)*22*direction-(exit*10*direction);
-        const y=(1-enter)*18-(exit*16);
-        const opacity=.15+(enter*.85)-(exit*.42);
+        const x=(1-focused)*12*direction-(exit*6*direction);
+        const y=(1-focused)*12-(exit*10);
+        const opacity=.55+(focused*.45)-(exit*.26);
 
         el.style.setProperty("--kinetic-x",x.toFixed(2)+"px");
         el.style.setProperty("--kinetic-y",y.toFixed(2)+"px");
-        el.style.setProperty("--kinetic-opacity",clamp(opacity,.10,1).toFixed(3));
+        el.style.setProperty("--kinetic-opacity",clamp(opacity,.48,1).toFixed(3));
       });
     });
   };
