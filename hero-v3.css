@@ -1778,3 +1778,207 @@
     animation:none!important;
   }
 }
+
+
+/* ==========================================================
+   HERO V3 — composition correction / ordered visual life
+   ========================================================== */
+.v3-service-strip{
+  position:absolute;
+  z-index:8;
+  left:50%;
+  right:auto;
+  top:auto;
+  bottom:58px;
+  width:min(760px,72%);
+  transform:translateX(-50%);
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  align-items:center;
+  opacity:1;
+  filter:none;
+}
+
+.v3-service-strip span{
+  flex:1;
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:0 10px;
+  border:1px solid rgba(255,255,255,.065);
+  border-radius:12px;
+  background:rgba(8,13,12,.64);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  color:#7f8b85;
+  font-size:5px;
+  font-weight:700;
+  letter-spacing:.13em;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.018),
+    0 10px 28px rgba(0,0,0,.14);
+}
+
+.v3-service-strip b{
+  color:#9fcf78;
+  font-size:6px;
+  font-weight:700;
+}
+
+.v3-live-badge{
+  right:7%;
+  top:7%;
+  padding:8px 11px;
+  border-color:rgba(159,207,120,.24);
+  background:rgba(7,12,11,.94);
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.34),
+    0 0 28px rgba(159,207,120,.075);
+}
+
+.v3-live-badge span{
+  color:#e1e9e4;
+}
+
+.v3-micro-card{
+  min-width:112px;
+  padding:12px 13px;
+  border-color:rgba(159,207,120,.20);
+  background:
+    linear-gradient(145deg,rgba(159,207,120,.075),rgba(255,255,255,.015)),
+    rgba(7,12,11,.94);
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.34),
+    0 0 34px rgba(159,207,120,.05),
+    inset 0 1px 0 rgba(255,255,255,.035);
+  opacity:1;
+}
+
+.v3-micro-card small{
+  color:#92a098;
+}
+
+.v3-micro-card strong{
+  color:#f0f4f1;
+}
+
+.micro-speed{
+  left:-11%;
+  top:40%;
+  transform:rotate(-3deg);
+}
+
+.micro-mobile{
+  right:-12%;
+  top:24%;
+  transform:rotate(2deg);
+}
+
+.micro-action{
+  right:-5%;
+  bottom:18%;
+  transform:rotate(-2deg);
+}
+
+.v3-glass-shard{
+  opacity:.24;
+}
+
+.shard-a{
+  left:22%;
+  top:29%;
+}
+
+.shard-b{
+  right:5%;
+  bottom:18%;
+}
+
+.web-scene::before{
+  width:92%;
+  height:78%;
+  left:8%;
+  top:8%;
+  background:
+    radial-gradient(circle,rgba(176,255,101,.20),rgba(159,207,120,.055) 44%,transparent 72%);
+  filter:blur(36px);
+  opacity:.92;
+}
+
+.web-browser{
+  border:1px solid rgba(159,207,120,.18);
+  background:
+    radial-gradient(circle at 75% 34%,rgba(159,207,120,.09),transparent 30%),
+    linear-gradient(145deg,rgba(255,255,255,.038),rgba(255,255,255,.006)),
+    rgba(7,11,12,.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 38px 102px rgba(0,0,0,.42),
+    0 0 86px rgba(159,207,120,.055);
+}
+
+@media(max-width:980px){
+  .v3-service-strip{
+    width:min(700px,76%);
+    bottom:54px;
+  }
+
+  .micro-speed{left:-7%}
+  .micro-mobile{right:-8%}
+  .micro-action{right:-3%}
+}
+
+@media(max-width:720px){
+  .v3-live-badge{
+    right:5%;
+    top:7%;
+    padding:5px 7px;
+  }
+
+  .v3-micro-card{
+    min-width:76px;
+    padding:7px 8px;
+    border-radius:10px;
+  }
+
+  .v3-micro-card small{font-size:4px}
+  .v3-micro-card strong{font-size:7px}
+
+  .micro-speed{
+    left:-2%;
+    top:58%;
+  }
+
+  .micro-mobile{
+    right:-2%;
+    top:32%;
+  }
+
+  .micro-action{
+    right:3%;
+    bottom:12%;
+  }
+
+  .v3-service-strip{
+    width:90%;
+    bottom:46px;
+    gap:5px;
+  }
+
+  .v3-service-strip span{
+    min-height:30px;
+    padding:0 4px;
+    font-size:3.8px;
+  }
+
+  .v3-service-strip b{
+    font-size:4.5px;
+  }
+
+  .v3-glass-shard{
+    opacity:.18;
+  }
+}
