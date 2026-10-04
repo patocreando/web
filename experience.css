@@ -4186,3 +4186,252 @@ footer{
     letter-spacing:.12em;
   }
 }
+
+
+/* ==========================================================
+   ORDER — real portfolio screen + icons emerging from frame
+   ========================================================== */
+.order-core{
+  width:390px;
+  height:292px;
+}
+
+.order-core-browser-real{
+  inset:0 0 48px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:22px;
+  background:#080c0d;
+  box-shadow:
+    0 30px 78px rgba(0,0,0,.44),
+    0 0 44px rgba(159,207,120,.07),
+    inset 0 1px 0 rgba(255,255,255,.045);
+}
+
+.order-core-screen-real{
+  position:relative;
+  height:calc(100% - 34px);
+  overflow:hidden;
+  padding:0;
+  display:block;
+  background:#0a0e0f;
+}
+
+.order-core-shot{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center 42%;
+  transform:scale(1.015);
+  filter:saturate(.88) contrast(1.025) brightness(.90);
+}
+
+.order-core-screen-glow{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(159,207,120,.025),transparent 30%),
+    radial-gradient(circle at 50% 50%,transparent 52%,rgba(4,7,8,.18) 100%);
+  box-shadow:inset 0 0 35px rgba(0,0,0,.28);
+}
+
+.order-core-label{
+  bottom:2px;
+}
+
+.order-system .order-node{
+  z-index:12;
+  width:auto;
+  min-width:0;
+  padding:8px 10px 8px 8px;
+  gap:8px;
+  border-color:rgba(159,207,120,.14);
+  background:rgba(8,12,13,.84);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.32),
+    0 0 18px rgba(159,207,120,.045),
+    inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+.order-system .order-brand-icon{
+  width:32px;
+  height:32px;
+  flex:0 0 32px;
+  border-color:rgba(159,207,120,.15);
+  background:
+    radial-gradient(circle at 38% 30%,rgba(159,207,120,.13),transparent 58%),
+    rgba(255,255,255,.025);
+  box-shadow:
+    0 0 16px rgba(159,207,120,.06),
+    inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.order-system .node-instagram{
+  left:calc(50% - 265px);
+  top:calc(50% - 130px);
+}
+
+.order-system .node-whatsapp{
+  right:auto;
+  left:calc(50% + 165px);
+  top:calc(50% - 130px);
+}
+
+.order-system .node-google{
+  left:calc(50% - 250px);
+  bottom:auto;
+  top:calc(50% + 73px);
+}
+
+.order-system .node-reservas{
+  right:auto;
+  left:calc(50% + 154px);
+  bottom:auto;
+  top:calc(50% + 73px);
+}
+
+.order-system .order-line{
+  opacity:.30;
+}
+
+@media(max-width:980px){
+  .order-core{
+    width:350px;
+    height:265px;
+  }
+
+  .order-system .node-instagram{
+    left:calc(50% - 235px);
+    top:calc(50% - 118px);
+  }
+
+  .order-system .node-whatsapp{
+    left:calc(50% + 142px);
+    top:calc(50% - 118px);
+  }
+
+  .order-system .node-google{
+    left:calc(50% - 225px);
+    top:calc(50% + 62px);
+  }
+
+  .order-system .node-reservas{
+    left:calc(50% + 136px);
+    top:calc(50% + 62px);
+  }
+}
+
+@media(max-width:760px){
+  .order-core{
+    width:min(250px,62vw);
+    height:190px;
+  }
+
+  .order-core-browser-real{
+    inset:0 0 38px;
+    border-radius:17px;
+  }
+
+  .order-core-bar{
+    height:27px;
+    padding:0 8px;
+  }
+
+  .order-core-bar > span{
+    width:4px;
+    height:4px;
+  }
+
+  .order-core-bar em{
+    font-size:4.7px;
+  }
+
+  .order-core-screen-real{
+    height:calc(100% - 27px);
+  }
+
+  .order-core-shot{
+    object-position:center 40%;
+    transform:scale(1.02);
+  }
+
+  .order-system .order-node{
+    padding:6px;
+    border-radius:11px;
+  }
+
+  .order-system .order-node strong{
+    display:none;
+  }
+
+  .order-system .order-brand-icon{
+    width:29px;
+    height:29px;
+    flex:0 0 29px;
+    border-radius:9px;
+  }
+
+  .order-system .order-brand-icon img{
+    width:15px;
+    height:15px;
+  }
+
+  .order-system .node-instagram{
+    left:calc(50% - 166px);
+    top:calc(50% - 92px);
+  }
+
+  .order-system .node-whatsapp{
+    left:calc(50% + 123px);
+    top:calc(50% - 92px);
+  }
+
+  .order-system .node-google{
+    left:calc(50% - 164px);
+    top:calc(50% + 54px);
+  }
+
+  .order-system .node-reservas{
+    left:calc(50% + 121px);
+    top:calc(50% + 54px);
+  }
+
+  .order-core-label small{
+    font-size:6px;
+  }
+
+  .order-core-label strong{
+    font-size:15px;
+  }
+}
+
+@media(max-width:430px){
+  .order-core{
+    width:min(232px,60vw);
+    height:180px;
+  }
+
+  .order-system .node-instagram{
+    left:calc(50% - 151px);
+    top:calc(50% - 86px);
+  }
+
+  .order-system .node-whatsapp{
+    left:calc(50% + 109px);
+    top:calc(50% - 86px);
+  }
+
+  .order-system .node-google{
+    left:calc(50% - 149px);
+    top:calc(50% + 49px);
+  }
+
+  .order-system .node-reservas{
+    left:calc(50% + 107px);
+    top:calc(50% + 49px);
+  }
+}
