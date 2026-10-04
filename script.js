@@ -12,6 +12,8 @@
   const heroState = document.getElementById("heroState");
   const heroScroll = document.querySelector(".hero-v3-scroll");
   const heroPieces = heroUi ? [...heroUi.querySelectorAll(".v3-piece")] : [];
+  const dashboardCards = heroUi ? [...heroUi.querySelectorAll(".dash-card")] : [];
+  const dashboardFrame = document.getElementById("heroDashboardFrame");
 
   if (year) year.textContent = new Date().getFullYear();
 
@@ -82,6 +84,22 @@
     heroUi.style.setProperty("--web-mid-y", (-2 - (1 - webEase) * 6).toFixed(2) + "px");
     heroUi.style.setProperty("--web-tilt", (-5 + webEase * 3).toFixed(2) + "deg");
     heroUi.style.setProperty("--web-wire", (0.88 - webEase * 0.72).toFixed(3));
+    heroUi.style.setProperty("--dash-progress", webEase.toFixed(3));
+
+    dashboardCards.forEach((card,index) => {
+      const start = .27 + Math.min(index,7) * .026;
+      const cardIn = easeOut(clamp((raw - start) / .27));
+      card.style.opacity = String(.16 + cardIn * .84);
+      card.style.transform = "translate3d(0," + (15 * (1 - cardIn)).toFixed(2) + "px,0)";
+    });
+
+    if (dashboardFrame) {
+      const frameIn = easeOut(clamp((raw - .22) / .50));
+      dashboardFrame.style.transform =
+        "scale(" + (.965 + frameIn * .035).toFixed(4) + ") " +
+        "rotateX(" + ((1 - frameIn) * 1.4).toFixed(2) + "deg) " +
+        "rotateY(" + ((1 - frameIn) * -2.2).toFixed(2) + "deg)";
+    }
 
     const finalGlow = clamp((raw - .80) / .16);
     heroUi.classList.toggle("built", raw > .78);
