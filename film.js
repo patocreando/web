@@ -4,7 +4,7 @@
   if(!wrap||!video)return;
 
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const sections=[...document.querySelectorAll("main > section")];
+  const sections=[...document.querySelectorAll("main > section, main > .close-zone")];
   let ready=false;
   let duration=10;
   let raf=0;
@@ -33,16 +33,17 @@
   };
 
   const sectionOpacity=s=>{
-    if(!s)return .68;
-    if(s.classList.contains("hero-v3"))return .72;
-    if(s.classList.contains("order-section"))return .78;
-    if(s.classList.contains("cap-section"))return .76;
-    if(s.classList.contains("plans-x"))return .70;
-    if(s.classList.contains("process-x"))return .74;
-    if(s.classList.contains("direct-x"))return .80;
-    if(s.classList.contains("before-x"))return .66;
-    if(s.classList.contains("final-x"))return .82;
-    return .70;
+    if(!s)return .78;
+    if(s.classList.contains("hero-v3"))return .80;
+    if(s.classList.contains("order-section"))return .86;
+    if(s.classList.contains("cap-section"))return .84;
+    if(s.classList.contains("plans-x"))return .82;
+    if(s.classList.contains("process-x"))return .86;
+    if(s.classList.contains("close-zone"))return .80;
+    if(s.classList.contains("direct-x"))return .84;
+    if(s.classList.contains("before-x"))return .78;
+    if(s.classList.contains("final-x"))return .86;
+    return .80;
   };
 
   const paint=()=>{
@@ -70,7 +71,7 @@
     const base=sectionOpacity(current);
     const pulse=Math.sin(local*Math.PI)*.05;
     wrap.style.setProperty("--film-opacity",(base+pulse).toFixed(3));
-    wrap.style.setProperty("--film-brightness",(.80+Math.sin(p*Math.PI)*.08).toFixed(3));
+    wrap.style.setProperty("--film-brightness",(.84+Math.sin(p*Math.PI)*.08).toFixed(3));
     wrap.style.setProperty("--film-scale",(1.035+p*.035).toFixed(4));
     wrap.style.setProperty("--film-y",((p-.5)*-10).toFixed(2)+"px");
   };
