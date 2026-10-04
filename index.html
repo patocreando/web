@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
-  <link rel="stylesheet" href="./hero-v3.css?v=11" />
+  <link rel="stylesheet" href="./hero-v3.css?v=12" />
   <link rel="stylesheet" href="./experience.css?v=32" />
 </head>
 
@@ -121,19 +121,23 @@
                       <section class="dash-structure dash-card">
                         <header><strong>Estructura</strong><span>/ WEB</span></header>
                         <div class="dash-structure-body">
-                          <div class="dash-steps">
-                            <span>Header</span>
-                            <span>Hero</span>
-                            <span>Secciones</span>
-                            <span>Packs</span>
-                            <span>Contacto</span>
+                          <div class="dash-steps" id="dashBuildSteps">
+                            <i class="dash-route-fill" id="dashRouteFill" aria-hidden="true"></i>
+                            <span data-build-step="0"><b>01</b>Header</span>
+                            <span data-build-step="1"><b>02</b>Hero</span>
+                            <span data-build-step="2"><b>03</b>Secciones</span>
+                            <span data-build-step="3"><b>04</b>Packs</span>
+                            <span data-build-step="4"><b>05</b>Contacto</span>
                           </div>
-                          <div class="dash-wire">
-                            <div class="dash-wire-nav"></div>
-                            <div class="dash-wire-title"></div>
-                            <div class="dash-wire-title short"></div>
-                            <div class="dash-wire-copy"></div>
-                            <div class="dash-wire-grid"><i></i><i></i><i></i></div>
+                          <div class="dash-code" aria-label="Código que se escribe a medida que avanza la construcción">
+                            <div class="dash-code-head">
+                              <span id="dashCodeFile">header.html</span>
+                              <div><i></i><i></i><i></i></div>
+                            </div>
+                            <pre><code id="dashTypeCode"></code><span class="dash-code-caret" aria-hidden="true"></span></pre>
+                            <div class="dash-code-status">
+                              <i></i><span id="dashCodeStatus">HEADER / HTML</span>
+                            </div>
                           </div>
                         </div>
                       </section>
@@ -707,7 +711,7 @@
     <a href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer">Comparar planes <span>↑</span></a>
   </div>
 
-  <script src="./script.js?v=16"></script>
+  <script src="./script.js?v=17"></script>
   <script src="./capabilities.js?v=8"></script>
   <script src="./plans.js?v=5"></script>
   <script src="./process.js?v=4"></script>
