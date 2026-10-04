@@ -8,17 +8,16 @@
   const tabs=[...section.querySelectorAll(".cap-tab")];
   const layers=[...section.querySelectorAll(".cap-layer")];
   const desc=document.getElementById("capDescription");
-  const counter=document.getElementById("capCounter");
   const progress=document.querySelector(".cap-progress");
   const final=document.getElementById("capFinal");
   const heading=document.getElementById("capHeading");
   const stage=document.getElementById("capStage");
 
   const copy=[
-    ["01 / DISEÑO","Jerarquía y marca.","Lo importante se entiende primero."],
-    ["02 / DESARROLLO","La interfaz cobra vida.","Adaptación, interacción y código real."],
-    ["03 / DIRECCIÓN","Cada decisión tiene intención.","Foco, encuadre y recorrido."],
-    ["04 / IA","Más capacidad, mismo criterio.","Acelera producción sin perder dirección."]
+    ["DISEÑO","Jerarquía y marca.","Lo importante se entiende primero."],
+    ["DESARROLLO","La interfaz cobra vida.","Adaptación, interacción y código real."],
+    ["DIRECCIÓN","Cada decisión tiene intención.","Foco, encuadre y recorrido."],
+    ["IA","Más capacidad, mismo criterio.","Acelera producción sin perder dirección."]
   ];
 
   let current=-1;
@@ -47,7 +46,6 @@
 
     setActive(active);
 
-    if(counter)counter.textContent=String(Math.round(p*100)).padStart(3,"0");
     if(progress)progress.style.setProperty("--cap-p",(p*100).toFixed(1)+"%");
 
     if(heading){
