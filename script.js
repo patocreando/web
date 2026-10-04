@@ -15,6 +15,8 @@
   const dashboardCards = heroUi ? [...heroUi.querySelectorAll(".dash-card")] : [];
   const dashboardFrame = document.getElementById("heroDashboardFrame");
   const dashboardSiteArt = document.getElementById("dashSiteArt");
+  const dashboardSidebarNav = document.getElementById("dashSidebarNav");
+  const dashboardSidebarItems = dashboardSidebarNav ? [...dashboardSidebarNav.querySelectorAll("[data-sidebar-tab]")] : [];
   const dashboardSteps = heroUi ? [...heroUi.querySelectorAll(".dash-steps [data-build-step]")] : [];
   const dashboardRouteFill = document.getElementById("dashRouteFill");
   const dashboardTypeCode = document.getElementById("dashTypeCode");
@@ -119,6 +121,65 @@
 
   const htmlMarker = dashboardCodeSource.indexOf('/* ===== CSS ===== */');
   const jsMarker = dashboardCodeSource.indexOf('// ===== JAVASCRIPT =====');
+
+  let sidebarIdleTimer = 0;
+  let sidebarCycleTimer = 0;
+  let sidebarCycleIndex = 0;
+  let sidebarHovering = false;
+
+  const setSidebarActive = (index, fromIdle = false) => {
+    if (!dashboardSidebarItems.length) return;
+    sidebarCycleIndex = Math.max(0, Math.min(dashboardSidebarItems.length - 1, index));
+    dashboardSidebarItems.forEach((item,itemIndex) => {
+      const active = itemIndex === sidebarCycleIndex;
+      item.classList.toggle("active", active);
+      item.classList.toggle("is-idle-cycle", active && fromIdle && !reduceMotion);
+    });
+  };
+
+  const stopSidebarCycle = () => {
+    window.clearTimeout(sidebarIdleTimer);
+    window.clearInterval(sidebarCycleTimer);
+    sidebarIdleTimer = 0;
+    sidebarCycleTimer = 0;
+    dashboardSidebarItems.forEach(item => item.classList.remove("is-idle-cycle"));
+  };
+
+  const scheduleSidebarCycle = () => {
+    if (reduceMotion || !dashboardSidebarItems.length || sidebarHovering) return;
+    stopSidebarCycle();
+
+    sidebarIdleTimer = window.setTimeout(() => {
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+      const travel = Math.max(1, hero.offsetHeight - window.innerHeight);
+      const raw = clamp(-rect.top / travel);
+
+      // Only auto-play while the dashboard itself is clearly on screen.
+      if (raw < .20 || raw > .96) return;
+
+      setSidebarActive((sidebarCycleIndex + 1) % dashboardSidebarItems.length, true);
+
+      sidebarCycleTimer = window.setInterval(() => {
+        setSidebarActive((sidebarCycleIndex + 1) % dashboardSidebarItems.length, true);
+      }, 1550);
+    }, 1700);
+  };
+
+  dashboardSidebarItems.forEach((item,index) => {
+    item.addEventListener("pointerenter", () => {
+      sidebarHovering = true;
+      stopSidebarCycle();
+      setSidebarActive(index, false);
+    });
+  });
+
+  if (dashboardSidebarNav) {
+    dashboardSidebarNav.addEventListener("pointerleave", () => {
+      sidebarHovering = false;
+      scheduleSidebarCycle();
+    });
+  }
 
   if (year) year.textContent = new Date().getFullYear();
 
@@ -272,6 +333,11 @@
     if (header) header.classList.toggle("scrolled", y > 18);
     if (progressBar) progressBar.style.transform = "scaleX(" + progress + ")";
     if (mobileBar) mobileBar.classList.toggle("visible", y > window.innerHeight * 2.1);
+
+    if (!sidebarHovering) {
+      stopSidebarCycle();
+      scheduleSidebarCycle();
+    }
 
     updateHero();
     updateOrder();
