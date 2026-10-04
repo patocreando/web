@@ -1903,12 +1903,20 @@ main > section::after{
 }
 .design-tag{
   position:absolute;
-  right:12%;
-  top:18%;
-  color:#8ea196;
-  font-size:7px;
+  right:10%;
+  top:17%;
+  padding:10px 12px;
+  border:1px solid rgba(159,207,120,.14);
+  border-radius:10px;
+  background:rgba(8,12,13,.42);
+  color:#d7e8cc;
+  font-size:13px;
+  line-height:1;
   font-weight:700;
-  letter-spacing:.16em;
+  letter-spacing:.10em;
+  text-shadow:0 3px 16px rgba(0,0,0,.72);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
 }
 
 .dev-map{
@@ -1939,21 +1947,34 @@ main > section::after{
 .cap-layer-dev .dot-d{right:15%;bottom:26%}
 .dev-label{
   position:absolute;
-  left:14%;
-  bottom:14%;
+  left:13%;
+  bottom:12%;
   display:flex;
-  align-items:center;
-  gap:9px;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:5px;
+  max-width:320px;
+  padding:11px 13px 12px;
+  border:1px solid rgba(159,207,120,.14);
+  border-radius:11px;
+  background:rgba(8,12,13,.46);
+  text-shadow:0 3px 16px rgba(0,0,0,.72);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
 }
 .dev-label span{
-  color:#b7d99c;
-  font-size:7px;
-  letter-spacing:.16em;
+  color:#c9e5b6;
+  font-size:13px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:.10em;
 }
 .dev-label strong{
-  color:#aeb8b3;
-  font-size:8px;
+  color:#d4dcd7;
+  font-size:12px;
+  line-height:1.35;
   font-weight:500;
+  letter-spacing:.01em;
 }
 
 .direction-crop{
@@ -4727,5 +4748,33 @@ footer{
   .order-system .node-reservas{
     left:calc(50% + 130px);
     top:calc(50% + 67px);
+  }
+}
+
+/* Capability scene readability — design + development */
+@media(max-width:720px){
+  .design-tag{
+    right:7%;
+    top:17%;
+    padding:8px 10px;
+    font-size:10px;
+    letter-spacing:.08em;
+  }
+
+  .dev-label{
+    left:7%;
+    right:7%;
+    bottom:10%;
+    max-width:none;
+    padding:9px 10px 10px;
+  }
+
+  .dev-label span{
+    font-size:10px;
+  }
+
+  .dev-label strong{
+    font-size:10px;
+    line-height:1.35;
   }
 }
