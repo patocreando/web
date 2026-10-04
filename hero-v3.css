@@ -2279,6 +2279,10 @@
   min-width:13px;color:#4c5751;font-size:5px;font-weight:700;letter-spacing:.08em;
   transition:color .25s ease;
 }
+.dash-steps span em{
+  font-style:normal;
+  color:inherit;
+}
 .dash-steps span::before{
   content:"";position:absolute;left:-14px;top:50%;width:5px;height:5px;
   border:1px solid rgba(159,207,120,.20);
@@ -2534,4 +2538,34 @@
   .art-ring,.art-core{
     animation:none!important;
   }
+}
+
+
+/* Dashboard tab content transitions */
+.dash-workspace{
+  transition:filter .18s ease;
+}
+.dash-workspace.is-switching .dash-overview,
+.dash-workspace.is-switching .dash-main,
+.dash-workspace.is-switching .dash-bottom{
+  opacity:.58;
+  transform:translateY(4px);
+  filter:blur(1.5px);
+}
+.dash-overview,
+.dash-main,
+.dash-bottom{
+  transition:opacity .22s ease,transform .22s ease,filter .22s ease;
+}
+.dash-site-copy h3 span,
+.dash-site-copy h3 em,
+.dash-site-copy p,
+.dash-project strong,
+.dash-project p,
+.dash-stat small,
+.dash-stat strong{
+  transition:opacity .2s ease,transform .2s ease,color .2s ease;
+}
+.dash-sidebar nav span{
+  user-select:none;
 }
