@@ -1055,3 +1055,31 @@
   .chip-b{left:52%;bottom:8%}
   .chip-c{left:66%;bottom:8%}
 }
+
+
+/* ==========================================================
+   HEADER REMOVAL — reclaim top space
+   ========================================================== */
+.hero-v3-stage{
+  inset:18px 22px 22px;
+}
+
+.hero-v3-state{
+  top:28px;
+}
+
+@media(max-width:980px){
+  .hero-v3-stage{
+    inset:16px 12px 14px;
+  }
+}
+
+@media(max-width:720px){
+  .hero-v3-stage{
+    inset:10px 8px 12px;
+  }
+
+  .hero-v3-state{
+    top:20px;
+  }
+}
