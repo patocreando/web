@@ -44,9 +44,56 @@
   <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="stylesheet" href="./hero-v3.css?v=19" />
   <link rel="stylesheet" href="./experience.css?v=35" />
+
+<style id="home-return-style">
+  .home-return{
+    position:fixed;
+    top:max(14px,env(safe-area-inset-top));
+    left:max(14px,env(safe-area-inset-left));
+    z-index:9999;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    min-height:34px;
+    padding:0 12px;
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:999px;
+    background:rgba(8,10,9,.52);
+    color:rgba(245,248,245,.78);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+    font:600 10px/1 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    transition:color .22s ease,border-color .22s ease,background .22s ease,transform .22s ease;
+  }
+  .home-return:hover{
+    color:#CFE65A;
+    border-color:rgba(207,230,90,.28);
+    background:rgba(8,10,9,.72);
+    transform:translateY(-1px);
+  }
+  .home-return-arrow{
+    font-size:14px;
+    line-height:1;
+    transform:translateY(-.5px);
+  }
+  @media(max-width:720px){
+    .home-return{
+      top:max(10px,env(safe-area-inset-top));
+      left:max(10px,env(safe-area-inset-left));
+      min-height:31px;
+      padding:0 10px;
+      font-size:9px;
+    }
+  }
+</style>
 </head>
 
 <body>
+  <a class="home-return" href="https://patocreando.github.io/inicio/" aria-label="Volver al inicio"><span class="home-return-arrow" aria-hidden="true">←</span><span>Inicio</span></a>
   <div class="master-film" id="masterFilm" aria-hidden="true">
     <video id="masterFilmVideo" muted playsinline preload="auto">
       <source src="./assets/master-film.mp4" type="video/mp4" />
