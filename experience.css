@@ -5199,10 +5199,10 @@ footer{
     min-height:390svh;
   }
   .process-x-heading{
-    left:50%;
+    left:0;
     top:8.5%;
-    width:92vw;
-    transform:translate3d(-50%,0,0);
+    width:100%;
+    padding:0 20px;
     text-align:center;
   }
   .process-x-heading h2{
