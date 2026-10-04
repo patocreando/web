@@ -3081,3 +3081,70 @@ footer{
     will-change:transform,opacity,filter;
   }
 }
+
+
+/* ==========================================================
+   CLOSE ZONE — title + body scroll choreography
+   ========================================================== */
+.close-zone .direct-x-inner > p:first-child,
+.close-zone .direct-x-inner > h2,
+.close-zone .before-x-heading,
+.close-zone .final-x-inner > p,
+.close-zone .final-x-inner > h2{
+  opacity:var(--close-title-opacity,1);
+  transform:translate3d(0,var(--close-title-y,0px),0);
+  filter:blur(var(--close-title-blur,0px));
+  will-change:transform,opacity,filter;
+}
+
+.close-zone .direct-x-meta,
+.close-zone .direct-x-copy,
+.close-zone .direct-x-inner > a,
+.close-zone .before-x-items,
+.close-zone .final-x-status,
+.close-zone .final-x-actions{
+  opacity:var(--close-body-opacity,1);
+  transform:translate3d(0,var(--close-body-y,0px),0);
+  filter:blur(var(--close-body-blur,0px));
+  will-change:transform,opacity,filter;
+}
+
+.close-zone .direct-x-inner > p:first-child,
+.close-zone .direct-x-inner > h2,
+.close-zone .before-x-heading,
+.close-zone .final-x-inner > p,
+.close-zone .final-x-inner > h2,
+.close-zone .direct-x-meta,
+.close-zone .direct-x-copy,
+.close-zone .direct-x-inner > a,
+.close-zone .before-x-items,
+.close-zone .final-x-status,
+.close-zone .final-x-actions{
+  backface-visibility:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+@media(max-width:720px){
+  .close-zone .direct-x-inner > p:first-child,
+  .close-zone .direct-x-inner > h2,
+  .close-zone .before-x-heading,
+  .close-zone .final-x-inner > p,
+  .close-zone .final-x-inner > h2,
+  .close-zone .direct-x-meta,
+  .close-zone .direct-x-copy,
+  .close-zone .direct-x-inner > a,
+  .close-zone .before-x-items,
+  .close-zone .final-x-status,
+  .close-zone .final-x-actions{
+    transform:translate3d(0,var(--close-title-y,0px),0);
+  }
+
+  .close-zone .direct-x-meta,
+  .close-zone .direct-x-copy,
+  .close-zone .direct-x-inner > a,
+  .close-zone .before-x-items,
+  .close-zone .final-x-status,
+  .close-zone .final-x-actions{
+    transform:translate3d(0,var(--close-body-y,0px),0);
+  }
+}
