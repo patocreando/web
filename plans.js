@@ -12,8 +12,8 @@
 
   const copy=[
     ["01 / EXPRESS","Lo esencial, bien resuelto.","Para negocios que necesitan una presencia propia sin sumar complejidad."],
-    ["02 / PRO","Más identidad. Más recorrido.","Para negocios que necesitan mostrar mejor servicios, productos y diferenciales."],
-    ["03 / PREMIUM","La web como pieza central.","Para marcas que necesitan más páginas, interacción e integraciones."]
+    ["02 / PRO","Más identidad y recorrido.","Para negocios que necesitan mostrar mejor su oferta."],
+    ["03 / PREMIUM","La web como pieza central.","Para marcas que necesitan más páginas e integraciones."]
   ];
 
   const weight=(position,index)=>Math.max(0,1-Math.abs(position-index));
