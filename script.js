@@ -17,6 +17,8 @@
   const dashboardSiteArt = document.getElementById("dashSiteArt");
   const dashboardSidebarNav = document.getElementById("dashSidebarNav");
   const dashboardSidebarItems = dashboardSidebarNav ? [...dashboardSidebarNav.querySelectorAll("[data-sidebar-tab]")] : [];
+  const dashboardWorkspace = heroUi ? heroUi.querySelector(".dash-workspace") : null;
+  const dashboardBuildLabels = heroUi ? [...heroUi.querySelectorAll("[data-build-label]")] : [];
   const dashboardSteps = heroUi ? [...heroUi.querySelectorAll(".dash-steps [data-build-step]")] : [];
   const dashboardRouteFill = document.getElementById("dashRouteFill");
   const dashboardTypeCode = document.getElementById("dashTypeCode");
@@ -122,6 +124,133 @@
   const htmlMarker = dashboardCodeSource.indexOf('/* ===== CSS ===== */');
   const jsMarker = dashboardCodeSource.indexOf('// ===== JAVASCRIPT =====');
 
+  const dashboardViews = [
+    {
+      breadcrumb:"Web / Proyecto",topAction:"Vista previa",primaryAction:"Publicar",
+      eyebrow:"PROYECTO",title:"Proyecto web",desc:"Diseño, desarrollo y publicación.",
+      stats:[["En línea","Última actualización hoy"],["Colaboración","2 miembros"],["Rendimiento","+124%"]],
+      structure:["Estructura","/ WEB"],steps:["Header","Hero","Secciones","Packs","Contacto"],
+      preview:["Vista del sitio","/ LIVE"],siteNav:"Servicio   Planes   Contacto",
+      site:["Una web clara.","Una acción clara.","Diseño, desarrollo y publicación para negocios y marcas.","Ver planes"],
+      bottom:["Estilo visual","/ UI","Inter","Regular · Medium · Semibold","Publicación","/ READY","Sitio publicado","Listo para compartir."]
+    },
+    {
+      breadcrumb:"Web / Diseño",topAction:"Preview",primaryAction:"Aprobar",
+      eyebrow:"SISTEMA VISUAL",title:"Dirección visual",desc:"Jerarquía, tipografía y color.",
+      stats:[["Paleta","04 colores"],["Tipografía","Inter"],["Componentes","12 módulos"]],
+      structure:["Sistema visual","/ UI"],steps:["Tipografía","Paleta","Grid","Componentes","Estados"],
+      preview:["Vista de diseño","/ PREVIEW"],siteNav:"Sistema   Componentes   Tokens",
+      site:["Jerarquía clara.","Marca consistente.","Tipografía, color y componentes alineados.","Ver sistema"],
+      bottom:["Paleta y tipo","/ DESIGN","Inter","4 pesos · 4 colores","Componentes","/ 12","Diseño aprobado","Listo para desarrollar."]
+    },
+    {
+      breadcrumb:"Web / Desarrollo",topAction:"Build",primaryAction:"Deploy",
+      eyebrow:"DESARROLLO",title:"Código y rendimiento",desc:"Responsive, interacción y performance.",
+      stats:[["Build","Sin errores"],["Performance","98 / 100"],["Responsive","Mobile first"]],
+      structure:["Código","/ DEV"],steps:["HTML","CSS","JavaScript","Responsive","QA"],
+      preview:["Vista funcional","/ DEV"],siteNav:"Build   Responsive   Performance",
+      site:["Código limpio.","Carga rápida.","HTML, CSS y JavaScript listos para producción.","Ver build"],
+      bottom:["Stack","/ CODE","HTML · CSS","JavaScript · DOM","Build","/ PASS","Código listo","Sin errores críticos."]
+    },
+    {
+      breadcrumb:"Web / Contenido",topAction:"Vista",primaryAction:"Revisar",
+      eyebrow:"CONTENIDO",title:"Mensajes y piezas",desc:"Copy, jerarquía y llamadas a la acción.",
+      stats:[["Mensajes","08 bloques"],["CTA","03 acciones"],["Formatos","Web + redes"]],
+      structure:["Contenido","/ COPY"],steps:["Hook","Beneficio","Prueba","CTA","Cierre"],
+      preview:["Vista de contenido","/ COPY"],siteNav:"Mensaje   Beneficios   CTA",
+      site:["Un mensaje claro.","Una acción concreta.","Contenido pensado para guiar, explicar y convertir.","Ver contenido"],
+      bottom:["Voz visual","/ COPY","Directa","Clara · humana · breve","Mensajes","/ 08","Contenido listo","Revisión completada."]
+    },
+    {
+      breadcrumb:"Web / Publicación",topAction:"Online",primaryAction:"Compartir",
+      eyebrow:"PUBLICACIÓN",title:"Sitio publicado",desc:"Dominio, revisión y salida online.",
+      stats:[["Estado","En línea"],["Dominio","Conectado"],["Deploy","Producción"]],
+      structure:["Publicación","/ LIVE"],steps:["Revisión","Dominio","Deploy","SSL","Online"],
+      preview:["Sitio online","/ LIVE"],siteNav:"Online   SSL   Dominio",
+      site:["Todo listo.","Ya está online.","Revisado, publicado y listo para compartir.","Abrir sitio"],
+      bottom:["Entrega","/ FINAL","Producción","Dominio · SSL · SEO","Publicación","/ LIVE","Online ahora","Listo para compartir."]
+    }
+  ];
+
+  const dashEls = {
+    breadcrumb:document.getElementById("dashBreadcrumb"),
+    topAction:document.getElementById("dashTopAction"),
+    primaryAction:document.getElementById("dashPrimaryAction"),
+    eyebrow:document.getElementById("dashEyebrow"),
+    title:document.getElementById("dashProjectTitle"),
+    desc:document.getElementById("dashProjectDesc"),
+    stat1Label:document.getElementById("dashStat1Label"),
+    stat1Value:document.getElementById("dashStat1Value"),
+    stat2Label:document.getElementById("dashStat2Label"),
+    stat2Value:document.getElementById("dashStat2Value"),
+    stat3Label:document.getElementById("dashStat3Label"),
+    stat3Value:document.getElementById("dashStat3Value"),
+    structureTitle:document.getElementById("dashStructureTitle"),
+    structureMeta:document.getElementById("dashStructureMeta"),
+    previewTitle:document.getElementById("dashPreviewTitle"),
+    previewMeta:document.getElementById("dashPreviewMeta"),
+    siteNav:document.getElementById("dashSiteNavText"),
+    siteLine1:document.getElementById("dashSiteLine1"),
+    siteLine2:document.getElementById("dashSiteLine2"),
+    siteDesc:document.getElementById("dashSiteDesc"),
+    siteButton:document.getElementById("dashSiteButton"),
+    bottomLeftTitle:document.getElementById("dashBottomLeftTitle"),
+    bottomLeftMeta:document.getElementById("dashBottomLeftMeta"),
+    bottomLeftValue:document.getElementById("dashBottomLeftValue"),
+    bottomLeftDesc:document.getElementById("dashBottomLeftDesc"),
+    bottomMidTitle:document.getElementById("dashBottomMidTitle"),
+    bottomMidMeta:document.getElementById("dashBottomMidMeta"),
+    liveTitle:document.getElementById("dashLiveTitle"),
+    liveDesc:document.getElementById("dashLiveDesc")
+  };
+
+  const setText = (el,value) => { if (el) el.textContent = value; };
+
+  const renderDashboardView = index => {
+    const view = dashboardViews[index];
+    if (!view) return;
+
+    if (dashboardWorkspace && !reduceMotion) {
+      dashboardWorkspace.classList.add("is-switching");
+      window.setTimeout(() => dashboardWorkspace.classList.remove("is-switching"), 115);
+    }
+
+    setText(dashEls.breadcrumb,view.breadcrumb);
+    setText(dashEls.topAction,view.topAction);
+    setText(dashEls.primaryAction,view.primaryAction);
+    setText(dashEls.eyebrow,view.eyebrow);
+    setText(dashEls.title,view.title);
+    setText(dashEls.desc,view.desc);
+
+    setText(dashEls.stat1Label,view.stats[0][0]);
+    setText(dashEls.stat1Value,view.stats[0][1]);
+    setText(dashEls.stat2Label,view.stats[1][0]);
+    setText(dashEls.stat2Value,view.stats[1][1]);
+    setText(dashEls.stat3Label,view.stats[2][0]);
+    setText(dashEls.stat3Value,view.stats[2][1]);
+
+    setText(dashEls.structureTitle,view.structure[0]);
+    setText(dashEls.structureMeta,view.structure[1]);
+    dashboardBuildLabels.forEach((label,labelIndex) => setText(label,view.steps[labelIndex] || ""));
+
+    setText(dashEls.previewTitle,view.preview[0]);
+    setText(dashEls.previewMeta,view.preview[1]);
+    setText(dashEls.siteNav,view.siteNav);
+    setText(dashEls.siteLine1,view.site[0]);
+    setText(dashEls.siteLine2,view.site[1]);
+    setText(dashEls.siteDesc,view.site[2]);
+    setText(dashEls.siteButton,view.site[3]);
+
+    setText(dashEls.bottomLeftTitle,view.bottom[0]);
+    setText(dashEls.bottomLeftMeta,view.bottom[1]);
+    setText(dashEls.bottomLeftValue,view.bottom[2]);
+    setText(dashEls.bottomLeftDesc,view.bottom[3]);
+    setText(dashEls.bottomMidTitle,view.bottom[4]);
+    setText(dashEls.bottomMidMeta,view.bottom[5]);
+    setText(dashEls.liveTitle,view.bottom[6]);
+    setText(dashEls.liveDesc,view.bottom[7]);
+  };
+
   let sidebarIdleTimer = 0;
   let sidebarCycleTimer = 0;
   let sidebarCycleIndex = 0;
@@ -135,6 +264,7 @@
       item.classList.toggle("active", active);
       item.classList.toggle("is-idle-cycle", active && fromIdle && !reduceMotion);
     });
+    renderDashboardView(sidebarCycleIndex);
   };
 
   const stopSidebarCycle = () => {
@@ -167,7 +297,24 @@
   };
 
   dashboardSidebarItems.forEach((item,index) => {
+    item.setAttribute("role","button");
+    item.setAttribute("tabindex","0");
+
     item.addEventListener("pointerenter", () => {
+      sidebarHovering = true;
+      stopSidebarCycle();
+      setSidebarActive(index, false);
+    });
+
+    item.addEventListener("click", () => {
+      sidebarHovering = true;
+      stopSidebarCycle();
+      setSidebarActive(index, false);
+    });
+
+    item.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
       sidebarHovering = true;
       stopSidebarCycle();
       setSidebarActive(index, false);
@@ -180,6 +327,8 @@
       scheduleSidebarCycle();
     });
   }
+
+  renderDashboardView(0);
 
   if (year) year.textContent = new Date().getFullYear();
 
