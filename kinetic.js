@@ -4,7 +4,7 @@
 
   const scenes=[
     {sel:".order-section", copy:[".order-copy > p",".order-copy h2"], drift:[".order-result"]},
-    {sel:".plans-x", copy:[".plans-x-heading > p",".plans-x-heading h2"], drift:[".plans-x-detail",".plans-x-cta"]},
+    {sel:".plans-x", copy:[".plans-x-heading > p",".plans-x-heading h2"], drift:[".plans-x-detail"]},
   ].map(s=>{
     const section=document.querySelector(s.sel);
     if(!section)return null;
