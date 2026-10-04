@@ -72,6 +72,17 @@
     });
 
     // Phase 4: hold the completed interface before releasing into the page.
+    const webBuild = clamp((raw - .24) / .56);
+    const webEase = easeOut(webBuild);
+    heroUi.style.setProperty("--web-shift-x", ((1 - webEase) * 18).toFixed(2) + "px");
+    heroUi.style.setProperty("--web-shift-y", ((1 - webEase) * 7).toFixed(2) + "px");
+    heroUi.style.setProperty("--web-back-x", (8 + (1 - webEase) * 22).toFixed(2) + "px");
+    heroUi.style.setProperty("--web-back-y", (-4 - (1 - webEase) * 11).toFixed(2) + "px");
+    heroUi.style.setProperty("--web-mid-x", (4 + (1 - webEase) * 13).toFixed(2) + "px");
+    heroUi.style.setProperty("--web-mid-y", (-2 - (1 - webEase) * 6).toFixed(2) + "px");
+    heroUi.style.setProperty("--web-tilt", (-5 + webEase * 3).toFixed(2) + "deg");
+    heroUi.style.setProperty("--web-wire", (0.88 - webEase * 0.72).toFixed(3));
+
     const finalGlow = clamp((raw - .80) / .16);
     heroUi.classList.toggle("built", raw > .78);
     heroUi.style.opacity = String(.82 + finalGlow * .18);
