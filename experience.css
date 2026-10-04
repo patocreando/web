@@ -2868,3 +2868,195 @@ footer{
     font-size:22px;
   }
 }
+
+
+/* ==========================================================
+   CLOSE ZONE — one sticky scroll / three stages
+   ========================================================== */
+.close-zone{
+  position:relative;
+  min-height:300svh;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 52% 24%,rgba(159,207,120,.045),transparent 34%),
+    linear-gradient(180deg,rgba(9,13,14,.66),rgba(8,12,13,.58));
+  border-top:1px solid rgba(255,255,255,.045);
+}
+
+.close-zone::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,.005)),
+    rgba(7,11,12,.13);
+  backdrop-filter:blur(13px) saturate(108%);
+  -webkit-backdrop-filter:blur(13px) saturate(108%);
+}
+
+.close-zone-sticky{
+  position:sticky;
+  top:0;
+  height:100svh;
+  overflow:hidden;
+  z-index:1;
+}
+
+.close-zone-sticky::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.15;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(circle at 50% 48%,black 0%,transparent 76%);
+}
+
+.close-zone > .close-zone-sticky > .close-panel{
+  --close-opacity:0;
+  --close-y:26px;
+  position:absolute !important;
+  inset:0;
+  z-index:2;
+  width:100%;
+  height:100svh;
+  min-height:0 !important;
+  padding:0 !important;
+  display:grid;
+  place-items:center;
+  overflow:visible;
+  background:transparent !important;
+  border:0 !important;
+  opacity:var(--close-opacity);
+  transform:translate3d(0,var(--close-y),0);
+  pointer-events:none;
+  will-change:opacity,transform;
+}
+
+.close-zone > .close-zone-sticky > .close-panel.is-interactive{
+  pointer-events:auto;
+}
+
+.close-zone > .close-zone-sticky > .close-panel::before,
+.close-zone > .close-zone-sticky > .close-panel::after{
+  display:none !important;
+}
+
+.close-zone .direct-x-inner,
+.close-zone .before-x-inner,
+.close-zone .final-x-inner{
+  position:relative;
+  z-index:3;
+}
+
+.close-zone .before-x-inner{
+  width:min(1040px,86vw);
+  margin:0 auto;
+}
+
+.close-zone .final-x-grid{
+  opacity:.10;
+}
+
+.close-zone-progress{
+  position:absolute;
+  right:5vw;
+  bottom:4vh;
+  z-index:6;
+  display:grid;
+  grid-template-columns:auto 86px auto;
+  align-items:center;
+  gap:10px;
+  color:#738078;
+  font-size:8px;
+  letter-spacing:.13em;
+  pointer-events:none;
+}
+
+.close-zone-progress > span{
+  color:#dce9d1;
+  font-size:12px;
+  font-variant-numeric:tabular-nums;
+}
+
+.close-zone-progress > i{
+  position:relative;
+  display:block;
+  width:86px;
+  height:1px;
+  overflow:hidden;
+  background:rgba(255,255,255,.12);
+}
+
+.close-zone-progress > i > b{
+  position:absolute;
+  inset:0 auto 0 0;
+  width:var(--close-progress,0%);
+  background:#9fcf78;
+  box-shadow:0 0 14px rgba(159,207,120,.24);
+}
+
+.close-zone-progress > small{
+  font-size:7px;
+  color:#69736f;
+}
+
+@media(max-width:720px){
+  .close-zone{
+    min-height:300svh;
+    background:
+      radial-gradient(circle at 50% 20%,rgba(159,207,120,.04),transparent 40%),
+      linear-gradient(180deg,rgba(9,13,14,.74),rgba(8,12,13,.66));
+  }
+
+  .close-zone::before{
+    backdrop-filter:blur(10px) saturate(104%);
+    -webkit-backdrop-filter:blur(10px) saturate(104%);
+  }
+
+  .close-zone .direct-x-inner,
+  .close-zone .before-x-inner,
+  .close-zone .final-x-inner{
+    width:calc(100vw - 36px);
+  }
+
+  .close-zone .before-x-inner{
+    display:block;
+  }
+
+  .close-zone .before-x-heading{
+    margin-bottom:26px;
+  }
+
+  .close-zone .before-x-heading h2{
+    font-size:clamp(42px,12vw,58px);
+  }
+
+  .close-zone .before-x-items summary{
+    padding:18px 42px 18px 10px;
+  }
+
+  .close-zone .before-x-items details p{
+    padding:0 14px 18px 38px;
+  }
+
+  .close-zone-progress{
+    right:14px;
+    bottom:2.2vh;
+    grid-template-columns:auto 56px;
+  }
+
+  .close-zone-progress > i{
+    width:56px;
+  }
+
+  .close-zone-progress > small{
+    display:none;
+  }
+}
