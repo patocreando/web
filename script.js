@@ -206,9 +206,35 @@
 
   const setText = (el,value) => { if (el) el.textContent = value; };
 
+  const orbTabPositions = [
+    {x:-42,y:0,scale:1.00},
+    {x:34,y:-18,scale:1.04},
+    {x:-28,y:18,scale:.98},
+    {x:40,y:10,scale:1.03},
+    {x:-10,y:-8,scale:1.07}
+  ];
+
+  const moveDashboardOrb = index => {
+    if (!dashboardSiteArt) return;
+    const pos = orbTabPositions[index] || orbTabPositions[0];
+
+    dashboardSiteArt.style.setProperty("--orb-tab-x", pos.x + "px");
+    dashboardSiteArt.style.setProperty("--orb-tab-y", pos.y + "px");
+    dashboardSiteArt.style.setProperty("--orb-tab-scale", String(pos.scale));
+
+    if (!reduceMotion) {
+      dashboardSiteArt.classList.remove("is-tab-shift");
+      void dashboardSiteArt.offsetWidth;
+      dashboardSiteArt.classList.add("is-tab-shift");
+      window.setTimeout(() => dashboardSiteArt.classList.remove("is-tab-shift"), 860);
+    }
+  };
+
   const renderDashboardView = index => {
     const view = dashboardViews[index];
     if (!view) return;
+
+    moveDashboardOrb(index);
 
     if (dashboardWorkspace && !reduceMotion) {
       dashboardWorkspace.classList.add("is-switching");
