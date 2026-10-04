@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
-  <link rel="stylesheet" href="./hero-v3.css?v=15" />
+  <link rel="stylesheet" href="./hero-v3.css?v=16" />
   <link rel="stylesheet" href="./experience.css?v=32" />
 </head>
 
@@ -76,12 +76,12 @@
                       <span class="dash-brand-dot"></span>
                       <div><strong>Pato Creando</strong><small>Studio</small></div>
                     </div>
-                    <nav>
-                      <span class="active">Proyecto</span>
-                      <span>Diseño</span>
-                      <span>Desarrollo</span>
-                      <span>Contenido</span>
-                      <span>Publicación</span>
+                    <nav id="dashSidebarNav">
+                      <span class="active" data-sidebar-tab="0">Proyecto</span>
+                      <span data-sidebar-tab="1">Diseño</span>
+                      <span data-sidebar-tab="2">Desarrollo</span>
+                      <span data-sidebar-tab="3">Contenido</span>
+                      <span data-sidebar-tab="4">Publicación</span>
                     </nav>
                     <div class="dash-sidebar-foot">
                       <span>Archivos</span>
@@ -717,7 +717,7 @@
     <a href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer">Comparar planes <span>↑</span></a>
   </div>
 
-  <script src="./script.js?v=19"></script>
+  <script src="./script.js?v=20"></script>
   <script src="./capabilities.js?v=8"></script>
   <script src="./plans.js?v=5"></script>
   <script src="./process.js?v=4"></script>
