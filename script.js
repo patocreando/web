@@ -14,6 +14,51 @@
   const heroPieces = heroUi ? [...heroUi.querySelectorAll(".v3-piece")] : [];
   const dashboardCards = heroUi ? [...heroUi.querySelectorAll(".dash-card")] : [];
   const dashboardFrame = document.getElementById("heroDashboardFrame");
+  const dashboardSteps = heroUi ? [...heroUi.querySelectorAll(".dash-steps [data-build-step]")] : [];
+  const dashboardRouteFill = document.getElementById("dashRouteFill");
+  const dashboardTypeCode = document.getElementById("dashTypeCode");
+  const dashboardCodeStatus = document.getElementById("dashCodeStatus");
+  const dashboardCodeFile = document.getElementById("dashCodeFile");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const dashboardCodeSnippets = [
+    { file:"header.html", status:"HEADER / HTML", code:'<header class="site-nav">\n  <a href="#inicio">Pato</a>\n</header>' },
+    { file:"hero.html", status:"HERO / HTML", code:'<section class="hero">\n  <h1>Una web clara.</h1>\n</section>' },
+    { file:"layout.css", status:"SECCIONES / CSS", code:'.sections {\n  display: grid;\n  gap: 24px;\n}' },
+    { file:"packs.css", status:"PACKS / CSS", code:'.plans {\n  grid-template-columns:\n  repeat(3, 1fr);\n}' },
+    { file:"contacto.html", status:"CONTACTO / READY", code:'<a class="cta" href="#contacto">\n  Hablemos ↗\n</a>' }
+  ];
+
+  let dashboardCodeStage = -1;
+  let dashboardTypeTimer = 0;
+
+  const typeDashboardCode = index => {
+    if (!dashboardTypeCode || index < 0 || index >= dashboardCodeSnippets.length) return;
+    const snippet = dashboardCodeSnippets[index];
+    dashboardCodeStage = index;
+    clearTimeout(dashboardTypeTimer);
+    if (dashboardCodeFile) dashboardCodeFile.textContent = snippet.file;
+    if (dashboardCodeStatus) dashboardCodeStatus.textContent = snippet.status;
+
+    if (reduceMotion) {
+      dashboardTypeCode.textContent = snippet.code;
+      return;
+    }
+
+    dashboardTypeCode.textContent = "";
+    let cursor = 0;
+    const typeNext = () => {
+      if (dashboardCodeStage !== index) return;
+      dashboardTypeCode.textContent = snippet.code.slice(0, cursor + 1);
+      cursor += 1;
+      if (cursor < snippet.code.length) {
+        const char = snippet.code[cursor - 1];
+        const delay = char === "\n" ? 38 : (char === " " ? 12 : 18);
+        dashboardTypeTimer = window.setTimeout(typeNext, delay);
+      }
+    };
+    typeNext();
+  };
 
   if (year) year.textContent = new Date().getFullYear();
 
@@ -92,6 +137,25 @@
       card.style.opacity = String(.16 + cardIn * .84);
       card.style.transform = "translate3d(0," + (15 * (1 - cardIn)).toFixed(2) + "px,0)";
     });
+
+    const routeRaw = clamp((raw - .33) / .43);
+    const routeProgress = easeOut(routeRaw);
+    const routeStage = raw < .33 ? -1 : Math.min(4, Math.floor(routeRaw * 5));
+
+    if (dashboardRouteFill) {
+      const routeTrack = dashboardRouteFill.parentElement;
+      if (routeTrack) routeTrack.style.setProperty("--route-p", (routeProgress * 100).toFixed(1) + "%");
+    }
+
+    dashboardSteps.forEach((step,index) => {
+      step.classList.toggle("is-done", routeStage > index || routeProgress >= 1);
+      step.classList.toggle("is-active", routeStage === index && routeProgress < 1);
+      if (routeProgress >= 1 && index === 4) step.classList.add("is-active");
+    });
+
+    if (routeStage >= 0 && routeStage !== dashboardCodeStage) {
+      typeDashboardCode(routeStage);
+    }
 
     if (dashboardFrame) {
       const frameIn = easeOut(clamp((raw - .22) / .50));
