@@ -15,10 +15,10 @@
   const textEl=document.getElementById("processStageText");
 
   const copy=[
-    ["01 / DISCOVERY","Primero, entender.","No hace falta un briefing enorme. Partimos de lo que ya existe y definimos qué tiene que resolver la web."],
-    ["02 / DESIGN","Después, ordenar.","Contenido, jerarquía y dirección visual se convierten en un sistema claro."],
-    ["03 / BUILD","Luego, construir.","La experiencia se vuelve responsive, interactiva y lista para uso real."],
-    ["04 / LIVE","Por último, publicar.","La web queda online y lista para recibir tráfico desde redes, Google, anuncios o QR."]
+    ["01 / DEFINICIÓN","Primero, entender.","Definimos objetivo, contenido y acción principal."],
+    ["02 / DISEÑO","Después, ordenar.","Contenido, jerarquía y dirección visual se convierten en un sistema claro."],
+    ["03 / DESARROLLO","Luego, construir.","La web queda adaptable, interactiva y lista para usar."],
+    ["04 / PUBLICACIÓN","Por último, publicar.","La web queda publicada y lista para recibir tráfico."]
   ];
 
   const weight=(position,index)=>Math.max(0,1-Math.abs(position-index));
