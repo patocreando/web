@@ -3390,3 +3390,363 @@ footer{
     transform:translateX(-50%) !important;
   }
 }
+
+
+/* ==========================================================
+   ORDER — channel hub glow-up
+   ========================================================== */
+.order-system{
+  top:59%;
+  width:min(980px,86vw);
+  height:min(570px,58vh);
+}
+
+.order-node{
+  min-width:162px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-color:rgba(255,255,255,.085);
+  background:rgba(10,15,16,.72);
+  backdrop-filter:blur(16px) saturate(112%);
+  -webkit-backdrop-filter:blur(16px) saturate(112%);
+  box-shadow:
+    0 18px 46px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.order-node strong{
+  margin:0;
+  color:#d6ddd9;
+  font-size:12px;
+  font-weight:600;
+}
+
+.order-brand-icon{
+  width:32px;
+  height:32px;
+  flex:0 0 32px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  background:
+    radial-gradient(circle at 35% 30%,rgba(159,207,120,.08),transparent 60%),
+    rgba(255,255,255,.025);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+}
+
+.order-brand-icon img{
+  width:16px;
+  height:16px;
+  display:block;
+  opacity:.92;
+}
+
+.order-calendar-icon{
+  position:relative;
+}
+
+.order-calendar-icon::before{
+  content:"";
+  width:15px;
+  height:14px;
+  border:1px solid #dce4df;
+  border-radius:3px;
+  opacity:.88;
+}
+
+.order-calendar-icon::after{
+  content:"";
+  position:absolute;
+  left:8px;
+  right:8px;
+  top:11px;
+  height:1px;
+  background:#dce4df;
+  opacity:.78;
+}
+
+.order-calendar-icon i{
+  position:absolute;
+  top:7px;
+  width:1px;
+  height:4px;
+  background:#9fcf78;
+}
+
+.order-calendar-icon i:first-child{left:11px}
+.order-calendar-icon i:nth-child(2){right:11px}
+
+.order-calendar-icon b{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#9fcf78;
+  bottom:9px;
+  right:10px;
+}
+
+.node-instagram{left:0;top:15%}
+.node-whatsapp{right:0;top:18%}
+.node-google{left:4%;bottom:10%}
+.node-reservas{right:1%;bottom:8%}
+
+.order-core{
+  width:330px;
+  height:245px;
+  aspect-ratio:auto;
+  padding:0;
+  border:0;
+  border-radius:24px;
+  overflow:visible;
+  background:transparent;
+  box-shadow:none;
+}
+
+.order-core-browser{
+  position:absolute;
+  inset:0 0 54px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 70% 35%,rgba(159,207,120,.08),transparent 32%),
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.009)),
+    rgba(8,12,13,.90);
+  box-shadow:
+    0 28px 75px rgba(0,0,0,.40),
+    0 0 42px rgba(159,207,120,.055),
+    inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.order-core-bar{
+  height:34px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:0 11px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.order-core-bar > span{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#3f4946;
+}
+
+.order-core-bar > span:first-child{
+  background:#8ebd70;
+  box-shadow:0 0 10px rgba(159,207,120,.25);
+}
+
+.order-core-bar em{
+  margin-left:auto;
+  color:#6f7b75;
+  font-size:5.5px;
+  font-style:normal;
+  letter-spacing:.10em;
+}
+
+.order-core-screen{
+  position:relative;
+  height:calc(100% - 34px);
+  padding:22px;
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:14px;
+  background:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+
+.order-core-copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.order-core-copy i{
+  width:28%;
+  height:4px;
+  border-radius:999px;
+  background:#9fcf78;
+  opacity:.76;
+  margin-bottom:11px;
+}
+
+.order-core-copy b{
+  display:block;
+  width:86%;
+  height:12px;
+  margin-bottom:7px;
+  border-radius:999px;
+  background:#e8eeea;
+}
+
+.order-core-copy b:nth-of-type(2){
+  width:61%;
+}
+
+.order-core-copy span{
+  width:42%;
+  height:22px;
+  margin-top:12px;
+  border:1px solid rgba(159,207,120,.22);
+  border-radius:999px;
+  background:rgba(159,207,120,.055);
+}
+
+.order-core-card{
+  position:relative;
+  align-self:center;
+  height:82%;
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:16px;
+  background:
+    linear-gradient(150deg,rgba(159,207,120,.07),rgba(255,255,255,.01)),
+    rgba(14,20,20,.66);
+}
+
+.order-core-card span{
+  position:absolute;
+  left:14px;
+  height:4px;
+  border-radius:999px;
+  background:#79847f;
+}
+
+.order-core-card span:first-child{
+  bottom:29%;
+  width:42%;
+  background:#9fcf78;
+}
+
+.order-core-card span:nth-child(2){
+  bottom:20%;
+  width:59%;
+}
+
+.order-core-card i{
+  position:absolute;
+  width:52%;
+  aspect-ratio:1;
+  right:10%;
+  top:12%;
+  border:1px solid rgba(159,207,120,.16);
+  border-radius:43% 57% 54% 46%;
+  transform:rotate(13deg);
+  background:linear-gradient(145deg,rgba(159,207,120,.09),transparent 68%);
+}
+
+.order-core-label{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  text-align:center;
+}
+
+.order-core-label small{
+  color:#9fcf78;
+  font-size:8px;
+  letter-spacing:.15em;
+}
+
+.order-core-label strong{
+  display:inline-block;
+  margin:0 0 0 7px;
+  color:#eef2ef;
+  font-size:22px;
+  letter-spacing:-.04em;
+}
+
+.core-pulse{
+  inset:-18px -24px 34px;
+  border-radius:30px;
+  border-color:rgba(159,207,120,.11);
+}
+
+.order-orbit{
+  border-color:rgba(159,207,120,.10);
+}
+
+.orbit-one{
+  width:66%;
+  aspect-ratio:1.7/1;
+}
+
+.orbit-two{
+  width:88%;
+  aspect-ratio:2/1;
+  opacity:.48;
+}
+
+@media(max-width:760px){
+  .order-system{
+    top:60%;
+    width:96vw;
+    height:48vh;
+  }
+
+  .order-node{
+    min-width:0;
+    padding:9px 10px;
+    gap:8px;
+  }
+
+  .order-node strong{
+    font-size:9.5px;
+  }
+
+  .order-brand-icon{
+    width:27px;
+    height:27px;
+    flex-basis:27px;
+    border-radius:8px;
+  }
+
+  .order-brand-icon img{
+    width:14px;
+    height:14px;
+  }
+
+  .node-instagram{left:1%;top:12%}
+  .node-whatsapp{right:1%;top:17%}
+  .node-google{left:2%;bottom:10%}
+  .node-reservas{right:1%;bottom:8%}
+
+  .order-core{
+    width:min(245px,62vw);
+    height:195px;
+  }
+
+  .order-core-browser{
+    inset:0 0 45px;
+    border-radius:18px;
+  }
+
+  .order-core-screen{
+    padding:15px;
+    gap:10px;
+  }
+
+  .order-core-bar{
+    height:29px;
+  }
+
+  .order-core-label small{
+    font-size:7px;
+  }
+
+  .order-core-label strong{
+    font-size:18px;
+  }
+
+  .orbit-one{width:72%}
+  .orbit-two{width:94%}
+}
