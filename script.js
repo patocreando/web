@@ -147,30 +147,41 @@
     if (orderCounter) orderCounter.textContent = String(Math.round(raw * 100)).padStart(2, "0");
     if (orderProgress) orderProgress.style.setProperty("--order-p", (raw * 100).toFixed(1) + "%");
 
-    const copyFade = clamp((raw - .18) / .20);
+    const compactOrder = window.innerWidth <= 760;
+    const copyFade = clamp((raw - (compactOrder ? .25 : .18)) / (compactOrder ? .26 : .20));
     if (orderCopy) {
-      orderCopy.style.opacity = String(1 - copyFade * .68);
-      orderCopy.style.transform = "translateX(-50%) translateY(" + (-24 * copyFade) + "px) scale(" + (1 - .03 * copyFade) + ")";
+      orderCopy.style.opacity = String(1 - copyFade * (compactOrder ? .48 : .68));
+      orderCopy.style.transform =
+        "translateX(-50%) translateY(" + ((compactOrder ? -8 : -24) * copyFade) + "px) " +
+        "scale(" + (1 - (compactOrder ? .012 : .03) * copyFade) + ")";
     }
 
     const systemIn = easeOut(clamp(raw / .26));
     orderSystem.style.opacity = String(.42 + systemIn * .58);
     orderSystem.style.transform = "translate(-50%,-50%) scale(" + (.92 + .08 * systemIn) + ")";
 
-    const positions = [
-      {x: 235, y: 128, r: -4},
-      {x:-235, y: 105, r: 3},
-      {x: 210, y:-122, r: 3},
-      {x:-225, y:-118, r:-3}
-    ];
+    const compact = window.innerWidth <= 760;
+    const positions = compact
+      ? [
+          {x: 10, y: 8, r: -1},
+          {x:-10, y: 8, r: 1},
+          {x: 10, y:-8, r: 1},
+          {x:-10, y:-8, r:-1}
+        ]
+      : [
+          {x: 72, y: 42, r: -2.5},
+          {x:-72, y: 42, r: 2.5},
+          {x: 68, y:-42, r: 2.5},
+          {x:-68, y:-42, r:-2.5}
+        ];
 
     orderNodes.forEach((node, index) => {
       const converge = ease(clamp((raw - .20 - index * .025) / .46));
       const pos = positions[index] || {x:0,y:0,r:0};
-      node.style.opacity = String(.38 + converge * .62);
+      node.style.opacity = String(.42 + converge * .58);
       node.style.transform =
-        "translate(" + (-pos.x * converge * .52) + "px," + (-pos.y * converge * .52) + "px) " +
-        "rotate(" + (pos.r * (1 - converge)) + "deg) scale(" + (1 - converge * .06) + ")";
+        "translate(" + (-pos.x * converge) + "px," + (-pos.y * converge) + "px) " +
+        "rotate(" + (pos.r * (1 - converge)) + "deg) scale(" + (1 - converge * .02) + ")";
     });
 
     const lineProgress = easeOut(clamp((raw - .34) / .30));
