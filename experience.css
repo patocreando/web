@@ -2423,3 +2423,91 @@ footer{
     font-size:11px;
   }
 }
+
+
+/* ==========================================================
+   CLOSE ZONE — unified translucent surface
+   ========================================================== */
+.direct-x,
+.before-x,
+.final-x{
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 52% 18%,rgba(159,207,120,.045),transparent 34%),
+    linear-gradient(180deg,rgba(11,16,16,.72),rgba(9,13,14,.62));
+}
+
+.direct-x::before,
+.before-x::before,
+.final-x::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,.008)),
+    rgba(8,12,13,.18);
+  backdrop-filter:blur(12px) saturate(108%);
+  -webkit-backdrop-filter:blur(12px) saturate(108%);
+}
+
+.direct-x{
+  border-top:1px solid rgba(255,255,255,.05);
+  border-bottom:0;
+}
+
+.before-x{
+  border-top:0;
+  border-bottom:0;
+}
+
+.final-x{
+  border-top:0;
+}
+
+.direct-x::after,
+.before-x::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:min(980px,82vw);
+  height:1px;
+  transform:translateX(-50%);
+  background:
+    linear-gradient(90deg,transparent,rgba(255,255,255,.055) 18%,rgba(159,207,120,.10) 50%,rgba(255,255,255,.055) 82%,transparent);
+  opacity:.72;
+  pointer-events:none;
+}
+
+.before-x-inner,
+.direct-x-inner,
+.final-x-inner{
+  position:relative;
+  z-index:2;
+}
+
+@media(max-width:720px){
+  .direct-x,
+  .before-x,
+  .final-x{
+    background:
+      radial-gradient(circle at 50% 16%,rgba(159,207,120,.04),transparent 38%),
+      linear-gradient(180deg,rgba(11,16,16,.80),rgba(9,13,14,.72));
+  }
+
+  .direct-x::before,
+  .before-x::before,
+  .final-x::before{
+    backdrop-filter:blur(9px) saturate(104%);
+    -webkit-backdrop-filter:blur(9px) saturate(104%);
+  }
+
+  .direct-x::after,
+  .before-x::after{
+    width:88vw;
+    opacity:.58;
+  }
+}
