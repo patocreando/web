@@ -2613,3 +2613,77 @@
 .dash-sidebar nav span{
   user-select:none;
 }
+
+
+/* ==========================================================
+   FINAL MOBILE CENTERING PASS
+   ========================================================== */
+@media(max-width:720px){
+  .hero-v3-copy{
+    left:0;
+    top:39%;
+    width:100%;
+    padding:0 22px;
+    text-align:center;
+    transform-origin:center center;
+  }
+
+  .hero-v3-signature{
+    max-width:300px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+
+  .hero-v3-copy h1{
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+
+  .hero-v3-copy > p:last-child{
+    max-width:330px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+
+  .hero-v3-scroll{
+    left:50%;
+    transform:translateX(-50%);
+  }
+
+  .hero-v3-state{
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+  }
+
+  .hero-dashboard-shell{
+    left:2%;
+    right:2%;
+  }
+
+  .dash-topbar{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .dash-project,
+  .dash-stat{
+    text-align:center;
+  }
+
+  .dash-site-copy{
+    left:50%;
+    width:76%;
+    transform:translateX(-50%);
+    text-align:center;
+  }
+
+  .dash-site-copy p{
+    margin-left:auto;
+    margin-right:auto;
+  }
+}
