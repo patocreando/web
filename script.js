@@ -18,47 +18,106 @@
   const dashboardRouteFill = document.getElementById("dashRouteFill");
   const dashboardTypeCode = document.getElementById("dashTypeCode");
   const dashboardCodeStatus = document.getElementById("dashCodeStatus");
-  const dashboardCodeFile = document.getElementById("dashCodeFile");
+  const dashboardCodeTabs = heroUi ? [...heroUi.querySelectorAll("[data-code-tab]")] : [];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const dashboardCodeSnippets = [
-    { file:"header.html", status:"HEADER / HTML", code:'<header class="site-nav">\n  <a href="#inicio">Pato</a>\n</header>' },
-    { file:"hero.html", status:"HERO / HTML", code:'<section class="hero">\n  <h1>Una web clara.</h1>\n</section>' },
-    { file:"layout.css", status:"SECCIONES / CSS", code:'.sections {\n  display: grid;\n  gap: 24px;\n}' },
-    { file:"packs.css", status:"PACKS / CSS", code:'.plans {\n  grid-template-columns:\n  repeat(3, 1fr);\n}' },
-    { file:"contacto.html", status:"CONTACTO / READY", code:'<a class="cta" href="#contacto">\n  Hablemos ↗\n</a>' }
-  ];
+  const dashboardCodeSource = [
+    '<!doctype html>',
+    '<html lang="es">',
+    '<head>',
+    '  <meta charset="utf-8">',
+    '  <meta name="viewport" content="width=device-width,initial-scale=1">',
+    '  <title>Pato Creando — Web</title>',
+    '</head>',
+    '<body>',
+    '  <header class="site-nav">',
+    '    <a class="brand" href="#inicio">Pato Creando</a>',
+    '    <nav>',
+    '      <a href="#servicio">Servicio</a>',
+    '      <a href="#planes">Planes</a>',
+    '      <a href="#contacto">Contacto</a>',
+    '    </nav>',
+    '  </header>',
+    '',
+    '  <main>',
+    '    <section class="hero" id="inicio">',
+    '      <p class="eyebrow">WEB PARA NEGOCIOS</p>',
+    '      <h1>Una web clara.</h1>',
+    '      <h2>Una acción clara.</h2>',
+    '      <a class="cta" href="#planes">Ver planes ↗</a>',
+    '    </section>',
+    '  </main>',
+    '</body>',
+    '</html>',
+    '',
+    '/* ===== CSS ===== */',
+    ':root {',
+    '  --bg: #08100e;',
+    '  --surface: #0e1714;',
+    '  --text: #edf2ee;',
+    '  --muted: #7f8a84;',
+    '  --accent: #9fcf78;',
+    '}',
+    '',
+    '* { box-sizing: border-box; }',
+    'body {',
+    '  margin: 0;',
+    '  background: var(--bg);',
+    '  color: var(--text);',
+    '  font-family: Inter, sans-serif;',
+    '}',
+    '.site-nav {',
+    '  display: flex;',
+    '  align-items: center;',
+    '  justify-content: space-between;',
+    '  padding: 24px 6vw;',
+    '}',
+    '.site-nav nav { display: flex; gap: 24px; }',
+    '.hero {',
+    '  min-height: 100vh;',
+    '  display: grid;',
+    '  align-content: center;',
+    '  padding: 8vw;',
+    '}',
+    '.hero h1, .hero h2 {',
+    '  margin: 0;',
+    '  font-size: clamp(54px, 8vw, 118px);',
+    '  line-height: .92;',
+    '}',
+    '.hero h2 { color: #b8cca9; }',
+    '.cta {',
+    '  width: max-content;',
+    '  margin-top: 28px;',
+    '  padding: 14px 18px;',
+    '  border: 1px solid rgba(159,207,120,.25);',
+    '  border-radius: 999px;',
+    '  color: var(--text);',
+    '}',
+    '',
+    '// ===== JAVASCRIPT =====',
+    'const sections = document.querySelectorAll("section");',
+    'const navLinks = document.querySelectorAll(".site-nav a");',
+    '',
+    'const observer = new IntersectionObserver(entries => {',
+    '  entries.forEach(entry => {',
+    '    if (!entry.isIntersecting) return;',
+    '    document.body.dataset.section = entry.target.id;',
+    '  });',
+    '}, { threshold: .45 });',
+    '',
+    'sections.forEach(section => observer.observe(section));',
+    '',
+    'window.addEventListener("scroll", () => {',
+    '  const max = document.documentElement.scrollHeight - innerHeight;',
+    '  const p = max > 0 ? scrollY / max : 0;',
+    '  document.documentElement.style.setProperty("--scroll", p.toFixed(3));',
+    '}, { passive: true });',
+    '',
+    'console.log("Sitio listo para publicar");'
+  ].join("\n");
 
-  let dashboardCodeStage = -1;
-  let dashboardTypeTimer = 0;
-
-  const typeDashboardCode = index => {
-    if (!dashboardTypeCode || index < 0 || index >= dashboardCodeSnippets.length) return;
-    const snippet = dashboardCodeSnippets[index];
-    dashboardCodeStage = index;
-    clearTimeout(dashboardTypeTimer);
-    if (dashboardCodeFile) dashboardCodeFile.textContent = snippet.file;
-    if (dashboardCodeStatus) dashboardCodeStatus.textContent = snippet.status;
-
-    if (reduceMotion) {
-      dashboardTypeCode.textContent = snippet.code;
-      return;
-    }
-
-    dashboardTypeCode.textContent = "";
-    let cursor = 0;
-    const typeNext = () => {
-      if (dashboardCodeStage !== index) return;
-      dashboardTypeCode.textContent = snippet.code.slice(0, cursor + 1);
-      cursor += 1;
-      if (cursor < snippet.code.length) {
-        const char = snippet.code[cursor - 1];
-        const delay = char === "\n" ? 38 : (char === " " ? 12 : 18);
-        dashboardTypeTimer = window.setTimeout(typeNext, delay);
-      }
-    };
-    typeNext();
-  };
+  const htmlMarker = dashboardCodeSource.indexOf('/* ===== CSS ===== */');
+  const jsMarker = dashboardCodeSource.indexOf('// ===== JAVASCRIPT =====');
 
   if (year) year.textContent = new Date().getFullYear();
 
@@ -153,8 +212,26 @@
       if (routeProgress >= 1 && index === 4) step.classList.add("is-active");
     });
 
-    if (routeStage >= 0 && routeStage !== dashboardCodeStage) {
-      typeDashboardCode(routeStage);
+    // Code is not timer-driven: the amount typed is mapped 1:1 to hero scroll progress.
+    // It starts as soon as the dashboard appears and continues only while the user scrolls.
+    const codeProgress = reduceMotion ? 1 : clamp((raw - .20) / .60);
+    if (dashboardTypeCode) {
+      const typedLength = Math.floor(dashboardCodeSource.length * codeProgress);
+      dashboardTypeCode.textContent = dashboardCodeSource.slice(0, typedLength);
+
+      const currentLanguage =
+        typedLength < htmlMarker ? "html" :
+        typedLength < jsMarker ? "css" : "js";
+
+      dashboardCodeTabs.forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.codeTab === currentLanguage);
+      });
+
+      if (dashboardCodeStatus) {
+        dashboardCodeStatus.textContent =
+          currentLanguage.toUpperCase() + " / " +
+          String(Math.round(codeProgress * 100)).padStart(3, "0") + "%";
+      }
     }
 
     if (dashboardFrame) {
