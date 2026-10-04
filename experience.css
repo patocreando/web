@@ -3060,3 +3060,24 @@ footer{
     display:none;
   }
 }
+
+
+/* ==========================================================
+   TYPOGRAPHY FOCUS — enter once, stay sharp
+   ========================================================== */
+.kinetic-copy{
+  transform-origin:left center;
+}
+
+.plans-x-heading .kinetic-copy,
+.process-x-heading .kinetic-copy,
+.order-copy .kinetic-copy{
+  backface-visibility:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+@media(max-width:720px){
+  .kinetic-copy{
+    will-change:transform,opacity,filter;
+  }
+}
