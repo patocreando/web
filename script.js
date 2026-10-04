@@ -14,6 +14,7 @@
   const heroPieces = heroUi ? [...heroUi.querySelectorAll(".v3-piece")] : [];
   const dashboardCards = heroUi ? [...heroUi.querySelectorAll(".dash-card")] : [];
   const dashboardFrame = document.getElementById("heroDashboardFrame");
+  const dashboardSiteArt = document.getElementById("dashSiteArt");
   const dashboardSteps = heroUi ? [...heroUi.querySelectorAll(".dash-steps [data-build-step]")] : [];
   const dashboardRouteFill = document.getElementById("dashRouteFill");
   const dashboardTypeCode = document.getElementById("dashTypeCode");
@@ -240,6 +241,14 @@
         "scale(" + (.965 + frameIn * .035).toFixed(4) + ") " +
         "rotateX(" + ((1 - frameIn) * 1.4).toFixed(2) + "deg) " +
         "rotateY(" + ((1 - frameIn) * -2.2).toFixed(2) + "deg)";
+    }
+
+    if (dashboardSiteArt) {
+      const artP = easeOut(clamp((raw - .18) / .66));
+      dashboardSiteArt.style.setProperty("--orb-x", ((artP - .5) * 18).toFixed(1) + "px");
+      dashboardSiteArt.style.setProperty("--orb-y", ((.5 - artP) * 12).toFixed(1) + "px");
+      dashboardSiteArt.style.setProperty("--orb-scale", (.96 + artP * .08).toFixed(3));
+      dashboardSiteArt.style.setProperty("--orb-tilt", ((artP - .5) * 2.2).toFixed(2) + "deg");
     }
 
     const finalGlow = clamp((raw - .80) / .16);
