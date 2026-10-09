@@ -97,6 +97,42 @@ const specs=[
       assert.ok(state.home.right+3<state.brand.left,"Home link does not overlap brand");
       assert.ok(state.brand.right+3<state.consult.left,"Brand does not overlap CTA");
     }
+    // Development tab can be reached and read without fabricated benchmark claims.
+    if(spec.width>720) {
+      await page.locator('#dashSidebarNav [data-sidebar-tab="2"]').click({force:true});
+    } else {
+      await page.locator("#dashStageSelect").selectOption("2");
+    }
+    await page.waitForTimeout(430);
+    const dev=await page.locator("#dashDevScene").evaluate(el=>{
+      const pane=el.getBoundingClientRect();
+      const headline=el.querySelector("h3").getBoundingClientRect();
+      const items=[...el.querySelectorAll(".dash-dev-benefit")].map(x=>x.getBoundingClientRect());
+      const mobile=el.querySelector(".dash-dev-device").getBoundingClientRect();
+      const rect=r=>({left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height});
+      return {
+        aria:el.getAttribute("aria-hidden"),visible:getComputedStyle(el).visibility,
+        panel:rect(pane),headline:rect(headline),benefits:items.map(rect),device:rect(mobile),
+        devMode:el.closest(".dash-workspace").classList.contains("is-development"),
+        noSyntheticNumbers:!el.textContent.includes("98 / 100")
+      };
+    });
+    assert.equal(dev.aria,"false","Development illustration accessible in selected view");
+    assert.equal(dev.visible,"visible","Development illustration is visible");
+    assert.ok(dev.devMode,"Development mode is selected");
+    assert.ok(dev.noSyntheticNumbers,"No fabricated performance metric in Development");
+    assert.equal(dev.benefits.length,3,"Three distinct delivery benefits");
+    assert.ok(dev.panel.height>180&&dev.panel.width>220,"Development panel has adequate dimensions");
+    assert.ok(dev.headline.left>=dev.panel.left-3&&dev.headline.right<=dev.panel.right+3,"Development headline fits panel");
+    for(const rect of dev.benefits)assert.ok(rect.left>=dev.panel.left-3&&rect.right<=dev.panel.right+3,"Benefit cards stay within panel");
+    assert.ok(dev.device.width>60,"The UI sample is visible in the development story");
+    await page.locator("#dashDevScene").screenshot({path:"artifacts/web-dev-"+spec.name+".png",animations:"disabled"});
+    if(spec.width>720){
+      await page.locator('#dashSidebarNav [data-sidebar-tab="1"]').click({force:true});
+    }else{
+      await page.locator("#dashStageSelect").selectOption("1");
+    }
+    assert.equal(await page.locator("#dashDevScene").getAttribute("aria-hidden"),"true","Switching tabs hides the Development story");
     const cta=page.locator(".hero-conversion-primary");
     assert.equal(await cta.getAttribute("target"),"_blank","Contact opens separate tab");
     assert.equal(await page.locator(".hero-conversion-secondary").getAttribute("href"),"#planes","Plan CTA is direct anchor");
