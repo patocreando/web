@@ -68,6 +68,12 @@ const specs=[
     assert.ok(state.nav.height>=55&&state.nav.height<=80,"Compact navbar height");
     assert.ok(state.scrollWidth<=spec.width+2,"No global horizontal overflow");
     assert.deepEqual(state.localLinks,["#solucion","#planes","#faq"],"Three section links preserved");
+    const ctas=await page.locator('a[data-web-cta="manychat"]').evaluateAll(nodes=>nodes.map(n=>({href:n.href,label:n.textContent.replace(/\s+/g," ").trim(),target:n.target})));
+    assert.equal(ctas.length,5,"All five commercial CTAs are registered");
+    assert.ok(ctas.every(c=>c.href==="https://ig.me/m/patocreando?ref=w61000387" && c.target==="_blank"),"Every web consultation uses identical Manychat link");
+    for(const selector of [".web-conversion-contact",".hero-conversion-primary","#plansBannerCta",".final-x-actions a","#mobileBar a"]){
+      assert.equal(await page.locator(selector).getAttribute("data-web-cta"),"manychat","Commercial button is protected: "+selector);
+    }
     assert.ok(state.links.length>=5,"Existing and new Manychat links preserved");
     assert.ok(state.links.every(href=>href==="https://ig.me/m/patocreando?ref=w61000387"),"All web inquiries use original Manychat ref");
     assert.equal(state.plans,3,"Three web packs preserved");
