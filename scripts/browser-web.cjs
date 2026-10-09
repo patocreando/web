@@ -1,0 +1,114 @@
+const { chromium }=require("playwright");
+const assert=require("node:assert/strict");
+const http=require("node:http");
+const fs=require("node:fs/promises");
+const path=require("node:path");
+
+const root=process.cwd();
+const types={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".css":"text/css; charset=utf-8",".svg":"image/svg+xml",".png":"image/png",".woff2":"font/woff2"};
+const server=http.createServer(async(req,res)=>{
+  try {
+    const raw=new URL(req.url,"http://localhost");
+    const pathname=raw.pathname==="/" ? "/index.html" : decodeURIComponent(raw.pathname);
+    const target=path.resolve(root,"."+pathname);
+    if(!target.startsWith(root+path.sep)){res.writeHead(403).end();return;}
+    const buf=await fs.readFile(target);
+    res.writeHead(200,{"content-type":types[path.extname(target)]||"application/octet-stream","cache-control":"no-store"}).end(buf);
+  } catch(e){res.writeHead(404).end();}
+});
+const specs=[
+{name:"mobile-375",width:375,height:812},
+{name:"mobile-390",width:390,height:844},
+{name:"tablet-768",width:768,height:1024},
+{name:"desktop-1366",width:1366,height:900},
+{name:"desktop-1920",width:1920,height:1080}
+];
+(async()=>{
+ await new Promise(resolve=>server.listen(0,"127.0.0.1",resolve));
+ const base="http://127.0.0.1:"+server.address().port+"/";
+ const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
+ await fs.mkdir("artifacts",{recursive:true});
+ try {
+  for(const spec of specs){
+   const mobile=spec.width<=768;
+   const context=await browser.newContext({viewport:{width:spec.width,height:spec.height},deviceScaleFactor:1,isMobile:mobile,hasTouch:mobile,reducedMotion:"reduce"});
+   await context.route("**/*.mp4",route=>route.abort());
+   await context.route(/^https?:\/\/(?!127\.0\.0\.1)/,route=>route.abort());
+   const page=await context.newPage();
+   try{
+    await page.goto(base,{waitUntil:"domcontentloaded",timeout:75000});
+    await page.waitForTimeout(450);
+    const state=await page.evaluate(()=>{
+      const el=selector=>document.querySelector(selector);
+      const R=(selector)=>{const x=el(selector);const r=x.getBoundingClientRect();return {x:r.x,y:r.y,left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,center:r.left+r.width/2};};
+      return {
+        innerWidth,scrollWidth:document.documentElement.scrollWidth,
+        nav:R("#webConversionHeader"),
+        brand:R(".web-conversion-brand"),home:R(".web-conversion-home"),
+        sections:R(".web-conversion-sections"),consult:R(".web-conversion-contact"),
+        sectionsDisplay:getComputedStyle(el(".web-conversion-sections")).display,
+        heroHeadline:R("#heroCopy h1"),
+        heroPrimary:R(".hero-conversion-primary"),
+        heroSecondary:R(".hero-conversion-secondary"),
+        heroNote:R(".hero-conversion-note"),
+        primaryText:el(".hero-conversion-primary").textContent.replace(/\s+/g," ").trim(),
+        primaryPointer:getComputedStyle(el(".hero-conversion-primary")).pointerEvents,
+        links:[...document.querySelectorAll("a[href*='w61000387']")].map(n=>n.getAttribute("href")),
+        localLinks:[...document.querySelectorAll(".web-conversion-sections a")].map(n=>n.getAttribute("href")),
+        visibleHeadline:getComputedStyle(el("#heroCopy")).opacity,
+        plans:document.querySelectorAll(".plan-x").length,
+        cssInHead:!!el("#web-conversion-critical")&&document.head.contains(el("#web-conversion-critical")),
+        legacyPill:document.querySelectorAll(".home-return").length
+      };
+    });
+    assert.ok(state.cssInHead,"Critical navigation CSS embedded in head");
+    assert.equal(state.legacyPill,0,"Legacy floating Inicio removed");
+    assert.ok(state.nav.top>=-1&&state.nav.top<=1,"Navbar fixed to top");
+    assert.ok(state.nav.width>=spec.width-2,"Navbar full viewport width");
+    assert.ok(state.nav.height>=55&&state.nav.height<=80,"Compact navbar height");
+    assert.ok(state.scrollWidth<=spec.width+2,"No global horizontal overflow");
+    assert.deepEqual(state.localLinks,["#solucion","#planes","#faq"],"Three section links preserved");
+    assert.ok(state.links.length>=5,"Existing and new Manychat links preserved");
+    assert.ok(state.links.every(href=>href==="https://ig.me/m/patocreando?ref=w61000387"),"All web inquiries use original Manychat ref");
+    assert.equal(state.plans,3,"Three web packs preserved");
+    assert.ok(parseFloat(state.visibleHeadline)>.8,"Hero copy visible at initial load");
+    assert.ok(state.heroHeadline.top>=state.nav.bottom-5,"Hero headline starts below header");
+    assert.ok(state.heroPrimary.top>=state.nav.bottom-5,"Hero inquiry CTA not hidden under header");
+    assert.ok(state.heroPrimary.bottom<=spec.height+2,"Hero inquiry CTA visible without scrolling");
+    assert.ok(state.heroSecondary.bottom<=spec.height+2,"Plan-price CTA visible without scrolling");
+    assert.ok(state.heroPrimary.left>=0&&state.heroPrimary.right<=spec.width+2,"Inquiry CTA fits viewport");
+    assert.ok(state.heroSecondary.left>=0&&state.heroSecondary.right<=spec.width+2,"Plan CTA fits viewport");
+    assert.equal(state.primaryPointer,"auto","Hero primary CTA is interactive");
+    assert.ok(state.heroNote.bottom<=spec.height+2,"Starting price visible above fold");
+    if(spec.width>1110){
+      assert.notEqual(state.sectionsDisplay,"none","Desktop has visible centered navigation");
+      assert.ok(Math.abs(state.sections.center-spec.width/2)<5,"Desktop section navigation centered");
+      assert.ok(state.brand.right+8<state.sections.left,"Desktop brand does not overlap nav links");
+      assert.ok(state.sections.right+8<state.consult.left,"Desktop links do not overlap CTA");
+    }else{
+      assert.equal(state.sectionsDisplay,"none","Narrow screen simplifies navigation");
+      assert.ok(Math.abs(state.brand.center-spec.width/2)<5,"Brand centered on mobile and tablet");
+      assert.ok(state.home.right+3<state.brand.left,"Home link does not overlap brand");
+      assert.ok(state.brand.right+3<state.consult.left,"Brand does not overlap CTA");
+    }
+    const cta=page.locator(".hero-conversion-primary");
+    assert.equal(await cta.getAttribute("target"),"_blank","Contact opens separate tab");
+    assert.equal(await page.locator(".hero-conversion-secondary").getAttribute("href"),"#planes","Plan CTA is direct anchor");
+    await page.locator("#webConversionHeader").screenshot({path:"artifacts/web-nav-"+spec.name+".png",animations:"disabled"});
+    await page.screenshot({path:"artifacts/web-hero-"+spec.name+".png",animations:"disabled"});
+    console.log(JSON.stringify({viewport:spec.name,navHeight:state.nav.height,heroTop:state.heroHeadline.top,ctaBottom:state.heroPrimary.bottom,fold:spec.height}));
+   }finally{await context.close();}
+  }
+  // Verify anchor navigation independently of long cinematic scrollytelling.
+  const ctx=await browser.newContext({viewport:{width:390,height:844},reducedMotion:"reduce"});
+  const page=await ctx.newPage();
+  await page.goto(base,{waitUntil:"domcontentloaded",timeout:75000});
+  assert.equal(await page.locator("#planes").count(),1);
+  assert.equal(await page.locator("#faq").count(),1);
+  assert.equal(await page.locator('.hero-conversion-secondary').getAttribute("href"),"#planes");
+  await ctx.close();
+ }finally{
+  await browser.close();
+  await new Promise(resolve=>server.close(resolve));
+ }
+})().catch(err=>{console.error(err);process.exitCode=1;server.close();});
