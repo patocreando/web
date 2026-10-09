@@ -52,7 +52,7 @@ for(const anchor of anchors)assert.ok(ids.has(anchor),"Broken local anchor #"+an
 
 const script=fs.readFileSync("script.js","utf8");
 const heroCss=fs.readFileSync("hero-v3.css","utf8");
-const devContent=html.slice(html.indexOf('<section class="dash-dev-scene"'),html.indexOf('</section>',html.indexOf('<section class="dash-dev-scene"'))+10);
+const devContent=html.slice(html.indexOf('<div class="dash-dev-scene"'),html.indexOf('class="v3-piece v3-topbar"'));
 assert.equal(count(html,'id="dashDevScene"'),1,"Single development story panel");
 assert.ok(devContent.includes("VISTA ILUSTRATIVA / MOBILE"),"Preview is explicitly illustrative, not a real performance test");
 for(const phrase of ["Adaptación real","Acciones conectadas","Control previo a la entrega","Sin promesas de puntuaciones."])assert.ok(devContent.includes(phrase),"Development story communicates concrete value: "+phrase);
