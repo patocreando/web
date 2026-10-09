@@ -1,0 +1,58 @@
+name: Web Conversion QA
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "styles.css"
+      - "hero-v3.css"
+      - "experience.css"
+      - "script.js"
+      - "scripts/**"
+      - ".github/workflows/web-conversion-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Commercial copy and links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify web scripts syntax
+        run: |
+          node --check script.js
+          node --check plans.js
+          node --check film.js
+          node --check scripts/browser-web.cjs
+      - name: Validate site invariants
+        run: node scripts/smoke-web.mjs
+
+  browser:
+    name: Real browser mobile and desktop
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Inspect responsive navigation, hero and CTAs
+        run: node scripts/browser-web.cjs
+      - name: Save verification screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-conversion-qa-screenshots
+          path: artifacts/
+          if-no-files-found: ignore
+          retention-days: 7
