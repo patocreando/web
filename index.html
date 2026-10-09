@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Webs para negocios — Express, Pro y Premium | Pato Creando</title>
-  <meta name="description" content="Webs claras, mobile-first y pensadas para convertir visitas en consultas. Tres niveles: Web Express, Web Pro y Web Premium." />
+  <title>Diseño web para negocios | Landing desde ARS 30.000 — Pato Creando</title>
+  <meta name="description" content="Diseño de landing pages y páginas web para negocios. Mobile-first, con una acción clara para recibir consultas. Planes desde ARS 30.000, pago único. Conocé Pato Creando." />
   <meta name="theme-color" content="#0F1215" />
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://patocreando.github.io/web/" />
 
-  <meta property="og:title" content="Webs para negocios — Express, Pro y Premium" />
-  <meta property="og:description" content="Una web propia para ordenar tu negocio, mostrar mejor lo que ofrecés y llevar cada visita a una acción clara." />
+  <meta property="og:title" content="Pato Creando — Diseño web para negocios" />
+  <meta property="og:description" content="Landing pages y páginas web para negocios. Diseño mobile-first y planes desde ARS 30.000. Mirá las opciones y contanos tu proyecto." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://patocreando.github.io/web/" />
   <meta property="og:locale" content="es_AR" />
   <meta property="og:site_name" content="Pato Creando" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Webs para negocios — Express, Pro y Premium" />
-  <meta name="twitter:description" content="Tres planes para negocios que necesitan una presencia web clara, rápida y propia." />
+  <meta name="twitter:title" content="Pato Creando — Diseño web para negocios" />
+  <meta name="twitter:description" content="Landing pages y webs mobile-first desde ARS 30.000, pago único." />
 
   <script type="application/ld+json">
   {
@@ -45,55 +45,167 @@
   <link rel="stylesheet" href="./hero-v3.css?v=19" />
   <link rel="stylesheet" href="./experience.css?v=35" />
 
-<style id="home-return-style">
-  .home-return{
-    position:fixed;
-    top:max(14px,env(safe-area-inset-top));
-    left:max(14px,env(safe-area-inset-left));
-    z-index:9999;
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    min-height:34px;
-    padding:0 12px;
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:999px;
-    background:rgba(8,10,9,.52);
-    color:rgba(245,248,245,.78);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
-    font:600 10px/1 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    text-decoration:none;
-    transition:color .22s ease,border-color .22s ease,background .22s ease,transform .22s ease;
+
+<style id="web-conversion-critical">
+
+/* Conversion-first entry. Critical styles travel atomically with this HTML. */
+.web-conversion-header {
+  position:fixed;inset:0 0 auto;z-index:10000;min-width:0;
+  background:rgba(9,14,15,.88);
+  border-bottom:1px solid rgba(232,245,236,.105);
+  -webkit-backdrop-filter:blur(20px) saturate(125%);
+  backdrop-filter:blur(20px) saturate(125%);
+  box-shadow:0 8px 34px rgba(0,0,0,.16);
+}
+.web-conversion-nav {
+  width:min(1260px,calc(100% - 40px));height:70px;margin-inline:auto;
+  display:grid;grid-template-columns:minmax(244px,1fr) auto minmax(138px,1fr);
+  align-items:center;gap:15px;
+}
+.web-conversion-identity {display:flex;align-items:center;gap:clamp(10px,1.5vw,19px);min-width:0;white-space:nowrap;}
+.web-conversion-home {
+  flex:none;min-height:35px;display:inline-flex;align-items:center;gap:7px;padding:0 12px;
+  border:1px solid rgba(231,244,232,.14);border-radius:999px;
+  background:rgba(255,255,255,.035);color:#acbbb3;text-decoration:none;
+  font:600 11px/1 Inter,system-ui,sans-serif;transition:color .2s ease,border-color .2s ease,background .2s ease;
+}
+.web-conversion-brand {
+  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  text-decoration:none;color:#f2f4ec;
+  font:750 15px/1 "Plus Jakarta Sans",Inter,sans-serif;
+  letter-spacing:-.042em;
+}
+.web-conversion-brand i {
+  flex:none;width:9px;height:9px;border-radius:50%;background:#cfe65a;
+  box-shadow:0 0 16px rgba(207,230,90,.34);
+}
+.web-conversion-brand small {color:#8e9e96;font:700 9px/1 Inter,system-ui,sans-serif;letter-spacing:.15em;margin-top:2px;}
+.web-conversion-sections {
+  display:flex;justify-content:center;align-items:center;gap:2px;
+  border-radius:999px;padding:4px;
+  border:1px solid rgba(241,248,242,.10);background:rgba(255,255,255,.035);
+  white-space:nowrap;
+}
+.web-conversion-sections a {
+  color:#c4cec7;text-decoration:none;
+  display:inline-flex;align-items:center;justify-content:center;min-height:34px;
+  padding:0 14px;border-radius:999px;
+  font:600 12px/1 Inter,system-ui,sans-serif;
+  transition:background .2s ease,color .2s ease;
+}
+.web-conversion-contact {
+  justify-self:end;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:40px;padding:0 19px;border-radius:999px;
+  background:#ddebab;color:#101813;text-decoration:none;white-space:nowrap;
+  font:750 12px/1 Inter,system-ui,sans-serif;
+  transition:background .2s ease,transform .2s ease;
+}
+.web-conversion-contact span {font-size:15px;}
+.web-skip-link {
+  position:fixed;top:10px;left:12px;z-index:10010;padding:12px 15px;
+  background:#cfe65a;color:#101813;border-radius:10px;font:700 13px/1.2 Inter,sans-serif;
+  transform:translateY(-160%);text-decoration:none;
+}
+.web-skip-link:focus {transform:translateY(0);}
+.web-conversion-header a:focus-visible,.hero-conversion-actions a:focus-visible,
+.web-skip-link:focus-visible {outline:2px solid #cfe65a;outline-offset:3px;}
+@media(hover:hover) and (pointer:fine) {
+  .web-conversion-home:hover {background:rgba(255,255,255,.075);color:#f1f5ee;border-color:rgba(207,230,90,.25);}
+  .web-conversion-sections a:hover {background:rgba(207,230,90,.10);color:#fff;}
+  .web-conversion-contact:hover,.hero-conversion-primary:hover {background:#cfe65a;transform:translateY(-1px);}
+}
+.hero-v3-copy {pointer-events:none;}
+.hero-v3-copy .hero-conversion-lead {
+  max-width:610px;margin:24px 0 0;color:#c2cec6;
+  font:400 clamp(14px,1.25vw,17px)/1.65 Inter,system-ui,sans-serif;
+  text-wrap:pretty;
+}
+.hero-conversion-actions {
+  position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:11px;
+  margin-top:23px;pointer-events:auto;
+}
+.hero-conversion-actions a {
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:48px;padding:0 19px;border-radius:999px;
+  text-decoration:none;font:700 13px/1.2 Inter,system-ui,sans-serif;
+  transition:background .22s ease,transform .22s ease,border-color .22s ease;
+}
+.hero-conversion-primary {background:#ddebab;color:#101813;box-shadow:0 12px 35px rgba(0,0,0,.2);}
+.hero-conversion-secondary {background:rgba(11,17,17,.63);color:#e0e8df;border:1px solid rgba(235,248,236,.22);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);}
+.hero-conversion-secondary:hover {border-color:rgba(207,230,90,.40);background:rgba(30,44,39,.73);}
+.hero-v3-copy .hero-conversion-note {
+  margin:15px 0 0;max-width:610px;
+  font:650 11px/1.6 Inter,system-ui,sans-serif;
+  color:#b5c1b7;letter-spacing:.015em;
+}
+.hero-conversion-note span {color:#cfe65a;font-size:14px;margin-right:4px;}
+#solucion,#capacidades,#planes,#proceso,#faq {scroll-margin-top:85px;}
+@media(max-width:1110px) {
+  .web-conversion-nav {grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;height:65px;}
+  .web-conversion-identity {display:contents;}
+  .web-conversion-home {grid-column:1;justify-self:start;}
+  .web-conversion-brand {grid-column:2;justify-self:center;}
+  .web-conversion-sections {display:none;}
+  .web-conversion-contact {grid-column:3;justify-self:end;}
+}
+@media(max-width:720px) {
+  .web-conversion-nav {width:calc(100% - 24px);height:62px;}
+  .web-conversion-home {min-height:34px;padding:0 9px;font-size:10px;gap:5px;}
+  .web-conversion-brand {font-size:13px;gap:6px;}
+  .web-conversion-brand i {width:7px;height:7px;}
+  .web-conversion-brand small {display:none;}
+  .web-conversion-contact {font-size:11px;min-height:36px;padding:0 12px;gap:4px;}
+  .hero-v3-copy {
+    left:18px;top:49%;width:calc(100% - 36px);
+    max-width:540px;
   }
-  .home-return:hover{
-    color:#CFE65A;
-    border-color:rgba(207,230,90,.28);
-    background:rgba(8,10,9,.72);
-    transform:translateY(-1px);
-  }
-  .home-return-arrow{
-    font-size:14px;
-    line-height:1;
-    transform:translateY(-.5px);
-  }
-  @media(max-width:720px){
-    .home-return{
-      top:max(10px,env(safe-area-inset-top));
-      left:max(10px,env(safe-area-inset-left));
-      min-height:31px;
-      padding:0 10px;
-      font-size:9px;
-    }
-  }
+  .hero-v3-copy h1 {font-size:clamp(37px,10.4vw,55px);line-height:.96;letter-spacing:-.055em;}
+  .hero-v3-signature {margin-bottom:15px;font-size:9px;}
+  .hero-v3-copy .hero-conversion-lead {font-size:14px;line-height:1.5;margin-top:16px;}
+  .hero-conversion-actions {margin-top:18px;gap:8px;}
+  .hero-conversion-actions a {font-size:12px;min-height:43px;padding:0 15px;}
+  .hero-v3-copy .hero-conversion-note {font-size:10px;line-height:1.45;margin-top:12px;}
+  .hero-v3-scroll {display:none;}
+}
+@media(max-width:390px) {
+  .web-conversion-brand {font-size:12px;}
+  .web-conversion-contact {font-size:10px;padding-inline:10px;}
+  .hero-conversion-actions {display:grid;grid-template-columns:1fr;}
+  .hero-conversion-actions a {min-height:42px;width:100%;}
+  .hero-v3-copy {top:51%;}
+}
+@media(max-width:345px) {
+  .web-conversion-brand i {display:none;}
+  .web-conversion-home {font-size:9px;padding-inline:7px;}
+  .web-conversion-brand {font-size:11px;}
+  .web-conversion-contact {font-size:10px;padding-inline:9px;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .web-conversion-header a,.hero-conversion-actions a {transition:none;}
+}
+
 </style>
 </head>
 
 <body>
-  <a class="home-return" href="https://patocreando.github.io/inicio/" aria-label="Volver al inicio"><span class="home-return-arrow" aria-hidden="true">←</span><span>Inicio</span></a>
+  <a class="web-skip-link" href="#main-content">Saltar al contenido</a>
+
+  <!-- Conversion navigation: always available, no JS or external stylesheet dependency. -->
+  <header class="web-conversion-header" id="webConversionHeader">
+    <nav class="web-conversion-nav" aria-label="Navegación principal">
+      <div class="web-conversion-identity">
+        <a class="web-conversion-home" href="https://patocreando.github.io/inicio/" aria-label="Volver a la página de inicio">← <span>Inicio</span></a>
+        <a class="web-conversion-brand" href="#inicio" aria-label="Pato Creando, volver al principio"><i aria-hidden="true"></i><span>Pato Creando</span><small>WEB</small></a>
+      </div>
+      <div class="web-conversion-sections">
+        <a href="#solucion">La solución</a>
+        <a href="#planes">Planes y precios</a>
+        <a href="#faq">Antes de empezar</a>
+      </div>
+      <a class="web-conversion-contact" href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer" aria-label="Consultar por una página web en Instagram">Consultar <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
   <div class="master-film" id="masterFilm" aria-hidden="true">
     <video id="masterFilmVideo" muted playsinline preload="auto">
       <source src="./assets/master-film.mp4" type="video/mp4" />
@@ -102,7 +214,7 @@
   <div class="progress"><span id="progressBar"></span></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <main>
+  <main id="main-content">
     <section class="hero-v3" id="inicio">
       <div class="hero-v3-sticky">
         <div class="hero-v3-bg" aria-hidden="true"></div>
@@ -385,12 +497,17 @@
         </div>
 
         <div class="hero-v3-copy" id="heroCopy">
-          <p class="hero-v3-signature">DISEÑO / DESARROLLO / DIRECCIÓN DIGITAL</p>
+          <p class="hero-v3-signature">DISEÑO WEB PARA NEGOCIOS · MOBILE-FIRST</p>
           <h1>
             Tu negocio tiene historia.
             <span>Que la web esté a la altura.</span>
           </h1>
-          <p>Webs claras, rápidas y pensadas para convertir.</p>
+          <p class="hero-conversion-lead">Diseño páginas web que explican lo que ofrecés y facilitan que tus visitas te contacten por Instagram, WhatsApp o reservas.</p>
+          <div class="hero-conversion-actions" aria-label="Siguientes pasos">
+            <a class="hero-conversion-primary" href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer">Contame tu proyecto <span aria-hidden="true">↗</span></a>
+            <a class="hero-conversion-secondary" href="#planes">Ver planes y precios <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="hero-conversion-note"><span aria-hidden="true">✳</span> Desde ARS 30.000 · Pago único · Diseño para celular</p>
         </div>
 
         <div class="hero-v3-scroll" aria-hidden="true">
@@ -701,7 +818,7 @@
         </div>
 
         <p class="direct-x-copy">
-          Sin pasar tu proyecto de área en área. La misma mirada desde la primera idea hasta la versión publicada.
+          Diseño, desarrollo y publicación con una misma dirección. Sabés quién hace tu web, qué incluye y cómo avanzamos.
         </p>
 
         <a href="https://patocreando.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Ver trabajo previo ↗</a>
@@ -740,7 +857,7 @@
         <h2>Mostrame tu negocio.<span>Te digo qué haría.</span></h2>
         <div class="final-x-actions">
           <a href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer">Contarme el proyecto ↗</a>
-          <small>Sin compromiso. Primero vemos si tiene sentido.</small>
+          <small>Sin compromiso. Alcance, plazos y condiciones de pago se acuerdan antes de empezar.</small>
         </div>
       </div>
     </section>
@@ -767,7 +884,7 @@
   </footer>
 
   <div class="mobile-bar" id="mobileBar">
-    <a href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer">Comparar planes <span>↑</span></a>
+    <a href="https://ig.me/m/patocreando?ref=w61000387" target="_blank" rel="noopener noreferrer">Consultar mi web <span>↗</span></a>
   </div>
 
   <script src="./script.js?v=22"></script>
