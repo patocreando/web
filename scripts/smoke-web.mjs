@@ -25,6 +25,16 @@ match('id="faq"');
 match('id="main-content"');
 match('href="#main-content"');
 match('<video id="masterFilmVideo" muted playsinline preload="metadata">');
+const ctaAnchors=[...html.matchAll(/<a\b[^>]*\bdata-web-cta="manychat"[^>]*>/g)].map(x=>x[0]);
+assert.equal(ctaAnchors.length,5,"Exactly five consultation CTAs are marked and unified");
+for(const cta of ctaAnchors) {
+  assert.ok(cta.includes('href="'+oldWebLink+'"'),"Every commercial CTA uses the Web Manychat automation");
+  assert.ok(cta.includes('target="_blank"'),"Commercial CTAs keep their external open behavior");
+}
+const allManychatAnchors=[...html.matchAll(/<a\b[^>]*href="https:\/\/ig\.me\/[^"]+"[^>]*>/g)].map(x=>x[0]);
+assert.equal(allManychatAnchors.length,5,"No competing or untagged Instagram DM links exist");
+for(const anchor of allManychatAnchors)assert.ok(anchor.includes('data-web-cta="manychat"'),"Every DM CTA is accounted for");
+assert.equal(count(html,oldWebLink),5,"No accidental duplicate, broken or alternative Manychat ref");
 assert.ok(count(html,oldWebLink)>=5,"All previous Web Manychat links remain and new early CTAs use the same ref");
 const amounts=[["Web Express","ARS 30.000"],["Web Pro","ARS 75.000"],["Web Premium","ARS 150.000"]];
 for(const [name,price] of amounts) {match(name);assert.equal(count(html,price)>=1,true,"Price preserved "+price);}
