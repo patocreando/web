@@ -56,7 +56,7 @@ const specs=[
         links:[...document.querySelectorAll("a[href*='w61000387']")].map(n=>n.getAttribute("href")),
         localLinks:[...document.querySelectorAll(".web-conversion-sections a")].map(n=>n.getAttribute("href")),
         visibleHeadline:getComputedStyle(el("#heroCopy")).opacity,
-        plans:document.querySelectorAll(".plan-x").length,
+        plans:document.querySelectorAll(".plan-option").length,
         cssInHead:!!el("#web-conversion-critical")&&document.head.contains(el("#web-conversion-critical")),
         legacyPill:document.querySelectorAll(".home-return").length
       };
@@ -71,7 +71,7 @@ const specs=[
     const ctas=await page.locator('a[data-web-cta="manychat"]').evaluateAll(nodes=>nodes.map(n=>({href:n.href,label:n.textContent.replace(/\s+/g," ").trim(),target:n.target})));
     assert.equal(ctas.length,5,"All five commercial CTAs are registered");
     assert.ok(ctas.every(c=>c.href==="https://ig.me/m/patocreando?ref=w61000387" && c.target==="_blank"),"Every web consultation uses identical Manychat link");
-    for(const selector of [".web-conversion-contact",".hero-conversion-primary","#plansBannerCta",".final-x-actions a","#mobileBar a"]){
+    for(const selector of [".web-conversion-contact",".hero-conversion-primary","#plansBannerCta",".contact-actions a","#mobileBar a"]){
       assert.equal(await page.locator(selector).getAttribute("data-web-cta"),"manychat","Commercial button is protected: "+selector);
     }
     assert.ok(state.links.length>=5,"Existing and new Manychat links preserved");

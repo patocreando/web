@@ -228,7 +228,7 @@
             <div class="v3-glass-shard shard-a" aria-hidden="true"></div>
             <div class="v3-glass-shard shard-b" aria-hidden="true"></div>
 
-            <div class="hero-dashboard-shell v3-piece" data-x="0" data-y="125" data-r="1.2" aria-hidden="true">
+            <div class="hero-dashboard-shell v3-piece" data-x="0" data-y="125" data-r="1.2">
               <div class="dash-float">
                 <div class="dash-frame is-development-focus dash-frame-single" id="heroDashboardFrame">
                   <div class="dash-workspace is-development">
@@ -531,14 +531,14 @@
         </div>
 
         <div class="cap-index" aria-label="Capacidades">
-          <button type="button" class="cap-tab active" data-cap="0"><strong>DISEÑO</strong></button>
-          <button type="button" class="cap-tab" data-cap="1"><strong>DESARROLLO</strong></button>
-          <button type="button" class="cap-tab" data-cap="2"><strong>DIRECCIÓN</strong></button>
-          <button type="button" class="cap-tab" data-cap="3"><strong>IA</strong></button>
+          <button type="button" class="cap-tab active" data-cap="0" aria-controls="capFocusCopy" aria-pressed="true"><strong>DISEÑO</strong></button>
+          <button type="button" class="cap-tab" data-cap="1" aria-controls="capFocusCopy" aria-pressed="false"><strong>DESARROLLO</strong></button>
+          <button type="button" class="cap-tab" data-cap="2" aria-controls="capFocusCopy" aria-pressed="false"><strong>DIRECCIÓN</strong></button>
+          <button type="button" class="cap-tab" data-cap="3" aria-controls="capFocusCopy" aria-pressed="false"><strong>IA</strong></button>
         </div>
 
-        <div class="cap-stage cap-scene" id="capStage" aria-hidden="true">
-          <div class="cap-layer cap-layer-design" data-layer="0">
+        <div class="cap-stage cap-scene" id="capStage">
+          <div class="cap-layer cap-layer-design" data-layer="0" aria-hidden="true">
             <span class="design-vline line-a"></span>
             <span class="design-vline line-b"></span>
             <span class="design-hline line-c"></span>
@@ -547,7 +547,7 @@
             <div class="design-block block-b"></div>
           </div>
 
-          <div class="cap-layer cap-layer-dev" data-layer="1">
+          <div class="cap-layer cap-layer-dev" data-layer="1" aria-hidden="true">
             <svg class="dev-map" viewBox="0 0 100 100" preserveAspectRatio="none">
               <path d="M9 72 C24 45, 31 62, 46 42 S72 26, 90 38"></path>
               <path d="M15 24 C31 19, 39 33, 55 29 S72 52, 87 66"></path>
@@ -558,14 +558,14 @@
             <i class="dev-dot dot-d"></i>
           </div>
 
-          <div class="cap-layer cap-layer-direction" data-layer="2">
+          <div class="cap-layer cap-layer-direction" data-layer="2" aria-hidden="true">
             <div class="direction-crop crop-a"></div>
             <div class="direction-crop crop-b"></div>
             <span class="direction-axis axis-x"></span>
             <span class="direction-axis axis-y"></span>
           </div>
 
-          <div class="cap-layer cap-layer-ai" data-layer="3">
+          <div class="cap-layer cap-layer-ai" data-layer="3" aria-hidden="true">
             <div class="ai-ring ai-ring-a"></div>
             <div class="ai-ring ai-ring-b"></div>
             <div class="ai-ring ai-ring-c"></div>
@@ -586,18 +586,13 @@
           <small>SISTEMA DE CAPACIDADES</small>
         </div>
 
-        <div class="cap-final" id="capFinal">
-          <span>Diseño y desarrollo conectados.</span>
-          <strong>Cada detalle cumple una función.</strong>
-        </div>
       </div>
     </section>
 
-    <section class="plans-x" id="planes">
-      <div class="plans-x-sticky">
-        <div class="plans-x-grid" aria-hidden="true"></div>
+    <section class="plans-comparison" id="planes">
+      <div class="flow-inner">
 
-        <div class="plans-x-heading" id="plansHeading">
+        <div class="comparison-heading" id="plansHeading">
           <h2>Elegí cuánto tiene que<span>hacer tu web.</span></h2>
           <a
             class="plans-banner-cta"
@@ -610,11 +605,11 @@
           </a>
         </div>
 
-        <div class="plans-x-stage" id="plansStage">
-          <article class="plan-x express active" data-plan="0">
-            <div class="plan-x-top"><span>01</span><em>ENTRADA</em></div>
+        <div class="comparison-grid" id="plansStage">
+          <article class="plan-option express" data-plan="0">
+            <div class="plan-option-top"><span>01</span><em>ENTRADA</em></div>
             <h3>Web Express</h3>
-            <div class="plan-x-price"><strong>ARS 30.000</strong><small>pago único</small></div>
+            <div class="plan-option-price"><strong>ARS 30.000</strong><small>pago único</small></div>
             <p>Para presentar tu servicio en una sola página.</p>
             <ul>
               <li>1 página</li>
@@ -626,10 +621,10 @@
             </ul>
           </article>
 
-          <article class="plan-x pro" data-plan="1">
-            <div class="plan-x-top"><span>02</span><em>RECOMENDADA</em></div>
+          <article class="plan-option pro" data-plan="1">
+            <div class="plan-option-top"><span>02</span><em>RECOMENDADA</em></div>
             <h3>Web Pro</h3>
-            <div class="plan-x-price"><strong>ARS 75.000</strong><small>pago único</small></div>
+            <div class="plan-option-price"><strong>ARS 75.000</strong><small>pago único</small></div>
             <p>Para mostrar tu oferta con más detalle y recursos.</p>
             <ul>
               <li>Diseño personalizado</li>
@@ -641,10 +636,10 @@
             </ul>
           </article>
 
-          <article class="plan-x premium" data-plan="2">
-            <div class="plan-x-top"><span>03</span><em>PROYECTO</em></div>
+          <article class="plan-option premium" data-plan="2">
+            <div class="plan-option-top"><span>03</span><em>PROYECTO</em></div>
             <h3>Web Premium</h3>
-            <div class="plan-x-price"><strong>ARS 150.000</strong><small>desde</small></div>
+            <div class="plan-option-price"><strong>ARS 150.000</strong><small>desde</small></div>
             <p>Para proyectos con más páginas o interacción a medida.</p>
             <ul>
               <li>Página avanzada o multipágina</li>
@@ -657,90 +652,34 @@
           </article>
         </div>
 
-        <div class="plans-x-detail" id="plansDetail">
-          <span id="plansLevel">01 / EXPRESS</span>
-          <strong id="plansLine">Lo esencial, bien resuelto.</strong>
-          <p id="plansNote">Para negocios que necesitan una presencia propia sin sumar complejidad.</p>
-        </div>
-
-        <div class="plans-x-counter" aria-hidden="true">
-          <span id="plansCounter">000</span>
-          <i></i>
-          <small>ESCALA</small>
-        </div>
-
       </div>
     </section>
 
-    <section class="process-x" id="proceso">
-      <div class="process-x-sticky">
-        <div class="process-x-grid" aria-hidden="true"></div>
-
-        <div class="process-x-heading" id="processHeading">
-          <h2>De idea a<span>publicada.</span></h2>
-        </div>
-
-        <div class="process-x-track" id="processTrack">
-          <div class="process-x-line"><i id="processFill"></i></div>
-
-          <article class="process-step-x active" data-step="0">
-            <span>01</span>
-            <div><strong>Entender</strong><p>Me contás qué ofrecés y qué necesitás de tu web.</p></div>
-          </article>
-
-          <article class="process-step-x" data-step="1">
-            <span>02</span>
-            <div><strong>Diseñar</strong><p>Organizo tu contenido y diseño el recorrido.</p></div>
-          </article>
-
-          <article class="process-step-x" data-step="2">
-            <span>03</span>
-            <div><strong>Construir</strong><p>Desarrollo la web y revisamos los ajustes del plan.</p></div>
-          </article>
-
-          <article class="process-step-x" data-step="3">
-            <span>04</span>
-            <div><strong>Publicar</strong><p>Te queda un enlace para compartir en tus canales.</p></div>
-          </article>
-        </div>
-
-        <div class="process-x-side" id="processSide">
-          <div class="process-orbit" aria-hidden="true">
-            <span class="process-orbit-ring ring-one"></span>
-            <span class="process-orbit-ring ring-two"></span>
-            <i class="process-orbit-core"></i>
-            <b class="process-orbit-node orbit-node-1"></b>
-            <b class="process-orbit-node orbit-node-2"></b>
-            <b class="process-orbit-node orbit-node-3"></b>
-            <b class="process-orbit-node orbit-node-4"></b>
-          </div>
-          <small id="processStageLabel">01 / DEFINICIÓN</small>
-          <strong id="processStageTitle">Primero, entender.</strong>
-          <p id="processStageText">Me compartís tu negocio, tus materiales y el objetivo de la página.</p>
-        </div>
-
-        <div class="process-x-counter" aria-hidden="true">
-          <span id="processCounter">000</span>
-          <i></i>
-          <small>PROCESO</small>
-        </div>
+    <section class="process-overview" id="proceso">
+      <div class="flow-inner">
+        <h2>De idea a<span>publicada.</span></h2>
+        <ol class="process-steps">
+          <li><span aria-hidden="true">01</span><h3>Entender</h3><p>Me contás qué ofrecés y qué necesitás de tu web.</p></li>
+          <li><span aria-hidden="true">02</span><h3>Diseñar</h3><p>Organizo tu contenido y diseño el recorrido.</p></li>
+          <li><span aria-hidden="true">03</span><h3>Construir</h3><p>Desarrollo la web y revisamos los ajustes del plan.</p></li>
+          <li><span aria-hidden="true">04</span><h3>Publicar</h3><p>Te queda un enlace para compartir en tus canales.</p></li>
+        </ol>
       </div>
     </section>
 
-    <div class="close-zone" id="closeZone">
-      <div class="close-zone-sticky">
-    <section class="direct-x close-panel" data-close-panel="0">
-      <div class="direct-x-inner">
+    <div class="close-flow" id="closeZone">
+    <section class="direct-summary">
+      <div class="flow-inner">
         <h2>Una persona.<span>Todo el recorrido.</span></h2>
 
-        <div class="direct-x-meta">
+        <div class="direct-meta">
           <span>Diseño</span>
           <span>Desarrollo</span>
           <span>Contenido</span>
           <span>Publicación</span>
         </div>
 
-        <p class="direct-x-copy">
+        <p class="direct-copy">
           Hablás directamente con quien diseña y desarrolla tu web, desde la primera consulta hasta la publicación.
         </p>
 
@@ -748,14 +687,14 @@
       </div>
     </section>
 
-    <section class="before-x close-panel" id="faq" data-close-panel="1">
-      <div class="before-x-inner">
-        <div class="before-x-heading">
+    <section class="faq-summary" id="faq">
+      <div class="flow-inner faq-layout">
+        <div class="faq-heading">
           <p>ANTES DE EMPEZAR</p>
           <h2>Tres cosas<span>claras.</span></h2>
         </div>
 
-        <div class="before-x-items">
+        <div class="faq-items">
           <details open>
             <summary><span>01</span> ¿Necesito tener todo listo?</summary>
             <p>No. Podemos partir de Instagram, logo, servicios, productos y referencias existentes.</p>
@@ -772,20 +711,16 @@
       </div>
     </section>
 
-    <section class="final-x close-panel" data-close-panel="2">
-      <div class="final-x-grid" aria-hidden="true"></div>
-      <div class="final-x-inner">
-        <div class="final-x-status" aria-hidden="true"><span>100</span><i></i><small>LISTO</small></div>
+    <section class="contact-summary">
+      <div class="flow-inner">
         <p>SIGUIENTE PASO</p>
         <h2>Contame qué ofrecés.<span>Vemos qué web necesitás.</span></h2>
-        <div class="final-x-actions">
+        <div class="contact-actions">
           <a href="https://ig.me/m/patocreando?ref=w61000387" data-web-cta="manychat" target="_blank" rel="noopener noreferrer">Consultar por Instagram ↗</a>
           <small>Mandame tu rubro, tu Instagram o web actual y qué necesitás. Sin compromiso. Alcance, plazos y condiciones de pago se acuerdan antes de empezar.</small>
         </div>
       </div>
     </section>
-      <div class="close-zone-progress" aria-hidden="true"><span id="closeZoneCount">01</span><i><b id="closeZoneFill"></b></i><small>CIERRE</small></div>
-      </div>
     </div>
 </main>
 
@@ -797,6 +732,7 @@
       </div>
 
       <div class="footer-links">
+        <a href="#faq">Preguntas frecuentes</a>
         <a href="https://patocreando.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Portafolio</a>
         <a href="https://www.instagram.com/patocreando/" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="https://www.linkedin.com/in/ulisesgonzalezjur/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -812,11 +748,8 @@
 
   <script src="./script.js?v=25"></script>
   <script src="./capabilities.js?v=9"></script>
-  <script src="./plans.js?v=6"></script>
-  <script src="./process.js?v=5"></script>
   <script src="./polish.js?v=1"></script>
   <script src="./film.js?v=3"></script>
   <script src="./kinetic.js?v=7"></script>
-  <script src="./close-zone.js?v=2"></script>
 </body>
 </html>

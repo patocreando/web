@@ -1,4 +1,5 @@
 (() => {
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
   const smooth=t=>t*t*(3-2*t);
 

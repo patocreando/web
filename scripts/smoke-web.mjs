@@ -42,7 +42,7 @@ for(const term of ["1 ajuste","2 ajustes","3 ajustes","Diseño personalizado","S
 match("Alcance, plazos y condiciones de pago se acuerdan antes de empezar.");
 match('aria-label="Navegación principal"');
 match('meta name="description" content="Diseño de landing pages');
-assert.equal(count(html,'class="plan-x '),3,"Three original plans still present");
+assert.equal(count(html,'class="plan-option '),3,"Three original plans still present");
 for(const file of ["styles.css","hero-v3.css","experience.css","script.js","capabilities.js","plans.js","process.js","polish.js","film.js","kinetic.js","close-zone.js"])assert.ok(fs.existsSync(file),"Original asset missing "+file);
 const css=html.slice(html.indexOf('<style id="web-conversion-critical">'),html.indexOf('</style>',html.indexOf('<style id="web-conversion-critical">')));
 for(const style of [".web-conversion-nav",".hero-conversion-actions","#solucion,#capacidades,#planes,#proceso,#faq","@media(max-width:720px)"])assert.ok(css.includes(style),"Responsive style missing "+style);

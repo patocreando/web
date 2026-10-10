@@ -305,7 +305,7 @@
     if (heroCounter) heroCounter.textContent = String(counter).padStart(3, "0");
 
     // Phase 1: headline owns the screen.
-    const copyFade = clamp((raw - .14) / .15);
+    const copyFade = reduceMotion ? Number(raw >= .29) : clamp((raw - .14) / .15);
     if (heroCopy) {
       const copyScale = 1 - copyFade * .045;
       heroCopy.style.opacity = String(1 - copyFade);
@@ -321,14 +321,15 @@
     }
 
     // Phase 2: the interface fades in only after the headline starts leaving.
-    const stageIn = easeOut(clamp((raw - .12) / .18));
+    const stageIn = reduceMotion ? Number(raw >= .29) : easeOut(clamp((raw - .12) / .18));
+    heroStage.inert = stageIn < .95;
     const stageScale = .94 + stageIn * .06;
     heroStage.style.opacity = String(.045 + stageIn * .955);
     heroStage.style.filter = "blur(" + ((1 - stageIn) * 5) + "px)";
     heroStage.style.transform = "scale(" + stageScale + ")";
 
     // Phase 3: assemble from 0 to 100 without colliding with the headline.
-    const buildRaw = clamp((raw - .24) / .56);
+    const buildRaw = reduceMotion ? 1 : clamp((raw - .24) / .56);
     const build = ease(buildRaw);
 
     heroPieces.forEach((piece, index) => {
@@ -480,7 +481,7 @@
 
     const rect = orderSection.getBoundingClientRect();
     const travel = Math.max(1, orderSection.offsetHeight - window.innerHeight);
-    const raw = clamp(-rect.top / travel);
+    const raw = reduceMotion ? 1 : clamp(-rect.top / travel);
     const p = easeOut(raw);
 
     if (orderCounter) orderCounter.textContent = String(Math.round(raw * 100)).padStart(2, "0");
@@ -579,7 +580,10 @@
       const target = href && document.querySelector(href);
       if (!target) return;
       event.preventDefault();
-      target.scrollIntoView({ behavior:"smooth", block:"start" });
+      history.pushState(null, "", href);
+      if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll:true });
+      target.scrollIntoView({ behavior:reduceMotion ? "instant" : "smooth", block:"start" });
     });
   });
 })();
