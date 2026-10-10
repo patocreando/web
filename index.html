@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
-  <link rel="stylesheet" href="./hero-v3.css?v=23" />
+  <link rel="stylesheet" href="./hero-v3.css?v=24" />
   <link rel="stylesheet" href="./experience.css?v=35" />
 
 
@@ -229,137 +229,10 @@
 
             <div class="hero-dashboard-shell v3-piece" data-x="0" data-y="125" data-r="1.2" aria-hidden="true">
               <div class="dash-float">
-                <div class="dash-frame" id="heroDashboardFrame">
-                  <aside class="dash-sidebar dash-card">
-                    <div class="dash-studio">
-                      <span class="dash-brand-dot"></span>
-                      <div><strong>Pato Creando</strong><small>Studio</small></div>
-                    </div>
-                    <nav id="dashSidebarNav">
-                      <span class="active" data-sidebar-tab="0">Proyecto</span>
-                      <span data-sidebar-tab="1">Diseño</span>
-                      <span data-sidebar-tab="2">Desarrollo</span>
-                      <span data-sidebar-tab="3">Contenido</span>
-                      <span data-sidebar-tab="4">Publicación</span>
-                    </nav>
-                    <div class="dash-sidebar-foot">
-                      <span>Archivos</span>
-                      <span>Referencias</span>
-                      <span>Ajustes</span>
-                    </div>
-                  </aside>
-
-                  <div class="dash-workspace">
-                    <div class="dash-topbar dash-card">
-                      <span id="dashBreadcrumb">Web / Proyecto</span>
-                      <div><b id="dashTopAction">Vista previa</b><strong id="dashPrimaryAction">Publicar</strong></div>
-                      <label class="dash-stage-picker-label" for="dashStageSelect">Etapa
-                        <select id="dashStageSelect" aria-label="Elegir etapa del proyecto">
-                          <option value="0">Proyecto</option>
-                          <option value="1">Diseño</option>
-                          <option value="2">Desarrollo</option>
-                          <option value="3">Contenido</option>
-                          <option value="4">Publicación</option>
-                        </select>
-                      </label>
-                    </div>
-
-                    <div class="dash-overview">
-                      <div class="dash-project dash-card">
-                        <small id="dashEyebrow">PROYECTO</small>
-                        <strong id="dashProjectTitle">Proyecto web</strong>
-                        <p id="dashProjectDesc">Diseño, desarrollo y publicación.</p>
-                      </div>
-                      <div class="dash-stat dash-card">
-                        <small id="dashStat1Label">En línea</small>
-                        <strong id="dashStat1Value">Última actualización hoy</strong>
-                        <i class="dash-online-dot"></i>
-                      </div>
-                      <div class="dash-stat dash-card">
-                        <small id="dashStat2Label">Colaboración</small>
-                        <strong id="dashStat2Value">2 miembros</strong>
-                      </div>
-                      <div class="dash-stat dash-card">
-                        <small id="dashStat3Label">Rendimiento</small>
-                        <strong id="dashStat3Value">+124%</strong>
-                      </div>
-                    </div>
-
-                    <div class="dash-main">
-                      <section class="dash-structure dash-card">
-                        <header><strong id="dashStructureTitle">Estructura</strong><span id="dashStructureMeta">/ WEB</span></header>
-                        <div class="dash-structure-body">
-                          <div class="dash-steps" id="dashBuildSteps">
-                            <i class="dash-route-fill" id="dashRouteFill" aria-hidden="true"></i>
-                            <span data-build-step="0"><b>01</b><em data-build-label="0">Header</em></span>
-                            <span data-build-step="1"><b>02</b><em data-build-label="1">Hero</em></span>
-                            <span data-build-step="2"><b>03</b><em data-build-label="2">Secciones</em></span>
-                            <span data-build-step="3"><b>04</b><em data-build-label="3">Packs</em></span>
-                            <span data-build-step="4"><b>05</b><em data-build-label="4">Contacto</em></span>
-                          </div>
-                          <div class="dash-code" aria-label="Código HTML, CSS y JavaScript que se revela con el scroll">
-                            <div class="dash-code-head">
-                              <div class="dash-code-tabs" aria-hidden="true">
-                                <span class="active" data-code-tab="html">HTML</span>
-                                <span data-code-tab="css">CSS</span>
-                                <span data-code-tab="js">JS</span>
-                              </div>
-                              <div class="dash-code-dots"><i></i><i></i><i></i></div>
-                            </div>
-                            <div class="dash-code-screen">
-                              <pre><code id="dashTypeCode"></code><span class="dash-code-caret" aria-hidden="true"></span></pre>
-                            </div>
-                            <div class="dash-code-status">
-                              <i></i><span id="dashCodeStatus">HTML / 000%</span>
-                            </div>
-                          </div>
-                        </div>
-                      </section>
-
-                      <section class="dash-preview dash-card">
-                        <header><strong id="dashPreviewTitle">Vista del sitio</strong><span id="dashPreviewMeta">/ LIVE</span></header>
-                        <div class="dash-site">
-                          <div class="dash-site-nav"><b>Pato Creando</b><span id="dashSiteNavText">Servicio&nbsp;&nbsp; Planes&nbsp;&nbsp; Contacto</span></div>
-                          <div class="dash-site-copy">
-                            <h3><span id="dashSiteLine1">Una web clara.</span><br><em id="dashSiteLine2">Una acción clara.</em></h3>
-                            <p id="dashSiteDesc">Diseño, desarrollo y publicación para negocios y marcas.</p>
-                            <button type="button"><span id="dashSiteButton">Ver planes</span> <span>↗</span></button>
-                          </div>
-                          <div class="dash-site-art" id="dashSiteArt">
-                            <i class="art-ring ring-one"></i>
-                            <i class="art-ring ring-two"></i>
-                            <i class="art-core"></i>
-                          </div>
-                          <span class="dash-scan"></span>
-                        </div>
-                      </section>
-                    </div>
-
-                    <div class="dash-bottom">
-                      <section class="dash-style dash-card">
-                        <header><strong id="dashBottomLeftTitle">Estilo visual</strong><span id="dashBottomLeftMeta">/ UI</span></header>
-                        <div class="dash-style-row">
-                          <div class="dash-palette"><i></i><i></i><i></i></div>
-                          <p><b id="dashBottomLeftValue">Inter</b><span id="dashBottomLeftDesc">Regular · Medium · Semibold</span></p>
-                        </div>
-                      </section>
-
-                      <section class="dash-publish dash-card">
-                        <header><strong id="dashBottomMidTitle">Publicación</strong><span id="dashBottomMidMeta">/ READY</span></header>
-                        <div class="dash-publish-line"><i></i></div>
-                        <div class="dash-publish-steps">
-                          <span>Diseño</span><span>Desarrollo</span><span>Revisión</span><strong>En línea</strong>
-                        </div>
-                      </section>
-
-                      <section class="dash-live dash-card">
-                        <div class="dash-live-thumb"></div>
-                        <p><strong id="dashLiveTitle">Sitio publicado</strong><span id="dashLiveDesc">Listo para compartir.</span></p>
-                      </section>
-                    </div>
-                    <!-- Development: a single visual story, without redundant dashboard copy. -->
-                    <div class="dash-dev-scene" id="dashDevScene" role="region" aria-label="Mockup móvil y diagrama de canales conectados" aria-hidden="true">
-                      <button class="dash-dev-back" id="dashDevBack" type="button" aria-label="Volver a las etapas del estudio">← <span>Volver</span></button>
+                <div class="dash-frame is-development-focus dash-frame-single" id="heroDashboardFrame">
+                  <div class="dash-workspace is-development">
+                    <div class="dash-dev-scene" id="dashDevScene" role="region" aria-label="Mockup móvil y diagrama de canales conectados" aria-hidden="false">
+                      
                       <div class="dash-dev-device-wrap">
                         <div class="dash-dev-device" aria-label="Prototipo ilustrativo de web móvil">
                           <span class="dash-dev-side-button one"></span><span class="dash-dev-side-button two"></span>
@@ -925,7 +798,7 @@
     <a href="https://ig.me/m/patocreando?ref=w61000387" data-web-cta="manychat" target="_blank" rel="noopener noreferrer">Consultar mi web <span>↗</span></a>
   </div>
 
-  <script src="./script.js?v=24"></script>
+  <script src="./script.js?v=25"></script>
   <script src="./capabilities.js?v=8"></script>
   <script src="./plans.js?v=6"></script>
   <script src="./process.js?v=4"></script>
