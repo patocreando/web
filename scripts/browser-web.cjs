@@ -114,13 +114,15 @@ const specs=[
       const scene=el.querySelector("#dashDevScene");
       const rect=x=>{const r=x.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};};
       const computed=getComputedStyle(scene);
-      const image=scene.querySelector(".dash-dev-flow img");
-      const mobileFlow=scene.querySelector(".dash-dev-flow-mobile");
+      const image=scene.querySelector(".pc-iphone-image");
+      const mobileFlow=scene.querySelector(".pc-channels");
       return {
         frameCount:document.querySelectorAll("#heroDashboardFrame").length,
         legacyCards:el.querySelectorAll(".dash-card,.dash-sidebar,.dash-topbar,.dash-overview,.dash-main,.dash-bottom,#dashStageSelect,#dashDevBack").length,
         sceneCount:el.querySelectorAll("#dashDevScene").length,
         phoneCount:el.querySelectorAll(".dash-dev-device").length,
+        channelCount:el.querySelectorAll(".pc-channel").length,
+        imageCount:el.querySelectorAll(".pc-iphone-image").length,
         flowCount:el.querySelectorAll(".dash-dev-flow").length,
         active:el.classList.contains("is-development-focus"),
         stable:scene.classList.contains("dash-dev-scene")&&computed.visibility==="visible"&&computed.opacity==="1"&&scene.getAttribute("aria-hidden")==="false",
@@ -134,16 +136,18 @@ const specs=[
       assert.equal(state.frameCount,1,"Exactly one showcase frame");
       assert.equal(state.sceneCount,1,"Exactly one Development scene");
       assert.equal(state.phoneCount,1,"Exactly one iPhone mockup");
+      assert.equal(state.imageCount,1,"Exactly one real phone image");
+      assert.equal(state.channelCount,4,"Four distinct channel cards");
       assert.equal(state.flowCount,1,"Exactly one channels diagram");
       assert.equal(state.legacyCards,0,"All legacy cards, navigation and panels removed from markup");
       assert.ok(state.active&&state.stable,"Permanent Development scene is active and visible");
       assert.ok(state.panel.width>220&&state.panel.height>180,"Single card has adequate dimensions");
       assert.ok(state.phone.width>60&&state.phone.height>140,"Phone visible");
-      assert.ok(state.flow.width>150&&state.flow.height>40,"Flow visible");
-      assert.ok(state.phone.bottom<=state.flow.top+22,"Mockup doesn't overlap channel graphic");
-      assert.ok(state.flow.bottom<=state.panel.bottom+5,"Flow stays inside the card");
-      assert.equal(state.imgVisible,spec.width>720,"Desktop SVG is visible when appropriate");
-      assert.equal(state.mobileFlowVisible,spec.width<=720,"Compact mobile diagram is visible when appropriate");
+      assert.ok(state.flow.width>90&&state.flow.height>40,"Channels visible");
+      assert.ok(state.phone.left>=state.panel.left-6&&state.phone.right<=state.panel.right+6,"Phone stays within showcase");
+      assert.ok(state.flow.left>=state.panel.left-6&&state.flow.right<=state.panel.right+6,"Channels stay within showcase");
+      assert.equal(state.imgVisible,true,"The image of the selected iPhone is displayed");
+      assert.equal(state.mobileFlowVisible,true,"Channel cards are displayed in mobile and desktop");
       assert.ok(state.hit,"Showcase is not obstructed");
     };
     const first=await getShowcase();
