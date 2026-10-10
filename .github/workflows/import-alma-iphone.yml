@@ -1,0 +1,37 @@
+name: Import ALMA mockup to local web assets
+on:
+  push:
+    branches:
+      - feature/real-iphone-showcase-2026-10-10
+    paths:
+      - .github/workflows/import-alma-iphone.yml
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch exact user-supplied PNG
+        run: |
+          curl -fL --retry 2 --connect-timeout 15 --max-time 90 'https://d2ol7oe51mr4n9.cloudfront.net/user_3GsQoyBuAJ7X4awqyulGWND0DzD/ab07f281-271a-4e55-8794-8af6518ae683.png' -o /tmp/alma-iphone.png
+          file /tmp/alma-iphone.png
+      - name: Create transparent optimized WebP
+        run: |
+          python3 -m pip -q install pillow
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          img=Image.open('/tmp/alma-iphone.png').convert('RGBA')
+          img.thumbnail((640, 960), Image.Resampling.LANCZOS)
+          output=Path('assets/alma-iphone.webp')
+          output.parent.mkdir(exist_ok=True)
+          img.save(output, format='WEBP', quality=82, method=6)
+          print(output, output.stat().st_size)
+          PY
+      - name: Store optimized asset on this branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/alma-iphone.webp
+          git diff --cached --quiet || (git commit -m 'assets(web): self-host optimized ALMA iPhone mockup' && git push origin HEAD:feature/real-iphone-showcase-2026-10-10)
