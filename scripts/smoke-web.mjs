@@ -57,6 +57,11 @@ assert.equal(count(html,'id="dashDevScene"'),1,"Single development story panel")
 assert.ok(devContent.includes('class="dash-dev-device pc-device-frame"'),"Chosen iPhone mockup is mounted in Development");
 assert.ok(devContent.includes('class="pc-channels"'),"Four separate source channels are mounted in Development");
 assert.equal(count(devContent,'class="pc-channel"'),4,"Exactly four channels are presented");
+assert.equal(count(devContent,'class="pc-channel-signal"'),4,"Four subtle live signals on the cards");
+assert.equal(count(devContent,'class="pc-route-base"'),4,"Four physical route lines join the hub");
+assert.equal(count(devContent,'class="pc-route-pulse"'),4,"Four animated route signals");
+assert.equal(count(devContent,'class="pc-connection-map"'),1,"Single convergence connector SVG");
+assert.equal(count(devContent,'class="pc-hub-ring"'),1,"Single web destination hub");
 assert.equal(count(devContent,'class="pc-iphone-image"'),1,"Exactly one real iPhone image is mounted");
 assert.ok(devContent.includes('ALMA Estética'),"Mockup alt explains illustrated demo, not a real customer testimonial");
 for(const oldClass of ['dash-dev-left','dash-dev-benefits','dash-dev-footer','dash-dev-preview-heading','dash-dev-spec']){
@@ -85,10 +90,15 @@ for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
 assert.ok(html.includes('src="./assets/alma-iphone.webp"'),"User-selected phone is hosted locally");
 assert.ok(fs.existsSync("assets/alma-iphone.webp"),"GitHub Pages asset is present");
 assert.ok(fs.statSync("assets/alma-iphone.webp").size<150000,"Real iPhone mockup is below 150 KB");
-assert.ok(html.includes('hero-showcase.css?v=1'),"Isolated premium layout stylesheet loaded after existing hero stylesheet");
+assert.ok(html.includes('hero-showcase.css?v=2'),"Connected channel styling is cache-busted");
 assert.ok(fs.existsSync('hero-showcase.css'),"Premium styling exists");
 const showcaseCss=fs.readFileSync('hero-showcase.css','utf8');
 assert.ok(showcaseCss.includes('.pc-showcase')&&showcaseCss.includes('.pc-iphone-image'),"Premium phone and channel styling is present");
+for(const rule of ["@keyframes pcLinkFlow","@keyframes pcSignalBeat","@keyframes pcHubGlow",".pc-connection-map","prefers-reduced-motion:reduce"]){
+  assert.ok(showcaseCss.includes(rule),"Motion or reduced-motion coverage missing: "+rule);
+}
+assert.ok(showcaseCss.includes("max-height:305px!important"),"Desktop mockup size is substantially reduced");
+assert.ok(showcaseCss.includes("max-height:194px!important"),"Mobile mockup size is substantially reduced");
 assert.ok(html.includes('id="masterFilmVideo"'),"Interactive cinematic background is preserved");
 assert.ok(heroCss.includes("dash-dev-island")&&heroCss.includes("dash-dev-device-glass")===false,"Premium phone shell and dynamic island are styled");
 console.log("Single Development card QA OK: one card, no sidebar, no autoplay, commercial terms intact.");
