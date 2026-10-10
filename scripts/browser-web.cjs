@@ -97,6 +97,69 @@ const specs=[
       assert.ok(state.home.right+3<state.brand.left,"Home link does not overlap brand");
       assert.ok(state.brand.right+3<state.consult.left,"Brand does not overlap CTA");
     }
+    // Navigate to the dashboard's intended scrollytelling phase before inspecting it.
+    await page.evaluate(()=>{
+      const hero=document.querySelector(".hero-v3");
+      const top=scrollY+hero.getBoundingClientRect().top;
+      const travel=Math.max(1,hero.offsetHeight-innerHeight);
+      scrollTo({top:top+travel*.66,behavior:"instant"});
+    });
+    await page.waitForTimeout(320);
+    assert.ok((await page.locator("#heroCopy").evaluate(el=>Number(getComputedStyle(el).opacity)))<.05,"Intro copy must have faded out before dashboard evaluation");
+    assert.ok(await page.locator("#heroCopy").evaluate(el=>el.inert),"Invisible conversion buttons cannot intercept the dashboard");
+    assert.ok((await page.locator("#heroStage").evaluate(el=>Number(getComputedStyle(el).opacity)))>.95,"Dashboard stage must be visible");
+
+    // Development tab can be reached and read without fabricated benchmark claims.
+    if(spec.width>720) {
+      await page.locator('#dashSidebarNav [data-sidebar-tab="2"]').click({force:true});
+    } else {
+      await page.locator("#dashStageSelect").selectOption("2");
+    }
+    await page.waitForTimeout(430);
+    const dev=await page.locator("#dashDevScene").evaluate(el=>{
+      const pane=el.getBoundingClientRect();
+      const headline=el.querySelector("h3").getBoundingClientRect();
+      const items=[...el.querySelectorAll(".dash-dev-benefit")].map(x=>x.getBoundingClientRect());
+      const mobile=el.querySelector(".dash-dev-device").getBoundingClientRect();
+      const rect=r=>({left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height});
+      return {
+        aria:el.getAttribute("aria-hidden"),visible:getComputedStyle(el).visibility,
+        panel:rect(pane),headline:rect(headline),benefits:items.map(rect),device:rect(mobile),
+        devMode:el.closest(".dash-workspace").classList.contains("is-development"),
+        noSyntheticNumbers:!el.textContent.includes("98 / 100")
+      };
+    });
+    assert.equal(dev.aria,"false","Development illustration accessible in selected view");
+    assert.equal(dev.visible,"visible","Development illustration is visible");
+    assert.ok(dev.devMode,"Development mode is selected");
+    assert.ok(dev.noSyntheticNumbers,"No fabricated performance metric in Development");
+    assert.equal(dev.benefits.length,3,"Three distinct delivery benefits");
+    assert.ok(dev.panel.height>180&&dev.panel.width>220,"Development panel has adequate dimensions");
+    assert.ok(dev.headline.left>=dev.panel.left-3&&dev.headline.right<=dev.panel.right+3,"Development headline fits panel");
+    for(const rect of dev.benefits)assert.ok(rect.left>=dev.panel.left-3&&rect.right<=dev.panel.right+3,"Benefit cards stay within panel");
+    assert.ok(dev.device.width>60,"The UI sample is visible in the development story");
+    const hit=await page.locator("#dashDevScene").evaluate(el=>{
+      const r=el.getBoundingClientRect();const x=Math.min(innerWidth-10,Math.max(10,(r.left+r.right)/2));const y=Math.min(innerHeight-10,Math.max(10,(r.top+r.bottom)/2));
+      const top=document.elementFromPoint(x,y);
+      return {hit:top===el||el.contains(top),x,y,insideViewport:r.bottom>0&&r.top<innerHeight,
+        topTag:top?.tagName,topClass:top?.className,
+        stack:document.elementsFromPoint(x,y).slice(0,6).map(e=>e.tagName+"."+String(e.className).slice(0,60)),
+        scrollY,heroOpacity:getComputedStyle(document.querySelector("#heroCopy")).opacity,
+        panelOpacity:getComputedStyle(el).opacity};
+    
+    });
+    console.log(JSON.stringify({developmentHitTest:spec.name,...hit}));
+    await page.screenshot({path:"artifacts/debug-dev-"+spec.name+".png",animations:"disabled"});
+    assert.ok(hit.insideViewport,"Development story must appear within the viewport during hero scroll");
+    assert.ok(hit.hit,"Development scene is not obstructed by unrelated hero content");
+    await page.screenshot({path:"artifacts/web-dev-stage-"+spec.name+".png",animations:"disabled"});
+    await page.locator("#dashDevScene").screenshot({path:"artifacts/web-dev-"+spec.name+".png",animations:"disabled"});
+    if(spec.width>720){
+      await page.locator('#dashSidebarNav [data-sidebar-tab="1"]').click({force:true});
+    }else{
+      await page.locator("#dashStageSelect").selectOption("1");
+    }
+    assert.equal(await page.locator("#dashDevScene").getAttribute("aria-hidden"),"true","Switching tabs hides the Development story");
     const cta=page.locator(".hero-conversion-primary");
     assert.equal(await cta.getAttribute("target"),"_blank","Contact opens separate tab");
     assert.equal(await page.locator(".hero-conversion-secondary").getAttribute("href"),"#planes","Plan CTA is direct anchor");

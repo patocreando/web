@@ -23,6 +23,8 @@
   const dashboardRouteFill = document.getElementById("dashRouteFill");
   const dashboardTypeCode = document.getElementById("dashTypeCode");
   const dashboardCodeStatus = document.getElementById("dashCodeStatus");
+  const dashboardDevelopmentScene = document.getElementById("dashDevScene");
+  const dashboardStageSelect = document.getElementById("dashStageSelect");
   const dashboardCodeTabs = heroUi ? [...heroUi.querySelectorAll("[data-code-tab]")] : [];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -144,13 +146,13 @@
       bottom:["Paleta y tipo","/ DESIGN","Inter","4 pesos · 4 colores","Componentes","/ 12","Diseño aprobado","Listo para desarrollar."]
     },
     {
-      breadcrumb:"Web / Desarrollo",topAction:"Build",primaryAction:"Deploy",
-      eyebrow:"DESARROLLO",title:"Código y rendimiento",desc:"Responsive, interacción y performance.",
-      stats:[["Build","Sin errores"],["Performance","98 / 100"],["Responsive","Mobile first"]],
-      structure:["Código","/ DEV"],steps:["HTML","CSS","JavaScript","Responsive","QA"],
-      preview:["Vista funcional","/ DEV"],siteNav:"Build   Responsive   Performance",
-      site:["Código limpio.","Carga rápida.","HTML, CSS y JavaScript listos para producción.","Ver build"],
-      bottom:["Stack","/ CODE","HTML · CSS","JavaScript · DOM","Build","/ PASS","Código listo","Sin errores críticos."]
+      breadcrumb:"Web / Desarrollo",topAction:"Implementación",primaryAction:"Control de calidad",
+      eyebrow:"DESARROLLO",title:"Detalles de implementación",desc:"Del prototipo al navegador.",
+      stats:[["Interacción","Recorridos definidos"],["Adaptación","Multipantalla"],["Control","Antes de entregar"]],
+      structure:["Implementación","/ DEV"],steps:["Estructura","Interacción","Pantallas","Enlaces","Revisión"],
+      preview:["Experiencia navegable","/ VISTA"],siteNav:"Pantallas   Acción   Control",
+      site:["Pensado para usar.","No solo para mirar.","Detalles de funcionamiento en cada pantalla.","Ver detalles"],
+      bottom:["Alcance técnico","/ WEB","Definido","Antes de comenzar","Control","/ QA","Preparación","Revisión antes de entregar."]
     },
     {
       breadcrumb:"Web / Contenido",topAction:"Vista",primaryAction:"Revisar",
@@ -241,6 +243,9 @@
       window.setTimeout(() => dashboardWorkspace.classList.remove("is-switching"), 115);
     }
 
+    if (dashboardWorkspace) dashboardWorkspace.classList.toggle("is-development",index===2);
+    if (dashboardDevelopmentScene) dashboardDevelopmentScene.setAttribute("aria-hidden",index===2 ? "false" : "true");
+    if (dashboardStageSelect) dashboardStageSelect.value=String(index);
     setText(dashEls.breadcrumb,view.breadcrumb);
     setText(dashEls.topAction,view.topAction);
     setText(dashEls.primaryAction,view.primaryAction);
@@ -322,6 +327,16 @@
     }, 1700);
   };
 
+  if (dashboardStageSelect) {
+    dashboardStageSelect.addEventListener("change", () => {
+      const selected=Number(dashboardStageSelect.value);
+      if(!Number.isInteger(selected)||selected<0||selected>=dashboardViews.length)return;
+      sidebarHovering=true;
+      stopSidebarCycle();
+      setSidebarActive(selected,false);
+    });
+  }
+
   dashboardSidebarItems.forEach((item,index) => {
     item.setAttribute("role","button");
     item.setAttribute("tabindex","0");
@@ -377,6 +392,9 @@
     if (heroCopy) {
       const copyScale = 1 - copyFade * .045;
       heroCopy.style.opacity = String(1 - copyFade);
+      // Fully faded CTAs must not obstruct the interactive studio dashboard.
+      // inert also removes the invisible links from keyboard focus and accessibility.
+      heroCopy.inert = copyFade >= .99;
       heroCopy.style.transform =
         "translateY(calc(-50% - " + (42 * copyFade) + "px)) scale(" + copyScale + ")";
     }
@@ -452,7 +470,7 @@
     // Code is not timer-driven: the amount typed is mapped 1:1 to hero scroll progress.
     // It starts as soon as the dashboard appears and continues only while the user scrolls.
     const codeProgress = reduceMotion ? 1 : clamp((raw - .20) / .60);
-    if (dashboardTypeCode) {
+    if (dashboardTypeCode && sidebarCycleIndex !== 2) {
       const typedLength = Math.floor(dashboardCodeSource.length * codeProgress);
       dashboardTypeCode.textContent = dashboardCodeSource.slice(0, typedLength);
 
