@@ -24,6 +24,7 @@
   const dashboardTypeCode = document.getElementById("dashTypeCode");
   const dashboardCodeStatus = document.getElementById("dashCodeStatus");
   const dashboardDevelopmentScene = document.getElementById("dashDevScene");
+  const dashboardDevBack = document.getElementById("dashDevBack");
   const dashboardStageSelect = document.getElementById("dashStageSelect");
   const dashboardCodeTabs = heroUi ? [...heroUi.querySelectorAll("[data-code-tab]")] : [];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -244,6 +245,7 @@
     }
 
     if (dashboardWorkspace) dashboardWorkspace.classList.toggle("is-development",index===2);
+    if (dashboardFrame) dashboardFrame.classList.toggle("is-development-focus",index===2);
     if (dashboardDevelopmentScene) dashboardDevelopmentScene.setAttribute("aria-hidden",index===2 ? "false" : "true");
     if (dashboardStageSelect) dashboardStageSelect.value=String(index);
     setText(dashEls.breadcrumb,view.breadcrumb);
@@ -327,6 +329,13 @@
     }, 1700);
   };
 
+  if (dashboardDevBack) {
+    dashboardDevBack.addEventListener("click", () => {
+      sidebarHovering=true;
+      stopSidebarCycle();
+      setSidebarActive(1,false);
+    });
+  }
   if (dashboardStageSelect) {
     dashboardStageSelect.addEventListener("change", () => {
       const selected=Number(dashboardStageSelect.value);
