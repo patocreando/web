@@ -97,6 +97,17 @@ const specs=[
       assert.ok(state.home.right+3<state.brand.left,"Home link does not overlap brand");
       assert.ok(state.brand.right+3<state.consult.left,"Brand does not overlap CTA");
     }
+    // Navigate to the dashboard's intended scrollytelling phase before inspecting it.
+    await page.evaluate(()=>{
+      const hero=document.querySelector(".hero-v3");
+      const top=scrollY+hero.getBoundingClientRect().top;
+      const travel=Math.max(1,hero.offsetHeight-innerHeight);
+      scrollTo({top:top+travel*.66,behavior:"instant"});
+    });
+    await page.waitForTimeout(320);
+    assert.ok((await page.locator("#heroCopy").evaluate(el=>Number(getComputedStyle(el).opacity)))<.05,"Intro copy must have faded out before dashboard evaluation");
+    assert.ok((await page.locator("#heroStage").evaluate(el=>Number(getComputedStyle(el).opacity)))>.95,"Dashboard stage must be visible");
+
     // Development tab can be reached and read without fabricated benchmark claims.
     if(spec.width>720) {
       await page.locator('#dashSidebarNav [data-sidebar-tab="2"]').click({force:true});
@@ -126,6 +137,14 @@ const specs=[
     assert.ok(dev.headline.left>=dev.panel.left-3&&dev.headline.right<=dev.panel.right+3,"Development headline fits panel");
     for(const rect of dev.benefits)assert.ok(rect.left>=dev.panel.left-3&&rect.right<=dev.panel.right+3,"Benefit cards stay within panel");
     assert.ok(dev.device.width>60,"The UI sample is visible in the development story");
+    const hit=await page.locator("#dashDevScene").evaluate(el=>{
+      const r=el.getBoundingClientRect();const x=Math.min(innerWidth-10,Math.max(10,(r.left+r.right)/2));const y=Math.min(innerHeight-10,Math.max(10,(r.top+r.bottom)/2));
+      const top=document.elementFromPoint(x,y);
+      return {hit:top===el||el.contains(top),x,y,insideViewport:r.bottom>0&&r.top<innerHeight};
+    });
+    assert.ok(hit.insideViewport,"Development story must appear within the viewport during hero scroll");
+    assert.ok(hit.hit,"Development scene is not obstructed by unrelated hero content");
+    await page.screenshot({path:"artifacts/web-dev-stage-"+spec.name+".png",animations:"disabled"});
     await page.locator("#dashDevScene").screenshot({path:"artifacts/web-dev-"+spec.name+".png",animations:"disabled"});
     if(spec.width>720){
       await page.locator('#dashSidebarNav [data-sidebar-tab="1"]').click({force:true});
