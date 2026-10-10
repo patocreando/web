@@ -135,9 +135,9 @@ const specs=[
    const after=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    if(preference==="reduce")assert.ok(Math.abs(after-before)<.1);else assert.ok(after>before+1);
    // Smooth anchor also reaches an unobstructed FAQ when motion is allowed.
-   await page.locator('.web-conversion-brand').click();await page.waitForTimeout(1000);
-   await page.locator('.web-conversion-sections a[href="#faq"]').click();await page.waitForTimeout(1200);
-   assert.ok(await page.locator("#faq").evaluate(el=>{const r=el.getBoundingClientRect();return r.top>=55&&r.top<130;}));
+   await page.locator('.web-conversion-brand').click();await page.waitForFunction(()=>scrollY<2,null,{timeout:5000});
+   await page.locator('.web-conversion-sections a[href="#faq"]').click();await page.waitForFunction(()=>{const r=document.querySelector("#faq").getBoundingClientRect();return r.top>=55&&r.top<130;},null,{timeout:5000});
+   console.log("Film and anchor passed",{preference,before,after});
    await ctx.close();
   }
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
