@@ -52,7 +52,7 @@ for(const anchor of anchors)assert.ok(ids.has(anchor),"Broken local anchor #"+an
 
 const script=fs.readFileSync("script.js","utf8");
 const heroCss=fs.readFileSync("hero-v3.css","utf8");
-const devContent=html.slice(html.indexOf('<div class="dash-dev-scene"'),html.indexOf('class="v3-piece v3-topbar"'));
+const devContent=html.slice(html.indexOf('<div class="dash-dev-scene pc-showcase"'),html.indexOf('class="v3-piece v3-topbar"'));
 assert.equal(count(html,'id="dashDevScene"'),1,"Single development story panel");
 assert.ok(devContent.includes('class="dash-dev-device pc-device-frame"'),"Chosen iPhone mockup is mounted in Development");
 assert.ok(devContent.includes('class="pc-channels"'),"Four separate source channels are mounted in Development");
