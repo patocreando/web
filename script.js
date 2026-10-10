@@ -392,6 +392,9 @@
     if (heroCopy) {
       const copyScale = 1 - copyFade * .045;
       heroCopy.style.opacity = String(1 - copyFade);
+      // Fully faded CTAs must not obstruct the interactive studio dashboard.
+      // inert also removes the invisible links from keyboard focus and accessibility.
+      heroCopy.inert = copyFade >= .99;
       heroCopy.style.transform =
         "translateY(calc(-50% - " + (42 * copyFade) + "px)) scale(" + copyScale + ")";
     }
