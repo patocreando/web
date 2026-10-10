@@ -82,7 +82,7 @@ assert.ok(devContent.includes('aria-hidden="false"'),"Only visual card is access
 assert.ok(heroCss.includes(".dash-frame.dash-frame-single"),"Single-card layout is permanent at all widths");
 assert.ok(heroCss.includes("@media(max-width:720px)"),"Responsive layout retained");
 for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
-assert.ok(html.includes('cf5a9f13-fdb9-4e66-9719-8d3754422148.png'),"Chosen uploaded phone URL is applied");
+assert.ok(html.includes('ab07f281-271a-4e55-8794-8af6518ae683.png'),"Chosen uploaded phone URL is applied");
 assert.ok(html.includes('hero-showcase.css?v=1'),"Isolated premium layout stylesheet loaded after existing hero stylesheet");
 assert.ok(fs.existsSync('hero-showcase.css'),"Premium styling exists");
 const showcaseCss=fs.readFileSync('hero-showcase.css','utf8');
