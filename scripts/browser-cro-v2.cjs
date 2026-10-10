@@ -85,6 +85,7 @@ const specs=[
    console.log(spec.name+": FAQ and plans passed; checking capability buttons");
    for(let i=0;i<4;i++){
     const tab=page.locator(".cap-tab").nth(i);
+    assert.ok(await tab.evaluate(el=>el.getBoundingClientRect().height>=44));
     await tab.focus();await page.keyboard.press(i%2?"Space":"Enter");
     await page.waitForFunction(i=>document.querySelectorAll(".cap-tab")[i].getAttribute("aria-pressed")==="true",i);
     assert.equal(await page.locator("#capFocusCopy").evaluate(el=>!!el.closest('[aria-hidden="true"],[inert]')),false);

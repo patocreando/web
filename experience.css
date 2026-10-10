@@ -1846,6 +1846,7 @@ main > section::after{
 }
 
 .cap-editorial .cap-tab{
+  min-height:44px;
   width:138px;
   padding:8px 9px;
   border-radius:9px;
@@ -4915,7 +4916,8 @@ footer{
 }
 
 .cap-editorial .cap-tab:not(.active){
-  opacity:.68;
+  opacity:1;
+  color:#c2cdbd;
 }
 
 .cap-editorial .cap-tab.active{
@@ -4967,7 +4969,7 @@ footer{
   }
 
   .cap-editorial .cap-tab strong{
-    font-size:8px;
+    font-size:11px;
   }
 }
 
