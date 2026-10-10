@@ -140,8 +140,15 @@ const specs=[
     const hit=await page.locator("#dashDevScene").evaluate(el=>{
       const r=el.getBoundingClientRect();const x=Math.min(innerWidth-10,Math.max(10,(r.left+r.right)/2));const y=Math.min(innerHeight-10,Math.max(10,(r.top+r.bottom)/2));
       const top=document.elementFromPoint(x,y);
-      return {hit:top===el||el.contains(top),x,y,insideViewport:r.bottom>0&&r.top<innerHeight};
+      return {hit:top===el||el.contains(top),x,y,insideViewport:r.bottom>0&&r.top<innerHeight,
+        topTag:top?.tagName,topClass:top?.className,
+        stack:document.elementsFromPoint(x,y).slice(0,6).map(e=>e.tagName+"."+String(e.className).slice(0,60)),
+        scrollY,heroOpacity:getComputedStyle(document.querySelector("#heroCopy")).opacity,
+        panelOpacity:getComputedStyle(el).opacity};
+    
     });
+    console.log(JSON.stringify({developmentHitTest:spec.name,...hit}));
+    await page.screenshot({path:"artifacts/debug-dev-"+spec.name+".png",animations:"disabled"});
     assert.ok(hit.insideViewport,"Development story must appear within the viewport during hero scroll");
     assert.ok(hit.hit,"Development scene is not obstructed by unrelated hero content");
     await page.screenshot({path:"artifacts/web-dev-stage-"+spec.name+".png",animations:"disabled"});
