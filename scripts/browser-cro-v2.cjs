@@ -13,7 +13,13 @@ const server=http.createServer(async(req,res)=>{
     const target=path.resolve(root,"."+pathname);
     if(!target.startsWith(root+path.sep)){res.writeHead(403).end();return;}
     const buf=await fs.readFile(target);
-    res.writeHead(200,{"content-type":types[path.extname(target)]||"application/octet-stream","cache-control":"no-store"}).end(buf);
+    const headers={"content-type":types[path.extname(target)]||"application/octet-stream","cache-control":"no-store","accept-ranges":"bytes"};
+    const range=/^bytes=(\d+)-(\d*)$/.exec(req.headers.range||"");
+    if(range){
+      const start=Number(range[1]),end=Math.min(buf.length-1,range[2]?Number(range[2]):buf.length-1);
+      if(start>end){res.writeHead(416,{"content-range":"bytes */"+buf.length}).end();return;}
+      res.writeHead(206,{...headers,"content-range":`bytes ${start}-${end}/${buf.length}`,"content-length":end-start+1}).end(buf.subarray(start,end+1));
+    }else res.writeHead(200,{...headers,"content-length":buf.length}).end(buf);
   } catch(e){res.writeHead(404).end();}
 });
 const specs=[
@@ -121,6 +127,7 @@ const specs=[
    const ctx=await browser.newContext({viewport:{width:1366,height:900},reducedMotion:preference});
    ctx.setDefaultTimeout(15000);
    const page=await ctx.newPage();await page.goto(base,{waitUntil:"networkidle"});
+   console.log("video initial",preference,await page.locator("#masterFilmVideo").evaluate(v=>({src:v.currentSrc,ready:v.readyState,network:v.networkState,error:v.error&&{code:v.error.code,message:v.error.message},codec:v.canPlayType('video/mp4; codecs="avc1.640032"')})));
    await page.waitForFunction(()=>document.querySelector("#masterFilmVideo").readyState>=1);
    const before=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    await page.locator("#faq").evaluate(el=>el.scrollIntoView({behavior:"instant"}));
