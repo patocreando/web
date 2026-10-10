@@ -284,101 +284,9 @@
     setText(dashEls.liveDesc,view.bottom[7]);
   };
 
-  let sidebarIdleTimer = 0;
-  let sidebarCycleTimer = 0;
-  let sidebarCycleIndex = 0;
-  let sidebarHovering = false;
-
-  const setSidebarActive = (index, fromIdle = false) => {
-    if (!dashboardSidebarItems.length) return;
-    sidebarCycleIndex = Math.max(0, Math.min(dashboardSidebarItems.length - 1, index));
-    dashboardSidebarItems.forEach((item,itemIndex) => {
-      const active = itemIndex === sidebarCycleIndex;
-      item.classList.toggle("active", active);
-      item.classList.toggle("is-idle-cycle", active && fromIdle && !reduceMotion);
-    });
-    renderDashboardView(sidebarCycleIndex);
-  };
-
-  const stopSidebarCycle = () => {
-    window.clearTimeout(sidebarIdleTimer);
-    window.clearInterval(sidebarCycleTimer);
-    sidebarIdleTimer = 0;
-    sidebarCycleTimer = 0;
-    dashboardSidebarItems.forEach(item => item.classList.remove("is-idle-cycle"));
-  };
-
-  const scheduleSidebarCycle = () => {
-    if (reduceMotion || !dashboardSidebarItems.length || sidebarHovering) return;
-    stopSidebarCycle();
-
-    sidebarIdleTimer = window.setTimeout(() => {
-      if (!hero) return;
-      const rect = hero.getBoundingClientRect();
-      const travel = Math.max(1, hero.offsetHeight - window.innerHeight);
-      const raw = clamp(-rect.top / travel);
-
-      // Only auto-play while the dashboard itself is clearly on screen.
-      if (raw < .20 || raw > .96) return;
-
-      setSidebarActive((sidebarCycleIndex + 1) % dashboardSidebarItems.length, true);
-
-      sidebarCycleTimer = window.setInterval(() => {
-        setSidebarActive((sidebarCycleIndex + 1) % dashboardSidebarItems.length, true);
-      }, 1550);
-    }, 1700);
-  };
-
-  if (dashboardDevBack) {
-    dashboardDevBack.addEventListener("click", () => {
-      sidebarHovering=true;
-      stopSidebarCycle();
-      setSidebarActive(1,false);
-    });
-  }
-  if (dashboardStageSelect) {
-    dashboardStageSelect.addEventListener("change", () => {
-      const selected=Number(dashboardStageSelect.value);
-      if(!Number.isInteger(selected)||selected<0||selected>=dashboardViews.length)return;
-      sidebarHovering=true;
-      stopSidebarCycle();
-      setSidebarActive(selected,false);
-    });
-  }
-
-  dashboardSidebarItems.forEach((item,index) => {
-    item.setAttribute("role","button");
-    item.setAttribute("tabindex","0");
-
-    item.addEventListener("pointerenter", () => {
-      sidebarHovering = true;
-      stopSidebarCycle();
-      setSidebarActive(index, false);
-    });
-
-    item.addEventListener("click", () => {
-      sidebarHovering = true;
-      stopSidebarCycle();
-      setSidebarActive(index, false);
-    });
-
-    item.addEventListener("keydown", event => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
-      sidebarHovering = true;
-      stopSidebarCycle();
-      setSidebarActive(index, false);
-    });
-  });
-
-  if (dashboardSidebarNav) {
-    dashboardSidebarNav.addEventListener("pointerleave", () => {
-      sidebarHovering = false;
-      scheduleSidebarCycle();
-    });
-  }
-
-  renderDashboardView(0);
+  // A single permanent Development card: no tabs, timers or automatic cycling.
+  const sidebarCycleIndex = 2;
+  renderDashboardView(2);
 
   if (year) year.textContent = new Date().getFullYear();
 
@@ -535,11 +443,6 @@
     if (header) header.classList.toggle("scrolled", y > 18);
     if (progressBar) progressBar.style.transform = "scaleX(" + progress + ")";
     if (mobileBar) mobileBar.classList.toggle("visible", y > window.innerHeight * 2.1);
-
-    if (!sidebarHovering) {
-      stopSidebarCycle();
-      scheduleSidebarCycle();
-    }
 
     updateHero();
     updateOrder();
