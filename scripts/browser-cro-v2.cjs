@@ -31,6 +31,7 @@ const specs=[
  try {
   for(const spec of specs){
    const context=await browser.newContext({viewport:{width:spec.width,height:spec.height},reducedMotion:"reduce"});
+   context.setDefaultTimeout(15000);
    const page=await context.newPage();
    const errors=[];page.on("pageerror",e=>errors.push(e.message));
    await page.goto(base+"#faq",{waitUntil:"networkidle"});
@@ -81,6 +82,7 @@ const specs=[
    else{assert.ok(cards[1].y>=cards[0].y+cards[0].height);}
    await page.locator("#planes").screenshot({path:"artifacts/cro-plans-"+spec.name+".png"});
    await page.locator("#proceso").screenshot({path:"artifacts/cro-process-"+spec.name+".png"});
+   console.log(spec.name+": FAQ and plans passed; checking capability buttons");
    for(let i=0;i<4;i++){
     const tab=page.locator(".cap-tab").nth(i);
     await tab.focus();await page.keyboard.press(i%2?"Space":"Enter");
@@ -112,6 +114,7 @@ const specs=[
   // Real video seeks with scrolling; reduced motion retains one frame.
   for(const preference of ["no-preference","reduce"]){
    const ctx=await browser.newContext({viewport:{width:1366,height:900},reducedMotion:preference});
+   ctx.setDefaultTimeout(15000);
    const page=await ctx.newPage();await page.goto(base,{waitUntil:"networkidle"});
    await page.waitForFunction(()=>document.querySelector("#masterFilmVideo").readyState>=2);
    const before=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
