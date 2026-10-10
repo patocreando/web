@@ -32,7 +32,7 @@ const specs=[
 (async()=>{
  await new Promise(resolve=>server.listen(0,"127.0.0.1",resolve));
  const base="http://127.0.0.1:"+server.address().port+"/";
- const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
+ const browser=await chromium.launch({channel:"chrome",headless:true,args:["--no-sandbox"]});
  await fs.mkdir("artifacts",{recursive:true});
  try {
   for(const spec of specs){
