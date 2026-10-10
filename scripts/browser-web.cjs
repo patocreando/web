@@ -117,14 +117,16 @@ const specs=[
     }
     await page.waitForTimeout(430);
     const dev=await page.locator("#dashDevScene").evaluate(el=>{
-      const pane=el.getBoundingClientRect();
-      const headline=el.querySelector("h3").getBoundingClientRect();
-      const items=[...el.querySelectorAll(".dash-dev-benefit")].map(x=>x.getBoundingClientRect());
-      const mobile=el.querySelector(".dash-dev-device").getBoundingClientRect();
-      const rect=r=>({left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height});
+      const rect=x=>{const r=x.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};};
+      const panel=rect(el),device=rect(el.querySelector(".dash-dev-device")),flow=rect(el.querySelector(".dash-dev-flow"));
+      const image=el.querySelector(".dash-dev-flow img"),flowMobile=el.querySelector(".dash-dev-flow-mobile");
+      const displayed=x=>{const s=getComputedStyle(x);return s.display!=="none"&&s.visibility!=="hidden";};
       return {
         aria:el.getAttribute("aria-hidden"),visible:getComputedStyle(el).visibility,
-        panel:rect(pane),headline:rect(headline),benefits:items.map(rect),device:rect(mobile),
+        panel,device,flow,phoneCount:el.querySelectorAll(".dash-dev-device").length,
+        flowCount:el.querySelectorAll(".dash-dev-flow").length,
+        imgVisible:displayed(image),mobileFlowVisible:displayed(flowMobile),
+        redundant:el.querySelectorAll(".dash-dev-left,.dash-dev-benefit,.dash-dev-footer,.dash-dev-preview-heading,.dash-dev-spec,h3,figcaption").length,
         devMode:el.closest(".dash-workspace").classList.contains("is-development"),
         noSyntheticNumbers:!el.textContent.includes("98 / 100")
       };
@@ -133,11 +135,17 @@ const specs=[
     assert.equal(dev.visible,"visible","Development illustration is visible");
     assert.ok(dev.devMode,"Development mode is selected");
     assert.ok(dev.noSyntheticNumbers,"No fabricated performance metric in Development");
-    assert.equal(dev.benefits.length,3,"Three distinct delivery benefits");
+    assert.equal(dev.phoneCount,1,"Only the phone mockup remains");
+    assert.equal(dev.flowCount,1,"Only the channel graphic remains");
+    assert.equal(dev.redundant,0,"No redundant Development paragraphs, cards, or headings");
     assert.ok(dev.panel.height>180&&dev.panel.width>220,"Development panel has adequate dimensions");
-    assert.ok(dev.headline.left>=dev.panel.left-3&&dev.headline.right<=dev.panel.right+3,"Development headline fits panel");
-    for(const rect of dev.benefits)assert.ok(rect.left>=dev.panel.left-3&&rect.right<=dev.panel.right+3,"Benefit cards stay within panel");
-    assert.ok(dev.device.width>60,"The UI sample is visible in the development story");
+    assert.ok(dev.device.width>60&&dev.device.height>140,"Phone mockup remains visible");
+    assert.ok(dev.flow.width>150&&dev.flow.height>40,"Convergence flow remains visible");
+    assert.ok(dev.device.left>=dev.panel.left-8&&dev.device.right<=dev.panel.right+8,"Phone stays within Development panel");
+    assert.ok(dev.device.bottom<=dev.flow.top+20,"Phone and flow do not overlap");
+    assert.ok(dev.flow.bottom<=dev.panel.bottom+5,"Flow does not clip vertically");
+    assert.equal(dev.imgVisible,spec.width>720,"Full SVG flow displays only on tablet and desktop");
+    assert.equal(dev.mobileFlowVisible,spec.width<=720,"Compact flow displays only on phones");
     const hit=await page.locator("#dashDevScene").evaluate(el=>{
       const r=el.getBoundingClientRect();const x=Math.min(innerWidth-10,Math.max(10,(r.left+r.right)/2));const y=Math.min(innerHeight-10,Math.max(10,(r.top+r.bottom)/2));
       const top=document.elementFromPoint(x,y);
