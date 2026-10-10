@@ -69,3 +69,70 @@
 @media(prefers-reduced-motion:reduce){
  .hero-v3-ui.dashboard-mode .dash-float,.pc-iphone-image{animation:none!important;transition:none!important}
 }
+
+/* CHANNEL CONVERGENCE V2 — reduced phone size, low-cost animated paths.
+   Original film, scroll/pointer interaction and existing commercial UI are untouched. */
+.dash-frame-single .dash-dev-scene.pc-showcase{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);background:radial-gradient(ellipse at 72% 42%,rgba(146,192,110,.075),transparent 47%),linear-gradient(101deg,rgba(6,17,12,.42),rgba(6,16,12,.04))}
+.dash-frame-single .dash-dev-scene.pc-showcase .pc-showcase-phone{min-height:0}
+.dash-frame-single .dash-dev-scene.pc-showcase .pc-device-frame{width:min(100%,235px)!important;height:min(305px,59%)!important;max-height:305px!important;min-width:0!important}
+.dash-frame-single .dash-dev-scene.pc-showcase .pc-iphone-image{width:auto!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain;filter:drop-shadow(8px 15px 15px rgba(0,0,0,.42))}
+.dash-frame-single .pc-phone-halo{width:min(92%,345px);border-color:rgba(169,224,142,.17);box-shadow:0 0 75px rgba(152,221,125,.055),inset 0 0 75px rgba(152,221,125,.03)}
+.pc-showcase .dash-dev-flow.pc-showcase-flow{display:grid;grid-template-columns:minmax(0,73%) minmax(0,27%);grid-template-rows:1fr auto;gap:0;overflow:visible}
+.pc-showcase .pc-channels{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(4,minmax(0,1fr));gap:clamp(4px,.6vw,8px);height:auto;min-height:0}
+.pc-showcase .pc-channel{position:relative;z-index:2;display:flex;align-items:center;min-width:0;min-height:clamp(38px,3.6vw,52px);padding:clamp(5px,.6vw,9px) clamp(6px,.76vw,11px);background:rgba(7,22,15,.29);border-color:rgba(175,221,156,.20);border-radius:10px;transition:background-color .3s,border-color .3s}
+.pc-showcase .pc-channel:hover{background:rgba(35,65,37,.35);border-color:rgba(178,236,155,.53)}
+.pc-showcase .pc-channel-icon{width:clamp(22px,2.15vw,29px);height:clamp(22px,2.15vw,29px);font-size:clamp(9px,.85vw,11px);border-radius:7px}
+.pc-showcase .pc-channel strong{font-size:clamp(10px,.88vw,13px)}
+.pc-showcase .pc-channel small{font-size:clamp(8px,.74vw,10px)}
+.pc-channel-signal{position:absolute;right:-4px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:#bae99e;box-shadow:0 0 8px rgba(176,231,145,.7);z-index:4;animation:pcSignalBeat 3.7s ease-in-out infinite}
+.pc-channel:nth-child(2) .pc-channel-signal{animation-delay:.55s}
+.pc-channel:nth-child(3) .pc-channel-signal{animation-delay:1.1s}
+.pc-channel:nth-child(4) .pc-channel-signal{animation-delay:1.65s}
+.pc-connection-map{display:block;position:relative;z-index:1;overflow:visible;align-self:stretch;width:100%;height:100%;min-height:168px;pointer-events:none;filter:drop-shadow(0 0 5px rgba(183,234,155,.13))}
+.pc-route-base{stroke:rgba(169,222,142,.38);stroke-width:1.8;vector-effect:non-scaling-stroke}
+.pc-route-pulse{stroke:#cbf6ad;stroke-width:2.4;vector-effect:non-scaling-stroke;stroke-dasharray:13 87;stroke-dashoffset:100;animation:pcLinkFlow 3.7s linear infinite;opacity:.85}
+.pc-route-pulse:nth-of-type(6){animation-delay:-.55s}
+.pc-route-pulse:nth-of-type(7){animation-delay:-1.1s}
+.pc-route-pulse:nth-of-type(8){animation-delay:-1.65s}
+.pc-connection-exit{stroke:#bcefa1;stroke-width:2.2;vector-effect:non-scaling-stroke}
+.pc-hub-ring{fill:rgba(176,228,145,.07);stroke:#b8e9a2;stroke-width:1.5;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:pcHubGlow 3.7s ease-in-out infinite}
+.pc-hub-core{fill:#d4ffb7;filter:drop-shadow(0 0 3px #9cd379)}
+.pc-exit-arrow{fill:none;stroke:#baf1a1;stroke-width:2;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.pc-showcase .pc-channel-outcome{grid-column:1/-1;display:flex;justify-content:space-between;gap:5px;margin-top:clamp(5px,.8vw,10px);padding-top:clamp(5px,.7vw,9px);color:#aeca99;font-size:clamp(8px,.74vw,11px);letter-spacing:.075em}
+.pc-showcase .pc-channel-outcome strong{color:#e2f5d5}
+@keyframes pcLinkFlow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes pcSignalBeat{0%,100%{opacity:.44;transform:scale(.8)}32%,60%{opacity:1;transform:scale(1.15)}}
+@keyframes pcHubGlow{0%,100%{opacity:.52;transform:scale(.9)}50%{opacity:1;transform:scale(1.2)}}
+@media(max-width:980px){
+ .dash-frame-single .dash-dev-scene.pc-showcase .pc-device-frame{width:min(100%,190px)!important;height:min(270px,55%)!important;max-height:270px!important}
+ .pc-showcase .pc-channel{min-height:clamp(31px,3.7vw,41px)}
+ .pc-connection-map{min-height:142px}
+}
+@media(max-width:720px){
+ .dash-frame-single .dash-dev-scene.pc-showcase{grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:5px;background:linear-gradient(100deg,rgba(6,17,12,.40),rgba(6,16,12,.045))}
+ .dash-frame-single .dash-dev-scene.pc-showcase .pc-device-frame{width:min(100%,142px)!important;height:min(194px,56%)!important;max-height:194px!important}
+ .pc-showcase .dash-dev-flow.pc-showcase-flow{grid-template-columns:minmax(0,74%) minmax(0,26%)}
+ .pc-showcase .pc-channels{gap:4px}
+ .pc-showcase .pc-channel{min-height:27px;gap:5px;padding:3px 5px;border-radius:7px}
+ .pc-showcase .pc-channel-icon{width:18px;height:18px;font-size:7px;border-radius:5px}
+ .pc-showcase .pc-channel strong{font-size:8px}
+ .pc-showcase .pc-channel small{font-size:6.5px}
+ .pc-connection-map{min-height:119px}
+ .pc-route-base{stroke-width:1.25}
+ .pc-route-pulse{stroke-width:1.6}
+ .pc-channel-signal{width:5px;height:5px;right:-3px;margin-top:-2.5px}
+ .pc-showcase .pc-channel-outcome{font-size:6.8px;letter-spacing:0;margin-top:4px;padding-top:4px}
+}
+@media(max-width:410px){
+ .dash-frame-single .dash-dev-scene.pc-showcase .pc-device-frame{width:min(100%,128px)!important;height:min(174px,56%)!important;max-height:174px!important}
+ .pc-showcase .pc-channel{min-height:24px}
+ .pc-showcase .pc-channel small{display:none}
+ .pc-showcase .pc-channel-outcome{font-size:6.4px}
+ .pc-connection-map{min-height:108px}
+}
+@media(prefers-reduced-motion:reduce){
+ .pc-channel-signal,.pc-route-pulse,.pc-hub-ring{animation:none!important}
+ .pc-route-pulse{stroke-dasharray:none;stroke-dashoffset:0;opacity:.33}
+ .pc-channel-signal{opacity:.65;transform:none}
+ .pc-hub-ring{opacity:.65;transform:none}
+}
