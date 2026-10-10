@@ -131,6 +131,18 @@ const specs=[
         noSyntheticNumbers:!el.textContent.includes("98 / 100")
       };
     });
+    const focus=await page.locator("#heroDashboardFrame").evaluate(el=>({
+      active:el.classList.contains("is-development-focus"),
+      sidebar:getComputedStyle(el.querySelector(".dash-sidebar")).display,
+      topbar:getComputedStyle(el.querySelector(".dash-topbar")).display,
+      overview:getComputedStyle(el.querySelector(".dash-overview")).display,
+      main:getComputedStyle(el.querySelector(".dash-main")).display,
+      bottom:getComputedStyle(el.querySelector(".dash-bottom")).display
+    }));
+    assert.equal(focus.active,true,"Development uses exclusive full-width canvas");
+    for(const [name,display] of Object.entries(focus)){
+      if(name!=="active")assert.equal(display,"none","No old dashboard element remains: "+name);
+    }
     assert.equal(dev.aria,"false","Development illustration accessible in selected view");
     assert.equal(dev.visible,"visible","Development illustration is visible");
     assert.ok(dev.devMode,"Development mode is selected");
@@ -162,12 +174,9 @@ const specs=[
     assert.ok(hit.hit,"Development scene is not obstructed by unrelated hero content");
     await page.screenshot({path:"artifacts/web-dev-stage-"+spec.name+".png",animations:"disabled"});
     await page.locator("#dashDevScene").screenshot({path:"artifacts/web-dev-"+spec.name+".png",animations:"disabled"});
-    if(spec.width>720){
-      await page.locator('#dashSidebarNav [data-sidebar-tab="1"]').click({force:true});
-    }else{
-      await page.locator("#dashStageSelect").selectOption("1");
-    }
-    assert.equal(await page.locator("#dashDevScene").getAttribute("aria-hidden"),"true","Switching tabs hides the Development story");
+    await page.locator("#dashDevBack").click();
+    assert.equal(await page.locator("#dashDevScene").getAttribute("aria-hidden"),"true","Returning to another stage hides Development");
+    assert.equal(await page.locator("#heroDashboardFrame").evaluate(el=>el.classList.contains("is-development-focus")),false,"Dashboard navigation is restored on exit");
     const cta=page.locator(".hero-conversion-primary");
     assert.equal(await cta.getAttribute("target"),"_blank","Contact opens separate tab");
     assert.equal(await page.locator(".hero-conversion-secondary").getAttribute("href"),"#planes","Plan CTA is direct anchor");
