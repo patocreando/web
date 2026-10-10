@@ -82,7 +82,9 @@ assert.ok(devContent.includes('aria-hidden="false"'),"Only visual card is access
 assert.ok(heroCss.includes(".dash-frame.dash-frame-single"),"Single-card layout is permanent at all widths");
 assert.ok(heroCss.includes("@media(max-width:720px)"),"Responsive layout retained");
 for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
-assert.ok(html.includes('assets/alma-iphone.webp'),"Chosen uploaded phone URL is applied");
+assert.ok(html.includes('src="./assets/alma-iphone.webp"'),"User-selected phone is hosted locally");
+assert.ok(fs.existsSync("assets/alma-iphone.webp"),"GitHub Pages asset is present");
+assert.ok(fs.statSync("assets/alma-iphone.webp").size<150000,"Real iPhone mockup is below 150 KB");
 assert.ok(html.includes('hero-showcase.css?v=1'),"Isolated premium layout stylesheet loaded after existing hero stylesheet");
 assert.ok(fs.existsSync('hero-showcase.css'),"Premium styling exists");
 const showcaseCss=fs.readFileSync('hero-showcase.css','utf8');
