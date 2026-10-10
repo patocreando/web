@@ -52,7 +52,10 @@
     if(i===current)return;
     current=i;
 
-    tabs.forEach((tab,n)=>tab.classList.toggle("active",n===i));
+    tabs.forEach((tab,n)=>{
+      tab.classList.toggle("active",n===i);
+      tab.setAttribute("aria-pressed",String(n===i));
+    });
     layers.forEach((layer,n)=>layer.classList.toggle("active",n===i));
     updateFocus(i);
   };
@@ -69,11 +72,11 @@
 
     if(heading){
       heading.style.opacity="1";
-      heading.style.transform="translate3d(0,"+(-5*smooth(clamp(p/.25))).toFixed(2)+"px,0)";
+      heading.style.transform="translate3d(0,"+(reduceMotion ? 0 : -5*smooth(clamp(p/.25))).toFixed(2)+"px,0)";
     }
 
     if(stage){
-      const drift=(p-.5)*8;
+      const drift=reduceMotion ? 0 : (p-.5)*8;
       stage.style.transform="translate(-50%,-50%) translate3d(0,"+drift.toFixed(2)+"px,0)";
     }
 
@@ -88,7 +91,7 @@
   const targets=[.03,.35,.67,.96];
   tabs.forEach((tab,i)=>tab.addEventListener("click",()=>{
     const travel=section.offsetHeight-innerHeight;
-    scrollTo({top:section.offsetTop+(travel*targets[i]),behavior:"smooth"});
+    scrollTo({top:section.offsetTop+(travel*targets[i]),behavior:reduceMotion ? "instant" : "smooth"});
   }));
 
   update();

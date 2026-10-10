@@ -42,7 +42,7 @@ for(const term of ["1 ajuste","2 ajustes","3 ajustes","Diseño personalizado","S
 match("Alcance, plazos y condiciones de pago se acuerdan antes de empezar.");
 match('aria-label="Navegación principal"');
 match('meta name="description" content="Diseño de landing pages');
-assert.equal(count(html,'class="plan-x '),3,"Three original plans still present");
+assert.equal(count(html,'class="plan-option '),3,"Three original plans still present");
 for(const file of ["styles.css","hero-v3.css","experience.css","script.js","capabilities.js","plans.js","process.js","polish.js","film.js","kinetic.js","close-zone.js"])assert.ok(fs.existsSync(file),"Original asset missing "+file);
 const css=html.slice(html.indexOf('<style id="web-conversion-critical">'),html.indexOf('</style>',html.indexOf('<style id="web-conversion-critical">')));
 for(const style of [".web-conversion-nav",".hero-conversion-actions","#solucion,#capacidades,#planes,#proceso,#faq","@media(max-width:720px)"])assert.ok(css.includes(style),"Responsive style missing "+style);
@@ -90,7 +90,7 @@ for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
 assert.ok(html.includes('src="./assets/alma-iphone.webp"'),"User-selected phone is hosted locally");
 assert.ok(fs.existsSync("assets/alma-iphone.webp"),"GitHub Pages asset is present");
 assert.ok(fs.statSync("assets/alma-iphone.webp").size<150000,"Real iPhone mockup is below 150 KB");
-assert.ok(html.includes('hero-showcase.css?v=2'),"Connected channel styling is cache-busted");
+assert.ok(Number(html.match(/hero-showcase\.css\?v=(\d+)/)?.[1])>=3,"Connected channel styling is cache-busted");
 assert.ok(fs.existsSync('hero-showcase.css'),"Premium styling exists");
 const showcaseCss=fs.readFileSync('hero-showcase.css','utf8');
 assert.ok(showcaseCss.includes('.pc-showcase')&&showcaseCss.includes('.pc-iphone-image'),"Premium phone and channel styling is present");
