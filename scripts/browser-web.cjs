@@ -122,6 +122,10 @@ const specs=[
         sceneCount:el.querySelectorAll("#dashDevScene").length,
         phoneCount:el.querySelectorAll(".dash-dev-device").length,
         channelCount:el.querySelectorAll(".pc-channel").length,
+        pathCount:el.querySelectorAll(".pc-route-base").length,
+        pulseCount:el.querySelectorAll(".pc-route-pulse").length,
+        animatedSvgCount:el.querySelectorAll(".pc-connection-map").length,
+        reduceMotionRespected:getComputedStyle(el.querySelector(".pc-route-pulse")).animationName==="none",
         imageCount:el.querySelectorAll(".pc-iphone-image").length,
         flowCount:el.querySelectorAll(".dash-dev-flow").length,
         active:el.classList.contains("is-development-focus"),
@@ -140,6 +144,12 @@ const specs=[
       assert.equal(state.phoneCount,1,"Exactly one iPhone mockup");
       assert.equal(state.imageCount,1,"Exactly one real phone image");
       assert.equal(state.channelCount,4,"Four distinct channel cards");
+      assert.equal(state.pathCount,4,"All four sources have physical connection lines");
+      assert.equal(state.pulseCount,4,"Four moving connector signals are present");
+      assert.equal(state.animatedSvgCount,1,"Only one animated connection graphic");
+      assert.equal(state.reduceMotionRespected,true,"Motion preference disables background connector animation");
+      assert.ok(state.phone.height<= (spec.width<=720?200:310),"Phone preview stays deliberately compact and sharp");
+
       assert.equal(state.flowCount,1,"Exactly one channels diagram");
       assert.equal(state.legacyCards,0,"All legacy cards, navigation and panels removed from markup");
       assert.ok(state.active&&state.stable,"Permanent Development scene is active and visible");
@@ -168,7 +178,7 @@ const specs=[
       await page.waitForTimeout(150);
       assertShowcase(await getShowcase());
     }
-    console.log(JSON.stringify({viewport:spec.name,singleCard:true,legacyCards:first.legacyCards,phone:first.phone,flow:first.flow}));
+    console.log(JSON.stringify({viewport:spec.name,singleCard:true,legacyCards:first.legacyCards,phone:first.phone,flow:first.flow,connectorPaths:first.pathCount}));
     await page.screenshot({path:"artifacts/web-single-development-"+spec.name+".png",animations:"disabled"});
     await page.locator("#dashDevScene").screenshot({path:"artifacts/web-dev-"+spec.name+".png",animations:"disabled"});
     const cta=page.locator(".hero-conversion-primary");
@@ -179,6 +189,19 @@ const specs=[
     console.log(JSON.stringify({viewport:spec.name,navHeight:state.nav.height,heroTop:state.heroHeadline.top,ctaBottom:state.heroPrimary.bottom,fold:spec.height}));
    }finally{await context.close();}
   }
+  // Confirm animated routes actually run with normal-motion preference.
+  const motionContext=await browser.newContext({viewport:{width:1366,height:900},reducedMotion:"no-preference"});
+  const motionPage=await motionContext.newPage();
+  await motionPage.goto(base,{waitUntil:"domcontentloaded",timeout:75000});
+  const motion=await motionPage.locator(".pc-route-pulse").first().evaluate(el=>({
+    animationName:getComputedStyle(el).animationName,
+    iterationCount:getComputedStyle(el).animationIterationCount,
+    routeCount:document.querySelectorAll(".pc-route-pulse").length
+  }));
+  assert.equal(motion.animationName,"pcLinkFlow","Source-to-web flow runs when motion is allowed");
+  assert.equal(motion.iterationCount,"infinite","Connection flow loops gently");
+  assert.equal(motion.routeCount,4,"Each source has one distinct animated path");
+  await motionContext.close();
   // Verify anchor navigation independently of long cinematic scrollytelling.
   const ctx=await browser.newContext({viewport:{width:390,height:844},reducedMotion:"reduce"});
   const page=await ctx.newPage();
