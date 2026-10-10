@@ -68,14 +68,14 @@ const specs=[
    await page.screenshot({path:"artifacts/cro-faq-"+spec.name+".png"});
    await page.locator("#planes").evaluate(el=>el.scrollIntoView({behavior:"instant"}));
    const cards=await page.locator(".plan-option").evaluateAll(nodes=>nodes.map(el=>{
-    const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,opacity:getComputedStyle(el).opacity,transform:getComputedStyle(el).transform,scroll:el.scrollWidth,client:el.clientWidth,text:el.textContent.replace(/\s+/g," ").trim(),items:[...el.querySelectorAll("li")].map(n=>n.textContent)};
+    const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,opacity:getComputedStyle(el).opacity,transform:getComputedStyle(el).transform,scroll:el.scrollWidth,client:el.clientWidth,price:[...el.querySelectorAll(".plan-option-price strong,.plan-option-price small")].map(n=>n.textContent).join(" "),text:el.textContent.replace(/\s+/g," ").trim(),items:[...el.querySelectorAll("li")].map(n=>n.textContent)};
    }));
    assert.equal(cards.length,3);
    assert.deepEqual(cards.map(c=>c.items),[
     ["1 página","Hasta 5 bloques","Optimizada para celular","Acción principal","SEO básico","1 ajuste"],
     ["Diseño personalizado","Más secciones","Galería / mapa / formulario","Integraciones","Dominio propio","2 ajustes"],
     ["Página avanzada o multipágina","Dirección visual","Animación e interacción","Integraciones a medida","SEO ampliado","3 ajustes"]]);
-   ["ARS 30.000 pago único","ARS 75.000 pago único","ARS 150.000 desde"].forEach((price,i)=>assert.ok(cards[i].text.includes(price)));
+   ["ARS 30.000 pago único","ARS 75.000 pago único","ARS 150.000 desde"].forEach((price,i)=>assert.ok(cards[i].price===price));
    for(const card of cards){assert.equal(card.opacity,"1");assert.equal(card.transform,"none");assert.ok(card.scroll<=card.client+1);assert.ok(card.x>=0&&card.right<=spec.width);}
    if(spec.width>900){assert.ok(cards.every(c=>Math.abs(c.width-cards[0].width)<1&&Math.abs(c.y-cards[0].y)<1));}
    else{assert.ok(cards[1].y>=cards[0].y+cards[0].height);}
