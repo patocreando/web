@@ -106,6 +106,7 @@ const specs=[
     });
     await page.waitForTimeout(320);
     assert.ok((await page.locator("#heroCopy").evaluate(el=>Number(getComputedStyle(el).opacity)))<.05,"Intro copy must have faded out before dashboard evaluation");
+    assert.ok(await page.locator("#heroCopy").evaluate(el=>el.inert),"Invisible conversion buttons cannot intercept the dashboard");
     assert.ok((await page.locator("#heroStage").evaluate(el=>Number(getComputedStyle(el).opacity)))>.95,"Dashboard stage must be visible");
 
     // Development tab can be reached and read without fabricated benchmark claims.
