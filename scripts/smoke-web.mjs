@@ -90,7 +90,7 @@ for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
 assert.ok(html.includes('src="./assets/alma-iphone.webp"'),"User-selected phone is hosted locally");
 assert.ok(fs.existsSync("assets/alma-iphone.webp"),"GitHub Pages asset is present");
 assert.ok(fs.statSync("assets/alma-iphone.webp").size<150000,"Real iPhone mockup is below 150 KB");
-assert.ok(html.includes('hero-showcase.css?v=2'),"Connected channel styling is cache-busted");
+assert.ok(Number(html.match(/hero-showcase\.css\?v=(\d+)/)?.[1])>=3,"Connected channel styling is cache-busted");
 assert.ok(fs.existsSync('hero-showcase.css'),"Premium styling exists");
 const showcaseCss=fs.readFileSync('hero-showcase.css','utf8');
 assert.ok(showcaseCss.includes('.pc-showcase')&&showcaseCss.includes('.pc-iphone-image'),"Premium phone and channel styling is present");
