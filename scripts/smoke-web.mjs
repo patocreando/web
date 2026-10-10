@@ -54,8 +54,8 @@ const script=fs.readFileSync("script.js","utf8");
 const heroCss=fs.readFileSync("hero-v3.css","utf8");
 const devContent=html.slice(html.indexOf('<div class="dash-dev-scene"'),html.indexOf('class="v3-piece v3-topbar"'));
 assert.equal(count(html,'id="dashDevScene"'),1,"Single development story panel");
-assert.ok(devContent.includes("VISTA ILUSTRATIVA / MOBILE"),"Preview is explicitly illustrative, not a real performance test");
-for(const phrase of ["Adaptación real","Acciones conectadas","Control previo a la entrega","Sin promesas de puntuaciones."])assert.ok(devContent.includes(phrase),"Development story communicates concrete value: "+phrase);
+assert.ok(devContent.includes("PROTOTIPO VISUAL"),"Device is explicitly illustrative, not a real performance test");
+for(const phrase of ["Canales conectados","Interacción útil","Revisión multipantalla","DE MUCHOS ACCESOS A UNA SOLA EXPERIENCIA"])assert.ok(devContent.includes(phrase),"Development story communicates concrete value: "+phrase);
 assert.ok(!script.includes("98 / 100"),"Remove fabricated Lighthouse performance score");
 assert.ok(!script.includes('title:"Código y rendimiento"'),"Old generic technical dashboard replaced");
 assert.ok(script.includes('is-development",index===2'),"Development view controlled by selected tab");
@@ -64,5 +64,7 @@ assert.ok(heroCss.includes(".dash-workspace.is-development .dash-dev-scene"),"Ta
 assert.ok(heroCss.includes("@media(max-width:720px)"),"Mobile storytelling layout exists");
 assert.equal(count(html,'id="dashStageSelect"'),1,"Single mobile stage selector");
 for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
+assert.ok(html.includes('src="./assets/canales-unificados.svg"'),"Convergence image is a local asset");
+assert.ok(heroCss.includes("dash-dev-island")&&heroCss.includes("dash-dev-device-glass")===false,"Premium phone shell and dynamic island are styled");
 console.log("Premium development showcase QA OK: meaningful copy, no false scores, responsive stage access, commercial terms.");
 console.log("Web conversion static smoke OK: pricing, Manychat, chapter structure, hero CTAs and responsive CSS.");
