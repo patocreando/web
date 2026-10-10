@@ -64,13 +64,22 @@ assert.ok(!devContent.includes('<figcaption>'),"No redundant flow caption");
 assert.ok(fs.existsSync("assets/canales-unificados.svg"),"Diagram asset exists");
 assert.ok(!script.includes("98 / 100"),"Remove fabricated Lighthouse performance score");
 assert.ok(!script.includes('title:"Código y rendimiento"'),"Old generic technical dashboard replaced");
-assert.ok(script.includes('is-development",index===2'),"Development view controlled by selected tab");
-assert.ok(script.includes('dashboardStageSelect.addEventListener("change"'),"Mobile can access Development view directly");
-assert.ok(heroCss.includes(".dash-workspace.is-development .dash-dev-scene"),"Tab-specific composition styles exist");
-assert.ok(heroCss.includes("@media(max-width:720px)"),"Mobile storytelling layout exists");
-assert.equal(count(html,'id="dashStageSelect"'),1,"Single mobile stage selector");
+assert.ok(script.includes('renderDashboardView(2);'),"Only Development is selected at initialization");
+for(const term of ["setInterval(","scheduleSidebarCycle","stopSidebarCycle","renderDashboardView(0);"]){
+  assert.ok(!script.includes(term),"No dashboard autoplay survives: "+term);
+}
+assert.equal(count(html,'id="heroDashboardFrame"'),1,"Exactly one showcase card");
+assert.ok(html.includes('class="dash-frame is-development-focus dash-frame-single"'),"Single card is statically visible");
+assert.equal(count(html,'id="dashSidebarNav"'),0,"Remove old sidebar rather than hiding it");
+assert.equal(count(html,'id="dashStageSelect"'),0,"Remove obsolete stage selector");
+assert.equal(count(html,'id="dashDevBack"'),0,"Remove obsolete return button");
+assert.equal(count(html,'class="dash-card"'),0,"Remove old dashboard cards");
+assert.equal(count(html,'id="dashTypeCode"'),0,"Remove obsolete code animation");
+assert.ok(devContent.includes('aria-hidden="false"'),"Only visual card is accessible");
+assert.ok(heroCss.includes(".dash-frame.dash-frame-single"),"Single-card layout is permanent at all widths");
+assert.ok(heroCss.includes("@media(max-width:720px)"),"Responsive layout retained");
 for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
 assert.ok(html.includes('src="./assets/canales-unificados.svg"'),"Convergence image is a local asset");
 assert.ok(heroCss.includes("dash-dev-island")&&heroCss.includes("dash-dev-device-glass")===false,"Premium phone shell and dynamic island are styled");
-console.log("Minimal Development showcase QA OK: only phone and connected-channel graphic, no redundant copy; commercial terms intact.");
+console.log("Single Development card QA OK: one card, no sidebar, no autoplay, commercial terms intact.");
 console.log("Web conversion static smoke OK: pricing, Manychat, chapter structure, hero CTAs and responsive CSS.");

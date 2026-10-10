@@ -109,74 +109,59 @@ const specs=[
     assert.ok(await page.locator("#heroCopy").evaluate(el=>el.inert),"Invisible conversion buttons cannot intercept the dashboard");
     assert.ok((await page.locator("#heroStage").evaluate(el=>Number(getComputedStyle(el).opacity)))>.95,"Dashboard stage must be visible");
 
-    // Development tab can be reached and read without fabricated benchmark claims.
-    if(spec.width>720) {
-      await page.locator('#dashSidebarNav [data-sidebar-tab="2"]').click({force:true});
-    } else {
-      await page.locator("#dashStageSelect").selectOption("2");
-    }
-    await page.waitForTimeout(430);
-    const dev=await page.locator("#dashDevScene").evaluate(el=>{
+    // A single Development card must remain the only visible showcase indefinitely.
+    const getShowcase = async()=>page.locator("#heroDashboardFrame").evaluate(el=>{
+      const scene=el.querySelector("#dashDevScene");
       const rect=x=>{const r=x.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};};
-      const panel=rect(el),device=rect(el.querySelector(".dash-dev-device")),flow=rect(el.querySelector(".dash-dev-flow"));
-      const image=el.querySelector(".dash-dev-flow img"),flowMobile=el.querySelector(".dash-dev-flow-mobile");
-      const displayed=x=>{const s=getComputedStyle(x);return s.display!=="none"&&s.visibility!=="hidden";};
+      const computed=getComputedStyle(scene);
+      const image=scene.querySelector(".dash-dev-flow img");
+      const mobileFlow=scene.querySelector(".dash-dev-flow-mobile");
       return {
-        aria:el.getAttribute("aria-hidden"),visible:getComputedStyle(el).visibility,
-        panel,device,flow,phoneCount:el.querySelectorAll(".dash-dev-device").length,
+        frameCount:document.querySelectorAll("#heroDashboardFrame").length,
+        legacyCards:el.querySelectorAll(".dash-card,.dash-sidebar,.dash-topbar,.dash-overview,.dash-main,.dash-bottom,#dashStageSelect,#dashDevBack").length,
+        sceneCount:el.querySelectorAll("#dashDevScene").length,
+        phoneCount:el.querySelectorAll(".dash-dev-device").length,
         flowCount:el.querySelectorAll(".dash-dev-flow").length,
-        imgVisible:displayed(image),mobileFlowVisible:displayed(flowMobile),
-        redundant:el.querySelectorAll(".dash-dev-left,.dash-dev-benefit,.dash-dev-footer,.dash-dev-preview-heading,.dash-dev-spec,h3,figcaption").length,
-        devMode:el.closest(".dash-workspace").classList.contains("is-development"),
-        noSyntheticNumbers:!el.textContent.includes("98 / 100")
+        active:el.classList.contains("is-development-focus"),
+        stable:scene.classList.contains("dash-dev-scene")&&computed.visibility==="visible"&&computed.opacity==="1"&&scene.getAttribute("aria-hidden")==="false",
+        frame:rect(el),panel:rect(scene),phone:rect(scene.querySelector(".dash-dev-device")),flow:rect(scene.querySelector(".dash-dev-flow")),
+        imgVisible:getComputedStyle(image).display!=="none",
+        mobileFlowVisible:getComputedStyle(mobileFlow).display!=="none",
+        hit:(()=>{const r=scene.getBoundingClientRect(),x=(r.left+r.right)/2,y=Math.max(2,Math.min(innerHeight-10,(r.top+r.bottom)/2));return scene.contains(document.elementFromPoint(x,y));})()
       };
     });
-    const focus=await page.locator("#heroDashboardFrame").evaluate(el=>({
-      active:el.classList.contains("is-development-focus"),
-      sidebar:getComputedStyle(el.querySelector(".dash-sidebar")).display,
-      topbar:getComputedStyle(el.querySelector(".dash-topbar")).display,
-      overview:getComputedStyle(el.querySelector(".dash-overview")).display,
-      main:getComputedStyle(el.querySelector(".dash-main")).display,
-      bottom:getComputedStyle(el.querySelector(".dash-bottom")).display
-    }));
-    assert.equal(focus.active,true,"Development uses exclusive full-width canvas");
-    for(const [name,display] of Object.entries(focus)){
-      if(name!=="active")assert.equal(display,"none","No old dashboard element remains: "+name);
+    const assertShowcase=state=>{
+      assert.equal(state.frameCount,1,"Exactly one showcase frame");
+      assert.equal(state.sceneCount,1,"Exactly one Development scene");
+      assert.equal(state.phoneCount,1,"Exactly one iPhone mockup");
+      assert.equal(state.flowCount,1,"Exactly one channels diagram");
+      assert.equal(state.legacyCards,0,"All legacy cards, navigation and panels removed from markup");
+      assert.ok(state.active&&state.stable,"Permanent Development scene is active and visible");
+      assert.ok(state.panel.width>220&&state.panel.height>180,"Single card has adequate dimensions");
+      assert.ok(state.phone.width>60&&state.phone.height>140,"Phone visible");
+      assert.ok(state.flow.width>150&&state.flow.height>40,"Flow visible");
+      assert.ok(state.phone.bottom<=state.flow.top+22,"Mockup doesn't overlap channel graphic");
+      assert.ok(state.flow.bottom<=state.panel.bottom+5,"Flow stays inside the card");
+      assert.equal(state.imgVisible,spec.width>720,"Desktop SVG is visible when appropriate");
+      assert.equal(state.mobileFlowVisible,spec.width<=720,"Compact mobile diagram is visible when appropriate");
+      assert.ok(state.hit,"Showcase is not obstructed");
+    };
+    const first=await getShowcase();
+    assertShowcase(first);
+    if(spec.width===390){
+      // Regression for earlier 1.7-second idle cycle + 1.55-second rotation.
+      // Force normal motion and wait longer than both while keeping the hero stationary.
+      await page.waitForTimeout(5100);
+      const later=await getShowcase();
+      assertShowcase(later);
+      assert.equal(later.legacyCards,first.legacyCards,"Legacy cards never return after a delay");
+      await page.evaluate(()=>window.scrollBy(0,8));
+      await page.waitForTimeout(150);
+      assertShowcase(await getShowcase());
     }
-    assert.equal(dev.aria,"false","Development illustration accessible in selected view");
-    assert.equal(dev.visible,"visible","Development illustration is visible");
-    assert.ok(dev.devMode,"Development mode is selected");
-    assert.ok(dev.noSyntheticNumbers,"No fabricated performance metric in Development");
-    assert.equal(dev.phoneCount,1,"Only the phone mockup remains");
-    assert.equal(dev.flowCount,1,"Only the channel graphic remains");
-    assert.equal(dev.redundant,0,"No redundant Development paragraphs, cards, or headings");
-    assert.ok(dev.panel.height>180&&dev.panel.width>220,"Development panel has adequate dimensions");
-    assert.ok(dev.device.width>60&&dev.device.height>140,"Phone mockup remains visible");
-    assert.ok(dev.flow.width>150&&dev.flow.height>40,"Convergence flow remains visible");
-    assert.ok(dev.device.left>=dev.panel.left-8&&dev.device.right<=dev.panel.right+8,"Phone stays within Development panel");
-    assert.ok(dev.device.bottom<=dev.flow.top+20,"Phone and flow do not overlap");
-    assert.ok(dev.flow.bottom<=dev.panel.bottom+5,"Flow does not clip vertically");
-    assert.equal(dev.imgVisible,spec.width>720,"Full SVG flow displays only on tablet and desktop");
-    assert.equal(dev.mobileFlowVisible,spec.width<=720,"Compact flow displays only on phones");
-    const hit=await page.locator("#dashDevScene").evaluate(el=>{
-      const r=el.getBoundingClientRect();const x=Math.min(innerWidth-10,Math.max(10,(r.left+r.right)/2));const y=Math.min(innerHeight-10,Math.max(10,(r.top+r.bottom)/2));
-      const top=document.elementFromPoint(x,y);
-      return {hit:top===el||el.contains(top),x,y,insideViewport:r.bottom>0&&r.top<innerHeight,
-        topTag:top?.tagName,topClass:top?.className,
-        stack:document.elementsFromPoint(x,y).slice(0,6).map(e=>e.tagName+"."+String(e.className).slice(0,60)),
-        scrollY,heroOpacity:getComputedStyle(document.querySelector("#heroCopy")).opacity,
-        panelOpacity:getComputedStyle(el).opacity};
-    
-    });
-    console.log(JSON.stringify({developmentHitTest:spec.name,...hit}));
-    await page.screenshot({path:"artifacts/debug-dev-"+spec.name+".png",animations:"disabled"});
-    assert.ok(hit.insideViewport,"Development story must appear within the viewport during hero scroll");
-    assert.ok(hit.hit,"Development scene is not obstructed by unrelated hero content");
-    await page.screenshot({path:"artifacts/web-dev-stage-"+spec.name+".png",animations:"disabled"});
+    console.log(JSON.stringify({viewport:spec.name,singleCard:true,legacyCards:first.legacyCards,phone:first.phone,flow:first.flow}));
+    await page.screenshot({path:"artifacts/web-single-development-"+spec.name+".png",animations:"disabled"});
     await page.locator("#dashDevScene").screenshot({path:"artifacts/web-dev-"+spec.name+".png",animations:"disabled"});
-    await page.locator("#dashDevBack").click();
-    assert.equal(await page.locator("#dashDevScene").getAttribute("aria-hidden"),"true","Returning to another stage hides Development");
-    assert.equal(await page.locator("#heroDashboardFrame").evaluate(el=>el.classList.contains("is-development-focus")),false,"Dashboard navigation is restored on exit");
     const cta=page.locator(".hero-conversion-primary");
     assert.equal(await cta.getAttribute("target"),"_blank","Contact opens separate tab");
     assert.equal(await page.locator(".hero-conversion-secondary").getAttribute("href"),"#planes","Plan CTA is direct anchor");

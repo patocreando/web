@@ -2788,3 +2788,11 @@
   .dash-frame.is-development-focus .dash-dev-device{width:clamp(108px,25vw,134px);height:clamp(231px,51vw,280px)}
 }
 @media(prefers-reduced-motion:reduce){.dash-dev-back{transition:none}}
+
+/* PERMANENT SINGLE CARD — no sidebar, legacy panels, or transient tab state. */
+.dash-frame.dash-frame-single{grid-template-columns:minmax(0,1fr)!important}
+.dash-frame.dash-frame-single>.dash-workspace{display:block;width:100%;height:100%;min-width:0}
+.dash-frame.dash-frame-single .dash-dev-scene{inset:0!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:none!important}
+.dash-frame.dash-frame-single .dash-dev-device-wrap{min-height:0}
+.dash-frame.dash-frame-single .dash-dev-flow{width:100%}
+@media(max-width:720px){.dash-frame.dash-frame-single .dash-dev-scene{inset:0!important}}
