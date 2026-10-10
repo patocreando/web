@@ -82,6 +82,10 @@ const specs=[
    else{assert.ok(cards[1].y>=cards[0].y+cards[0].height);}
    await page.locator("#planes").screenshot({path:"artifacts/cro-plans-"+spec.name+".png"});
    await page.locator("#proceso").screenshot({path:"artifacts/cro-process-"+spec.name+".png"});
+   await page.evaluate(()=>{const s=document.querySelector("#solucion");scrollTo({top:s.offsetTop+(s.offsetHeight-innerHeight)*.8,behavior:"instant"});});
+   await page.waitForFunction(()=>Number(getComputedStyle(document.querySelector("#orderResult")).opacity)>.95);
+   assert.equal(await page.locator("#orderCopy").evaluate(el=>getComputedStyle(el).opacity),"1");
+   await page.screenshot({path:"artifacts/cro-solution-"+spec.name+".png"});
    console.log(spec.name+": FAQ and plans passed; checking capability buttons");
    for(let i=0;i<4;i++){
     const tab=page.locator(".cap-tab").nth(i);

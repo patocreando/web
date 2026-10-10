@@ -488,7 +488,7 @@
     if (orderProgress) orderProgress.style.setProperty("--order-p", (raw * 100).toFixed(1) + "%");
 
     const compactOrder = window.innerWidth <= 760;
-    const copyFade = clamp((raw - (compactOrder ? .25 : .18)) / (compactOrder ? .26 : .20));
+    const copyFade = reduceMotion ? 0 : clamp((raw - (compactOrder ? .25 : .18)) / (compactOrder ? .26 : .20));
     if (orderCopy) {
       orderCopy.style.opacity = String(1 - copyFade * (compactOrder ? .48 : .68));
       orderCopy.style.transform =
