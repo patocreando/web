@@ -52,15 +52,18 @@ for(const anchor of anchors)assert.ok(ids.has(anchor),"Broken local anchor #"+an
 
 const script=fs.readFileSync("script.js","utf8");
 const heroCss=fs.readFileSync("hero-v3.css","utf8");
-const devContent=html.slice(html.indexOf('<div class="dash-dev-scene"'),html.indexOf('class="v3-piece v3-topbar"'));
+const devContent=html.slice(html.indexOf('<div class="dash-dev-scene pc-showcase"'),html.indexOf('class="v3-piece v3-topbar"'));
 assert.equal(count(html,'id="dashDevScene"'),1,"Single development story panel");
-assert.ok(devContent.includes('class="dash-dev-device"'),"Premium phone remains in Development");
-assert.ok(devContent.includes('src="./assets/canales-unificados.svg"'),"Convergence flow remains in Development");
+assert.ok(devContent.includes('class="dash-dev-device pc-device-frame"'),"Chosen iPhone mockup is mounted in Development");
+assert.ok(devContent.includes('class="pc-channels"'),"Four separate source channels are mounted in Development");
+assert.equal(count(devContent,'class="pc-channel"'),4,"Exactly four channels are presented");
+assert.equal(count(devContent,'class="pc-iphone-image"'),1,"Exactly one real iPhone image is mounted");
+assert.ok(devContent.includes('ALMA Estética'),"Mockup alt explains illustrated demo, not a real customer testimonial");
 for(const oldClass of ['dash-dev-left','dash-dev-benefits','dash-dev-footer','dash-dev-preview-heading','dash-dev-spec']){
   assert.ok(!devContent.includes('class="'+oldClass),"Remove redundant Development copy and cards: "+oldClass);
 }
-assert.ok(!devContent.includes('<h3>'),"No redundant Development headline");
-assert.ok(!devContent.includes('<figcaption>'),"No redundant flow caption");
+assert.equal(count(devContent,'<h3>'),1,"One headline inside the showcase");
+assert.ok(devContent.includes('pc-channel-outcome'),"Convergence has a single short outcome line");
 assert.ok(fs.existsSync("assets/canales-unificados.svg"),"Diagram asset exists");
 assert.ok(!script.includes("98 / 100"),"Remove fabricated Lighthouse performance score");
 assert.ok(!script.includes('title:"Código y rendimiento"'),"Old generic technical dashboard replaced");
@@ -79,7 +82,14 @@ assert.ok(devContent.includes('aria-hidden="false"'),"Only visual card is access
 assert.ok(heroCss.includes(".dash-frame.dash-frame-single"),"Single-card layout is permanent at all widths");
 assert.ok(heroCss.includes("@media(max-width:720px)"),"Responsive layout retained");
 for(const price of ["ARS 30.000","ARS 75.000","ARS 150.000"])match(price);
-assert.ok(html.includes('src="./assets/canales-unificados.svg"'),"Convergence image is a local asset");
+assert.ok(html.includes('src="./assets/alma-iphone.webp"'),"User-selected phone is hosted locally");
+assert.ok(fs.existsSync("assets/alma-iphone.webp"),"GitHub Pages asset is present");
+assert.ok(fs.statSync("assets/alma-iphone.webp").size<150000,"Real iPhone mockup is below 150 KB");
+assert.ok(html.includes('hero-showcase.css?v=1'),"Isolated premium layout stylesheet loaded after existing hero stylesheet");
+assert.ok(fs.existsSync('hero-showcase.css'),"Premium styling exists");
+const showcaseCss=fs.readFileSync('hero-showcase.css','utf8');
+assert.ok(showcaseCss.includes('.pc-showcase')&&showcaseCss.includes('.pc-iphone-image'),"Premium phone and channel styling is present");
+assert.ok(html.includes('id="masterFilmVideo"'),"Interactive cinematic background is preserved");
 assert.ok(heroCss.includes("dash-dev-island")&&heroCss.includes("dash-dev-device-glass")===false,"Premium phone shell and dynamic island are styled");
 console.log("Single Development card QA OK: one card, no sidebar, no autoplay, commercial terms intact.");
 console.log("Web conversion static smoke OK: pricing, Manychat, chapter structure, hero CTAs and responsive CSS.");

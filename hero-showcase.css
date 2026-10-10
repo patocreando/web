@@ -1,0 +1,71 @@
+/* Pato Creando / Development showcase — isolated from all commercial sections.
+   Keeps the existing cinematic/interactive film and hero animation visible. */
+.hero-v3-ui.dashboard-mode .hero-dashboard-shell{left:clamp(12px,4vw,58px);right:clamp(12px,4vw,58px);top:7%;bottom:6%}
+.hero-v3-ui.dashboard-mode .dash-float{animation:none!important}
+.hero-v3-ui.dashboard-mode .dash-frame-single{border:1px solid rgba(187,220,174,.19);border-radius:clamp(16px,2vw,26px);background:linear-gradient(108deg,rgba(6,17,11,.37),rgba(8,21,14,.14));box-shadow:0 23px 70px rgba(0,0,0,.22),inset 0 1px 0 rgba(225,255,210,.05);overflow:hidden}
+.dash-frame-single .dash-workspace{min-height:0}
+.dash-frame-single .dash-dev-scene.pc-showcase{inset:0!important;display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);grid-template-rows:minmax(0,1fr);align-items:center;gap:clamp(8px,2.6vw,38px);padding:clamp(14px,2.6vw,42px);background:radial-gradient(ellipse at 76% 38%,rgba(146,192,110,.11),transparent 49%),linear-gradient(98deg,rgba(6,17,12,.54),rgba(6,16,12,.08));opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:none!important}
+.pc-showcase::before{opacity:.19;mask-image:linear-gradient(90deg,black,transparent 64%)}
+.pc-showcase-copy{position:relative;z-index:2;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:clamp(8px,1.5vw,18px);height:100%}
+.pc-showcase-kicker{margin:0;color:#b7dba9;font:800 clamp(8px,.78vw,11px)/1.3 Inter,sans-serif;letter-spacing:.2em}
+.pc-showcase h3{max-width:590px;margin:0;color:#f6faf0;font:750 clamp(24px,3vw,48px)/1.02 "Plus Jakarta Sans",Inter,sans-serif;letter-spacing:-.061em;text-wrap:balance}
+.pc-showcase h3 em{display:block;color:#c0e5aa;font-style:normal}
+.pc-showcase-intro{max-width:435px;margin:0;color:#d4e1d0;font:500 clamp(10px,1vw,15px)/1.48 Inter,sans-serif}
+.pc-showcase .dash-dev-flow.pc-showcase-flow{position:relative;z-index:2;width:100%;max-width:480px;margin:clamp(3px,1vw,12px) 0 0;padding:0;border:0;border-radius:0;background:none}
+.pc-channels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(5px,.76vw,11px);width:100%}
+.pc-channel{display:flex;gap:clamp(7px,.85vw,12px);align-items:center;min-width:0;min-height:clamp(44px,4.6vw,69px);padding:clamp(7px,.85vw,13px);border:1px solid rgba(168,221,140,.22);border-radius:12px;background:rgba(7,22,15,.38);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.pc-channel-icon{flex:none;display:grid;place-items:center;width:clamp(24px,2.8vw,38px);height:clamp(24px,2.8vw,38px);border-radius:9px;background:linear-gradient(135deg,rgba(184,224,153,.22),rgba(90,138,90,.09));color:#c6eead;font:800 clamp(10px,1.1vw,15px)/1 Inter,sans-serif}
+.pc-channel>span:last-child{min-width:0;display:block}
+.pc-channel strong{display:block;color:#f4f9ef;font:700 clamp(9px,.92vw,13px)/1.25 Inter,sans-serif;white-space:nowrap}
+.pc-channel small{display:block;margin-top:3px;color:#acc1ac;font:500 clamp(8px,.75vw,11px)/1.25 Inter,sans-serif}
+.pc-channel-outcome{display:flex;align-items:center;gap:10px;max-width:480px;margin-top:clamp(7px,1.4vw,17px);padding-top:8px;border-top:1px solid rgba(177,226,156,.22);color:#c2dfac;font:800 clamp(8px,.77vw,11px)/1.35 Inter,sans-serif;letter-spacing:.10em}
+.pc-channel-outcome span{font-size:clamp(13px,1.15vw,18px);font-weight:400}
+.pc-showcase-caption{margin:0;color:#9caf9e;font:700 clamp(8px,.69vw,10px)/1.2 Inter,sans-serif;letter-spacing:.12em}
+.dash-dev-scene.pc-showcase .pc-showcase-phone{position:relative;z-index:2;min-height:0;height:100%;width:100%;display:grid;place-items:center;overflow:visible;isolation:isolate}
+.dash-dev-scene.pc-showcase .pc-showcase-phone::before{display:none}
+.pc-phone-halo{position:absolute;z-index:-1;left:51%;top:49%;width:min(90%,370px);aspect-ratio:1;border:1px solid rgba(166,225,141,.22);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 85px rgba(152,221,125,.08),inset 0 0 85px rgba(152,221,125,.065);pointer-events:none}
+.dash-dev-scene.pc-showcase .pc-device-frame{display:grid;place-items:center;position:relative;min-width:0;max-width:100%;width:100%!important;height:100%!important;max-height:100%;padding:0;border:0;border-radius:0;background:none;box-shadow:none;transform:none!important;overflow:visible}
+.pc-iphone-image{display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(12px 19px 22px rgba(0,0,0,.43))}
+@media(max-width:980px){
+ .dash-frame-single .dash-dev-scene.pc-showcase{gap:clamp(6px,2vw,22px);padding:clamp(12px,2.5vw,25px)}
+ .pc-showcase h3{font-size:clamp(23px,3vw,35px)}
+ .pc-showcase-copy{gap:clamp(7px,1vw,12px)}
+ .pc-channel{min-height:clamp(38px,4vw,49px);padding:7px}
+}
+@media(max-width:720px){
+ .hero-v3-ui.dashboard-mode .hero-dashboard-shell{left:2%;right:2%;top:17%;bottom:11%}
+ .hero-v3-ui.dashboard-mode .dash-frame-single{border-radius:16px;background:linear-gradient(108deg,rgba(5,17,11,.49),rgba(5,17,11,.10))}
+ .dash-frame-single .dash-dev-scene.pc-showcase{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:5px;padding:clamp(8px,2.4vw,14px)}
+ .pc-showcase-copy{justify-content:center;gap:clamp(5px,1.4vw,8px)}
+ .pc-showcase-kicker{font-size:6.5px;letter-spacing:.09em}
+ .pc-showcase h3{font-size:clamp(16px,4.7vw,24px);line-height:1.06;letter-spacing:-.045em}
+ .pc-showcase-intro{font-size:clamp(8px,2.1vw,10px);line-height:1.36}
+ .pc-showcase .dash-dev-flow.pc-showcase-flow{margin-top:4px}
+ .pc-channels{grid-template-columns:1fr;gap:4px}
+ .pc-channel{min-height:27px;gap:6px;padding:4px 6px;border-radius:7px;backdrop-filter:none;-webkit-backdrop-filter:none}
+ .pc-channel-icon{width:20px;height:20px;border-radius:5px;font-size:8px}
+ .pc-channel strong{font-size:8.5px}
+ .pc-channel small{font-size:7px;margin-top:1px}
+ .pc-channel-outcome{gap:5px;margin-top:5px;padding-top:5px;font-size:7px;letter-spacing:.015em}
+ .pc-channel-outcome span{font-size:10px}
+ .pc-showcase-caption{display:none}
+ .dash-dev-scene.pc-showcase .pc-device-frame{width:100%!important;height:100%!important}
+ .pc-iphone-image{max-width:100%;max-height:100%;filter:drop-shadow(6px 10px 9px rgba(0,0,0,.45))}
+ .pc-phone-halo{width:105%}
+}
+@media(max-width:410px){
+ .pc-showcase h3{font-size:16px}
+ .pc-showcase-kicker{font-size:6px}
+ .pc-showcase-intro{font-size:8px}
+ .pc-channel{min-height:25px;padding:3px 5px}
+ .pc-channel-icon{width:18px;height:18px}
+ .pc-channel small{display:none}
+}
+@media(max-height:730px) and (min-width:721px){
+ .pc-showcase h3{font-size:clamp(23px,2.65vw,40px)}
+ .pc-channel{min-height:39px}
+ .pc-showcase-copy{gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-v3-ui.dashboard-mode .dash-float,.pc-iphone-image{animation:none!important;transition:none!important}
+}
