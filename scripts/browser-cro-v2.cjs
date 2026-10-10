@@ -5,7 +5,7 @@ const fs=require("node:fs/promises");
 const path=require("node:path");
 
 const root=process.cwd();
-const types={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".css":"text/css; charset=utf-8",".svg":"image/svg+xml",".png":"image/png",".woff2":"font/woff2"};
+const types={".mp4":"video/mp4",".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".css":"text/css; charset=utf-8",".svg":"image/svg+xml",".png":"image/png",".woff2":"font/woff2"};
 const server=http.createServer(async(req,res)=>{
   try {
     const raw=new URL(req.url,"http://localhost");
@@ -116,10 +116,10 @@ const specs=[
    const ctx=await browser.newContext({viewport:{width:1366,height:900},reducedMotion:preference});
    ctx.setDefaultTimeout(15000);
    const page=await ctx.newPage();await page.goto(base,{waitUntil:"networkidle"});
-   await page.waitForFunction(()=>document.querySelector("#masterFilmVideo").readyState>=2);
+   await page.waitForFunction(()=>document.querySelector("#masterFilmVideo").readyState>=1);
    const before=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    await page.locator("#faq").evaluate(el=>el.scrollIntoView({behavior:"instant"}));
-   await page.waitForTimeout(500);
+   await page.waitForFunction(()=>{const v=document.querySelector("#masterFilmVideo");return v.readyState>=2&&!v.seeking;});
    const after=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    if(preference==="reduce")assert.ok(Math.abs(after-before)<.1);else assert.ok(after>before+1);
    // Smooth anchor also reaches an unobstructed FAQ when motion is allowed.
