@@ -128,6 +128,8 @@ const specs=[
         stable:scene.classList.contains("dash-dev-scene")&&computed.visibility==="visible"&&computed.opacity==="1"&&scene.getAttribute("aria-hidden")==="false",
         frame:rect(el),panel:rect(scene),phone:rect(scene.querySelector(".dash-dev-device")),flow:rect(scene.querySelector(".dash-dev-flow")),
         imgVisible:getComputedStyle(image).display!=="none",
+        imgLoaded:image.complete&&image.naturalWidth>0,
+        imgSrc:image.getAttribute("src"),
         mobileFlowVisible:getComputedStyle(mobileFlow).display!=="none",
         hit:(()=>{const r=scene.getBoundingClientRect(),x=(r.left+r.right)/2,y=Math.max(2,Math.min(innerHeight-10,(r.top+r.bottom)/2));return scene.contains(document.elementFromPoint(x,y));})()
       };
@@ -146,10 +148,13 @@ const specs=[
       assert.ok(state.flow.width>90&&state.flow.height>40,"Channels visible");
       assert.ok(state.phone.left>=state.panel.left-6&&state.phone.right<=state.panel.right+6,"Phone stays within showcase");
       assert.ok(state.flow.left>=state.panel.left-6&&state.flow.right<=state.panel.right+6,"Channels stay within showcase");
-      assert.equal(state.imgVisible,true,"The image of the selected iPhone is displayed");
+      assert.equal(state.imgVisible,true,"The chosen iPhone image has visible styling");
+      assert.equal(state.imgLoaded,true,"The user-selected iPhone image must actually load");
+      assert.equal(state.imgSrc,"./assets/alma-iphone.webp","Image must be local to avoid blocked CDN");
       assert.equal(state.mobileFlowVisible,true,"Channel cards are displayed in mobile and desktop");
       assert.ok(state.hit,"Showcase is not obstructed");
     };
+    await page.waitForFunction(()=>{const img=document.querySelector(".pc-iphone-image");return Boolean(img&&img.complete&&img.naturalWidth>0)},{timeout:12000});
     const first=await getShowcase();
     assertShowcase(first);
     if(spec.width===390){
