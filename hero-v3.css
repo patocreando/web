@@ -2853,3 +2853,8 @@
   .dash-dev-scene,.dash-dev-device,.dash-dev-benefit {transition:none!important;}
   .dash-dev-device {transform:none;}
 }
+
+/* No ghosted labels or overlapping legacy dashboard under the premium scene. */
+.dash-workspace.is-development > .dash-overview,
+.dash-workspace.is-development > .dash-main,
+.dash-workspace.is-development > .dash-bottom {visibility:hidden;}
