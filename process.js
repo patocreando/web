@@ -18,10 +18,10 @@
   const textEl=document.getElementById("processStageText");
 
   const copy=[
-    ["01 / DEFINICIÓN","Primero, entender.","Definimos objetivo, contenido y acción principal."],
-    ["02 / DISEÑO","Después, ordenar.","Contenido, jerarquía y dirección visual se convierten en un sistema claro."],
-    ["03 / DESARROLLO","Luego, construir.","La web queda adaptable, interactiva y lista para usar."],
-    ["04 / PUBLICACIÓN","Por último, publicar.","La web queda publicada y lista para recibir tráfico."]
+    ["01 / DEFINICIÓN","Primero, entender.","Me compartís tu negocio, tus materiales y el objetivo de la página."],
+    ["02 / DISEÑO","Después, ordenar.","Ordeno la información para que el visitante sepa qué mirar primero."],
+    ["03 / DESARROLLO","Luego, construir.","Desarrollo la página y revisamos los ajustes incluidos en tu plan."],
+    ["04 / PUBLICACIÓN","Por último, publicar.","Publico la web para que puedas compartirla desde tus canales."]
   ];
 
   let previous=-1;

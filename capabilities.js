@@ -16,10 +16,10 @@
   const stage=document.getElementById("capStage");
 
   const copy=[
-    ["DISEÑO","Jerarquía, ritmo y marca."],
-    ["DESARROLLO","Interacción, adaptación y código."],
-    ["DIRECCIÓN","Foco, encuadre y recorrido."],
-    ["IA","Más capacidad. Mismo criterio."]
+    ["DISEÑO","Tu oferta se entiende de un vistazo."],
+    ["DESARROLLO","Navegación cómoda en celular y escritorio."],
+    ["DIRECCIÓN","Una presentación coherente con tu marca."],
+    ["IA","Apoyo creativo con revisión y criterio."]
   ];
 
   const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
