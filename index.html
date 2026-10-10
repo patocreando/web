@@ -43,7 +43,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css?v=5" />
   <link rel="stylesheet" href="./hero-v3.css?v=25" />
-  <link rel="stylesheet" href="./hero-showcase.css?v=1" />
+  <link rel="stylesheet" href="./hero-showcase.css?v=2" />
   <link rel="stylesheet" href="./experience.css?v=35" />
 
 
@@ -237,15 +237,30 @@
                         <p class="pc-showcase-kicker">WEB / DESARROLLO</p>
                         <h3>Una web clara.<em>Una acción clara.</em></h3>
                         <p class="pc-showcase-intro">Tus canales, una experiencia.</p>
-                        <figure class="dash-dev-flow pc-showcase-flow" aria-label="Los canales de un negocio confluyen en una web">
+                        <figure class="dash-dev-flow pc-showcase-flow" aria-label="Instagram, WhatsApp, Google y reservas conectados con una sola web">
                           <div class="pc-channels">
-                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">IG</span><span><strong>Instagram</strong><small>Descubrir</small></span></div>
-                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">WA</span><span><strong>WhatsApp</strong><small>Consultar</small></span></div>
-                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">G</span><span><strong>Google</strong><small>Encontrar</small></span></div>
-                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">↗</span><span><strong>Reservas</strong><small>Agendar</small></span></div>
+                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">IG</span><span><strong>Instagram</strong><small>Descubrir</small></span><i class="pc-channel-signal" aria-hidden="true"></i></div>
+                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">WA</span><span><strong>WhatsApp</strong><small>Consultar</small></span><i class="pc-channel-signal" aria-hidden="true"></i></div>
+                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">G</span><span><strong>Google</strong><small>Encontrar</small></span><i class="pc-channel-signal" aria-hidden="true"></i></div>
+                            <div class="pc-channel"><span class="pc-channel-icon" aria-hidden="true">↗</span><span><strong>Reservas</strong><small>Agendar</small></span><i class="pc-channel-signal" aria-hidden="true"></i></div>
                           </div>
-                          <figcaption class="pc-channel-outcome"><span aria-hidden="true">↳</span> UN SOLO PUNTO DE CONTACTO <span aria-hidden="true">→</span></figcaption>
-                        </figure>
+                          <svg class="pc-connection-map" viewBox="0 0 160 240" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                            <g class="pc-connection-routes" fill="none" stroke-linecap="round">
+                              <path class="pc-route-base" d="M2 30 C68 30 68 120 128 120"/>
+                              <path class="pc-route-base" d="M2 90 C71 90 79 120 128 120"/>
+                              <path class="pc-route-base" d="M2 150 C71 150 79 120 128 120"/>
+                              <path class="pc-route-base" d="M2 210 C68 210 68 120 128 120"/>
+                              <path class="pc-route-pulse" pathLength="100" d="M2 30 C68 30 68 120 128 120"/>
+                              <path class="pc-route-pulse" pathLength="100" d="M2 90 C71 90 79 120 128 120"/>
+                              <path class="pc-route-pulse" pathLength="100" d="M2 150 C71 150 79 120 128 120"/>
+                              <path class="pc-route-pulse" pathLength="100" d="M2 210 C68 210 68 120 128 120"/>
+                              <path class="pc-connection-exit" d="M128 120 H154"/>
+                            </g>
+                            <circle class="pc-hub-ring" cx="128" cy="120" r="10"/>
+                            <circle class="pc-hub-core" cx="128" cy="120" r="3"/>
+                            <path class="pc-exit-arrow" d="M149 112 L158 120 L149 128"/>
+                          </svg>
+                          <figcaption class="pc-channel-outcome">CUATRO CAMINOS. <strong>UNA SOLA WEB.</strong></figcaption>
                         <p class="pc-showcase-caption">DISEÑO MOBILE-FIRST · VISTA ILUSTRATIVA</p>
                       </div>
                       <div class="dash-dev-device-wrap pc-showcase-phone">
