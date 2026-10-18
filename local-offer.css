@@ -1,0 +1,23 @@
+/* Local offer: quick access to proof, then a bounded service. */
+#demo{scroll-margin-top:85px}
+.local-demo{position:relative;z-index:2;background:#101715;color:#edf2ec;border-block:1px solid #344036}
+.local-demo-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
+.local-eyebrow{font-size:11px;letter-spacing:.12em;color:#cfe65a;margin:0 0 20px}
+.local-demo-copy>p:not(.local-eyebrow){max-width:540px;line-height:1.7;color:#c1cec4;font-size:16px;margin:24px 0}
+.local-demo-link{display:inline-flex;align-items:center;gap:18px;min-height:48px;padding:15px 22px;border-radius:999px;background:#cfe65a;color:#101813;font-size:14px;font-weight:700;text-decoration:none}
+.local-demo-copy>.local-demo-disclosure{font-size:12px!important;line-height:1.6!important;color:#a6b3aa!important;margin-bottom:0!important}
+.local-demo-preview{border:1px solid #556057;border-radius:24px;overflow:hidden;background:#eee9df;box-shadow:0 24px 70px #0003;color:#243b30}
+.preview-toolbar{display:flex;justify-content:space-between;padding:15px 22px;background:#253c30;color:#e4e9dc;font-size:10px;letter-spacing:.1em}
+.preview-content{padding:36px}
+.preview-brand{font-size:12px;letter-spacing:.14em;font-weight:700;margin:0 0 44px}
+.preview-title{font:clamp(32px,3.8vw,54px)/1.05 Georgia,serif;letter-spacing:-.035em;margin:0 0 32px}
+.preview-menu{display:flex;justify-content:space-between;gap:14px;border-block:1px solid #b6c1b0;padding:22px 0;font-size:13px}
+.preview-menu span:last-child{font-weight:700}
+.preview-details{display:flex;flex-wrap:wrap;gap:10px 20px;font-size:11px;margin-top:24px}
+.plan-option.express{border-color:#cfe65a;background:linear-gradient(140deg,#263521,#101916)}
+.plan-option.pro{border-color:#465346}
+.local-scope{margin-top:26px;max-width:940px;border-left:2px solid #a4bb83;padding-left:20px;color:#c2cec6;font-size:14px;line-height:1.7}
+.local-scope p{margin:0 0 10px}.local-scope strong{color:#edf2ec}
+.local-demo-link:hover{background:#e0f394}.local-demo-link:focus-visible{outline:3px solid #fff;outline-offset:5px}
+@media(max-width:900px){.local-demo-grid{grid-template-columns:1fr;gap:32px}.local-demo-preview{max-width:540px;width:100%}.local-demo-copy h2{max-width:600px}}
+@media(max-width:600px){.preview-content{padding:26px}.preview-title{font-size:40px}.preview-brand{margin-bottom:30px}.hero-v3-copy .hero-conversion-lead{font-size:14px;line-height:1.5}.hero-v3-copy .hero-conversion-note{font-size:11px}}
