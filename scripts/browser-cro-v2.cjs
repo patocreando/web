@@ -79,10 +79,10 @@ const specs=[
    }));
    assert.equal(cards.length,3);
    assert.deepEqual(cards.map(c=>c.items),[
-    ["1 página","Hasta 5 bloques","Optimizada para celular","Acción principal","SEO básico","1 ajuste"],
-    ["Diseño personalizado","Más secciones","Galería / mapa / formulario","Integraciones","Dominio propio","2 ajustes"],
+    ["1 página","Hasta 5 secciones","Optimizada para celular","CTA a WhatsApp y enlaces a redes","Servicios o menú breve, horarios y ubicación","1 ronda de ajustes"],
+    ["Diseño personalizado","Más secciones","Galería / mapa / formulario","Integraciones","Conexión de dominio propio","2 ajustes"],
     ["Página avanzada o multipágina","Dirección visual","Animación e interacción","Integraciones a medida","SEO ampliado","3 ajustes"]]);
-   ["ARS 30.000 pago único","ARS 75.000 pago único","ARS 150.000 desde"].forEach((price,i)=>assert.ok(cards[i].price===price));
+   ["ARS 50.000 pago único","ARS 75.000 pago único","ARS 150.000 desde"].forEach((price,i)=>assert.ok(cards[i].price===price));
    for(const card of cards){assert.equal(card.opacity,"1");assert.equal(card.transform,"none");assert.ok(card.scroll<=card.client+1);assert.ok(card.x>=0&&card.right<=spec.width);}
    if(spec.width>900){assert.ok(cards.every(c=>Math.abs(c.width-cards[0].width)<1&&Math.abs(c.y-cards[0].y)<1));}
    else{assert.ok(cards[1].y>=cards[0].y+cards[0].height);}
@@ -131,6 +131,13 @@ const specs=[
    await page.waitForFunction(()=>document.querySelector("#masterFilmVideo").readyState>=1);
    const before=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    await page.locator("#faq").evaluate(el=>el.scrollIntoView({behavior:"instant"}));
+   // Scroll-driven paint runs in requestAnimationFrame: readyState may still describe the old frame.
+   // Wait for the intended new frame, retaining the movement assertion below.
+   if(preference==="no-preference")await page.waitForFunction(previous=>{
+    const v=document.querySelector("#masterFilmVideo");
+    return v.currentTime>previous+1&&v.readyState>=2&&!v.seeking;
+   },before);
+   else await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
    await page.waitForFunction(()=>{const v=document.querySelector("#masterFilmVideo");return v.readyState>=2&&!v.seeking;});
    const after=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    if(preference==="reduce")assert.ok(Math.abs(after-before)<.1);else assert.ok(after>before+1);
