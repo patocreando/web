@@ -7,7 +7,8 @@ on:
       - "styles.css"
       - "hero-v3.css"
       - "experience.css"
-      - "script.js"
+      - "*.js"
+      - "*.css"
       - "scripts/**"
       - ".github/workflows/web-conversion-qa.yml"
   workflow_dispatch:
@@ -27,7 +28,8 @@ jobs:
       - name: Verify web scripts syntax
         run: |
           node --check script.js
-          node --check plans.js
+          node --check capabilities.js
+          node --check kinetic.js
           node --check film.js
           node --check scripts/browser-web.cjs
       - name: Validate site invariants
@@ -45,9 +47,11 @@ jobs:
       - name: Install Playwright
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium chrome
       - name: Inspect responsive navigation, hero and CTAs
-        run: node scripts/browser-web.cjs
+        run: |
+          node scripts/browser-web.cjs
+          node scripts/browser-cro-v2.cjs
       - name: Save verification screenshots
         if: always()
         uses: actions/upload-artifact@v4

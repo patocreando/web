@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#253c30">
+  <title>Demo de cafetería · Pato Creando</title>
+  <meta name="description" content="Ejemplo ficticio de una página de cafetería. Carta, horarios y consulta simulada. No recibe pedidos.">
+  <link rel="stylesheet" href="./demo-cafe.css?v=1">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <div class="demo-banner"><span><strong>DEMO FICTICIA</strong> · No recibe pedidos</span><a href="./index.html#planes">Ver la propuesta de Pato ↗</a></div>
+  <header class="cafe-header">
+    <a class="brand" href="#contenido" aria-label="Mesa Café, inicio del ejemplo">MESA <span>/ CAFÉ</span></a>
+    <nav aria-label="Recorrer la demo"><a href="#carta">Carta</a><a href="#visita">El lugar</a><a href="#consulta">Consulta</a></nav>
+  </header>
+  <main id="contenido">
+    <section class="cafe-hero">
+      <div><p class="eyebrow">UNA PAUSA EN TU DÍA</p><h1>Un café.<br>Un rato para vos.</h1><p>Café, algo rico y una mesa para encontrarse. Explorá cómo podría presentarse un local en una página sencilla.</p><a class="button" href="#carta">Ver la carta <span aria-hidden="true">↓</span></a><p class="small">Ejemplo de diseño · Marca y oferta inventadas</p></div>
+      <div class="cafe-art" aria-hidden="true"><div class="saucer"><div class="cup"><div class="coffee"></div></div></div><p>LA PAUSA<br>ESTÁ SERVIDA.</p></div>
+    </section>
+    <section class="menu-section" id="carta">
+      <div class="section-head"><div><p class="eyebrow">SIMPLE Y A MANO</p><h2>Algo para cada pausa.</h2></div><p>Productos y precios ilustrativos.<br>No corresponden a un comercio real.</p></div>
+      <div class="menu-grid">
+        <article><span class="menu-number">01 / CAFÉ</span><h3>Recién hecho.</h3><dl><div><dt>Espresso<small>Corto e intenso.</small></dt><dd>$2.800</dd></div><div><dt>Café con leche<small>La pausa de todos los días.</small></dt><dd>$3.600</dd></div><div><dt>Cappuccino<small>Café, leche y espuma.</small></dt><dd>$4.000</dd></div></dl></article>
+        <article><span class="menu-number">02 / PARA ACOMPAÑAR</span><h3>Un poco más.</h3><dl><div><dt>Medialunas<small>Dos unidades.</small></dt><dd>$2.400</dd></div><div><dt>Tostado<small>Jamón y queso.</small></dt><dd>$5.500</dd></div><div><dt>Porción de budín<small>Consultá el sabor del día.</small></dt><dd>$3.200</dd></div></dl></article>
+      </div>
+    </section>
+    <section class="visit-section" id="visita"><div><p class="eyebrow">ANTES DE VENIR</p><h2>Encontranos fácil.</h2><p>En una web real, acá van la dirección confirmada, un enlace al mapa y los horarios del local.</p></div><div class="visit-details"><div><h3>Horarios de ejemplo</h3><p>Lunes a sábado · 8 a 20 h<br>Domingos · 9 a 13 h</p></div><div><h3>Ubicación</h3><p>Espacio reservado para la dirección del negocio.</p></div><div><h3>Modalidad de ejemplo</h3><p>En el local o para llevar. Información a definir con cada comercio.</p></div></div></section>
+    <section class="consult-section" id="consulta"><p class="eyebrow">DEL INTERÉS A LA CONSULTA</p><h2>Un botón.<br>Una conversación.</h2><p>En la página del negocio, el botón abre su WhatsApp con una consulta preparada. Acá podés probar el recorrido sin enviar nada.</p><button class="button" id="simulate" type="button" hidden>Probar consulta por WhatsApp ↗</button><noscript><p>La consulta de esta demo es simulada. Activá JavaScript para probarla; la carta y los horarios siguen disponibles.</p></noscript></section>
+  </main>
+  <footer><strong>Ejemplo creado por Pato Creando.</strong><p>¿Lo imaginás con la identidad y la información de tu negocio?</p><a href="./index.html#planes">Ver qué incluye Web Esencial →</a></footer>
+  <dialog id="consultDialog" aria-labelledby="dialogTitle"><div class="dialog-body"><p class="eyebrow">CONSULTA SIMULADA</p><h2 id="dialogTitle">Así empieza la conversación.</h2><p class="message">Hola, vi la carta en la web. Quería consultar por un pedido para retirar.</p><p>En tu web real, este mensaje se abriría en el WhatsApp del local. Esta demo no abre WhatsApp, no recopila datos y no envía pedidos.</p><form method="dialog"><button class="button">Volver a la demo</button></form></div></dialog>
+  <script src="./demo-cafe.js?v=1"></script>
+</body>
+</html>

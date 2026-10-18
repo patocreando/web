@@ -10,7 +10,7 @@
     root.style.setProperty("--my",y+"px");
   };
 
-  if(matchMedia("(pointer:fine)").matches){
+  if(matchMedia("(pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
     addEventListener("pointermove",e=>setPointer(e.clientX,e.clientY),{passive:true});
   }
 
@@ -25,7 +25,7 @@
   };
 
   const final=document.querySelector(".final-x-inner");
-  if(final&&matchMedia("(pointer:fine)").matches){
+  if(final&&matchMedia("(pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
     final.addEventListener("pointermove",e=>{
       const r=final.getBoundingClientRect();
       const x=(e.clientX-r.left)/r.width-.5;

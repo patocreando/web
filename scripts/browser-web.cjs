@@ -56,7 +56,7 @@ const specs=[
         links:[...document.querySelectorAll("a[href*='w61000387']")].map(n=>n.getAttribute("href")),
         localLinks:[...document.querySelectorAll(".web-conversion-sections a")].map(n=>n.getAttribute("href")),
         visibleHeadline:getComputedStyle(el("#heroCopy")).opacity,
-        plans:document.querySelectorAll(".plan-x").length,
+        plans:document.querySelectorAll(".plan-option").length,
         cssInHead:!!el("#web-conversion-critical")&&document.head.contains(el("#web-conversion-critical")),
         legacyPill:document.querySelectorAll(".home-return").length
       };
@@ -71,7 +71,7 @@ const specs=[
     const ctas=await page.locator('a[data-web-cta="manychat"]').evaluateAll(nodes=>nodes.map(n=>({href:n.href,label:n.textContent.replace(/\s+/g," ").trim(),target:n.target})));
     assert.equal(ctas.length,5,"All five commercial CTAs are registered");
     assert.ok(ctas.every(c=>c.href==="https://ig.me/m/patocreando?ref=w61000387" && c.target==="_blank"),"Every web consultation uses identical Manychat link");
-    for(const selector of [".web-conversion-contact",".hero-conversion-primary","#plansBannerCta",".final-x-actions a","#mobileBar a"]){
+    for(const selector of [".web-conversion-contact",".hero-conversion-secondary","#plansBannerCta",".contact-actions a","#mobileBar a"]){
       assert.equal(await page.locator(selector).getAttribute("data-web-cta"),"manychat","Commercial button is protected: "+selector);
     }
     assert.ok(state.links.length>=5,"Existing and new Manychat links preserved");
@@ -181,12 +181,35 @@ const specs=[
     console.log(JSON.stringify({viewport:spec.name,singleCard:true,legacyCards:first.legacyCards,phone:first.phone,flow:first.flow,connectorPaths:first.pathCount}));
     await page.screenshot({path:"artifacts/web-single-development-"+spec.name+".png",animations:"disabled"});
     await page.locator("#dashDevScene").screenshot({path:"artifacts/web-dev-"+spec.name+".png",animations:"disabled"});
-    const cta=page.locator(".hero-conversion-primary");
+    const cta=page.locator(".hero-conversion-secondary");
     assert.equal(await cta.getAttribute("target"),"_blank","Contact opens separate tab");
-    assert.equal(await page.locator(".hero-conversion-secondary").getAttribute("href"),"#planes","Plan CTA is direct anchor");
+    assert.equal(await page.locator(".hero-conversion-primary").getAttribute("href"),"#demo","Demo CTA is a direct anchor");
     await page.locator("#webConversionHeader").screenshot({path:"artifacts/web-nav-"+spec.name+".png",animations:"disabled"});
     await page.screenshot({path:"artifacts/web-hero-"+spec.name+".png",animations:"disabled"});
     console.log(JSON.stringify({viewport:spec.name,navHeight:state.nav.height,heroTop:state.heroHeadline.top,ctaBottom:state.heroPrimary.bottom,fold:spec.height}));
+    // Follow the exact cold-visitor path; no contact link is sent or submitted.
+    await page.goto(base,{waitUntil:"domcontentloaded"});
+    await page.locator('.hero-conversion-primary').click();
+    await page.waitForFunction(()=>location.hash==='#demo');
+    await page.locator('#demo').screenshot({path:'artifacts/local-demo-section-'+spec.name+'.png'});
+    await page.locator('.local-demo-link').click();
+    await page.waitForURL('**/demo-cafe.html');
+    const outgoing=[];page.on('request',r=>{if(!r.url().startsWith(base))outgoing.push(r.url());});
+    await page.getByRole('link',{name:'Carta',exact:true}).click();
+    assert.equal(await page.locator('#carta article').count(),2);
+    await page.locator('#simulate').click();
+    assert.equal(await page.locator('dialog').evaluate(el=>el.open),true);
+    await page.screenshot({path:'artifacts/local-demo-dialog-'+spec.name+'.png'});
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('dialog').evaluate(el=>el.open),false);
+    assert.equal(await page.locator('#simulate').evaluate(el=>el===document.activeElement),true);
+    assert.deepEqual(outgoing,[],'Simulated consultation makes no external request');
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+    await page.screenshot({path:'artifacts/local-demo-full-'+spec.name+'.png',fullPage:true});
+    await page.locator('footer a').click();
+    await page.waitForFunction(()=>location.hash==='#planes');
+    assert.ok((await page.locator('.plan-option.express').innerText()).includes('ARS 50.000'));
+
    }finally{await context.close();}
   }
   // Confirm animated routes actually run with normal-motion preference.
@@ -208,7 +231,7 @@ const specs=[
   await page.goto(base,{waitUntil:"domcontentloaded",timeout:75000});
   assert.equal(await page.locator("#planes").count(),1);
   assert.equal(await page.locator("#faq").count(),1);
-  assert.equal(await page.locator('.hero-conversion-secondary').getAttribute("href"),"#planes");
+  assert.equal(await page.locator('.hero-conversion-primary').getAttribute("href"),"#demo");
   await ctx.close();
  }finally{
   await browser.close();

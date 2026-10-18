@@ -4,7 +4,7 @@
   if(!wrap||!video)return;
 
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const sections=[...document.querySelectorAll("main > section, main > .close-zone")];
+  const sections=[...document.querySelectorAll("main > section, main > .close-flow")];
   let ready=false;
   let duration=10;
   let raf=0;
@@ -37,9 +37,9 @@
     if(s.classList.contains("hero-v3"))return .80;
     if(s.classList.contains("order-section"))return .86;
     if(s.classList.contains("cap-section"))return .84;
-    if(s.classList.contains("plans-x"))return .82;
-    if(s.classList.contains("process-x"))return .86;
-    if(s.classList.contains("close-zone"))return .80;
+    if(s.classList.contains("plans-comparison"))return .82;
+    if(s.classList.contains("process-overview"))return .86;
+    if(s.classList.contains("close-flow"))return .80;
     if(s.classList.contains("direct-x"))return .84;
     if(s.classList.contains("before-x"))return .78;
     if(s.classList.contains("final-x"))return .86;
