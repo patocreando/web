@@ -131,6 +131,13 @@ const specs=[
    await page.waitForFunction(()=>document.querySelector("#masterFilmVideo").readyState>=1);
    const before=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    await page.locator("#faq").evaluate(el=>el.scrollIntoView({behavior:"instant"}));
+   // Scroll-driven paint runs in requestAnimationFrame: readyState may still describe the old frame.
+   // Wait for the intended new frame, retaining the movement assertion below.
+   if(preference==="no-preference")await page.waitForFunction(previous=>{
+    const v=document.querySelector("#masterFilmVideo");
+    return v.currentTime>previous+1&&v.readyState>=2&&!v.seeking;
+   },before);
+   else await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
    await page.waitForFunction(()=>{const v=document.querySelector("#masterFilmVideo");return v.readyState>=2&&!v.seeking;});
    const after=await page.locator("#masterFilmVideo").evaluate(el=>el.currentTime);
    if(preference==="reduce")assert.ok(Math.abs(after-before)<.1);else assert.ok(after>before+1);
