@@ -81,6 +81,7 @@
   box-shadow:0 0 16px rgba(207,230,90,.34);
 }
 .web-conversion-brand small {color:#8e9e96;font:700 9px/1 Inter,system-ui,sans-serif;letter-spacing:.15em;margin-top:2px;}
+.web-conversion-brand img {display:block;width:158px;height:auto;object-fit:contain;}
 .web-conversion-sections {
   display:flex;justify-content:center;align-items:center;gap:2px;
   border-radius:999px;padding:4px;
@@ -141,7 +142,15 @@
 }
 .hero-conversion-note span {color:#cfe65a;font-size:14px;margin-right:4px;}
 #solucion,#capacidades,#planes,#proceso,#faq {scroll-margin-top:85px;}
-@media(max-width:1110px) {
+@media(min-width:1200px) {
+  .web-conversion-nav {grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:20px;}
+  .web-conversion-identity {display:contents;}
+  .web-conversion-home {grid-column:1;grid-row:1;justify-self:start;}
+  .web-conversion-brand {grid-column:2;grid-row:1;justify-self:center;}
+  .web-conversion-sections {grid-column:1;grid-row:1;justify-self:end;}
+  .web-conversion-contact {grid-column:3;grid-row:1;}
+}
+@media(max-width:1199px) {
   .web-conversion-nav {grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;height:65px;}
   .web-conversion-identity {display:contents;}
   .web-conversion-home {grid-column:1;justify-self:start;}
@@ -153,6 +162,7 @@
   .web-conversion-nav {width:calc(100% - 24px);height:62px;}
   .web-conversion-home {min-height:34px;padding:0 9px;font-size:10px;gap:5px;}
   .web-conversion-brand {font-size:13px;gap:6px;}
+  .web-conversion-brand img {width:126px;}
   .web-conversion-brand i {width:7px;height:7px;}
   .web-conversion-brand small {display:none;}
   .web-conversion-contact {font-size:11px;min-height:36px;padding:0 12px;gap:4px;}
@@ -170,6 +180,7 @@
 }
 @media(max-width:390px) {
   .web-conversion-brand {font-size:12px;}
+  .web-conversion-brand img {width:116px;}
   .web-conversion-contact {font-size:10px;padding-inline:10px;}
   .hero-conversion-actions {display:grid;grid-template-columns:1fr;}
   .hero-conversion-actions a {min-height:42px;width:100%;}
@@ -179,6 +190,7 @@
   .web-conversion-brand i {display:none;}
   .web-conversion-home {font-size:9px;padding-inline:7px;}
   .web-conversion-brand {font-size:11px;}
+  .web-conversion-brand img {width:105px;}
   .web-conversion-contact {font-size:10px;padding-inline:9px;}
 }
 @media(prefers-reduced-motion:reduce) {
@@ -197,7 +209,7 @@
     <nav class="web-conversion-nav" aria-label="Navegación principal">
       <div class="web-conversion-identity">
         <a class="web-conversion-home" href="https://patocreando.github.io/inicio/" aria-label="Volver a la página de inicio">← <span>Inicio</span></a>
-        <a class="web-conversion-brand" href="#inicio" aria-label="Pato Creando, volver al principio"><i aria-hidden="true"></i><span>Pato Creando</span><small>WEB</small></a>
+        <a class="web-conversion-brand" href="#inicio" aria-label="Pato Creando Web, volver al principio"><img src="./assets/pato-creando-web.png" alt="" width="1550" height="600" decoding="async" /></a>
       </div>
       <div class="web-conversion-sections">
         <a href="#solucion">La solución</a>
